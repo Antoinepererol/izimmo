@@ -74,7 +74,7 @@ export default async function handler(req, res) {
  
     // 6. Envoyer l'email via Resend
     const { error: emailErr } = await resend.emails.send({
-      from: 'Iz\'Immo <noreply@izimmo.fr>',  // à remplacer par ton domaine vérifié dans Resend
+      from: "Iz'Immo <onboarding@resend.dev>",  // à remplacer par ton domaine vérifié dans Resend
       to: intervention.artisan_contact,
       subject: `Validation d'intervention — ${intervention.adresse_bien}`,
       html: buildEmailHtml({
