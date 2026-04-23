@@ -4385,7 +4385,28 @@ async function cp2SendAction(action) {
     var data = await res.json();
 
     if (res.ok && data.success) {
-      showState(action === "refuser" ? "cp2-refused" : "cp2-confirmed");
+      var finalState = action === "refuser" ? "cp2-refused" : "cp2-confirmed";
+      showState(finalState);
+
+      /* Enrichir la page de succès si confirmation */
+      if (finalState === "cp2-confirmed" && data.intervention) {
+        var interv = data.intervention;
+        var dateEl = document.getElementById("cp2-confirmed-date");
+        if (dateEl) dateEl.textContent = new Date().toLocaleDateString("fr-FR", {day:"numeric", month:"long", year:"numeric"});
+
+        var recapEl = document.getElementById("cp2-confirmed-recap");
+        if (recapEl) {
+          recapEl.innerHTML =
+            "<div style=\"font-size:0.65rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;\">Intervention certifiée</div>" +
+            cp2Row("Bien", interv.adresse) +
+            cp2Row("Type", interv.type) +
+            cp2Row("Artisan", interv.artisan);
+        }
+
+        /* Lien vers la fiche iztrack avec l'adresse pré-remplie */
+        var linkEl = document.getElementById("cp2-link-iztrack");
+        if (linkEl) linkEl.href = "#iztrack";
+      }
     } else {
       showState("cp2-error");
       var errEl = document.getElementById("cp2-error-msg");
@@ -4778,13 +4799,26 @@ async function cp2SendAction(action) {
       <div style="background:var(--green-cert); padding:28px; text-align:center;">
         <div style="font-size:2.5rem; margin-bottom:8px;">✅</div>
         <div style="font-size:1.1rem; font-weight:800; color:white;">Intervention certifiée !</div>
+        <div style="font-size:0.78rem; color:rgba(255,255,255,0.75); margin-top:4px;" id="cp2-confirmed-date"></div>
       </div>
-      <div style="padding:24px 28px; text-align:center;">
-        <p style="font-size:0.85rem; color:var(--gray); line-height:1.6; margin-bottom:16px;">
-          Merci. Cette intervention est désormais <strong style="color:var(--green-cert);">certifiée</strong> sur Iz'Immo.
-        </p>
-        <div style="background:var(--beige); border-radius:10px; padding:14px; font-size:0.78rem; color:var(--navy); font-weight:600;">
-          🏅 Votre score Vérif'Iz a été mis à jour
+      <div style="padding:24px 28px;">
+        <div id="cp2-confirmed-recap" style="background:var(--beige); border-radius:10px; padding:16px; margin-bottom:16px;"></div>
+        <div style="background:var(--navy-deep); border-radius:10px; padding:14px 16px; margin-bottom:20px; display:flex; align-items:center; gap:12px;">
+          <span style="font-size:1.4rem;">🏅</span>
+          <div>
+            <div style="font-size:0.82rem; font-weight:800; color:white;">Votre score Vérif'Iz a été mis à jour</div>
+            <div style="font-size:0.72rem; color:rgba(255,255,255,0.5); margin-top:2px;">Chaque intervention certifiée améliore votre position dans le répertoire.</div>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a id="cp2-link-iztrack" href="#iztrack"
+            style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--navy);color:white;border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:700;text-decoration:none;text-align:center;">
+            📋 Voir la fiche du bien
+          </a>
+          <a href="#verifiz"
+            style="display:flex;align-items:center;justify-content:center;gap:8px;background:white;color:var(--navy);border:1.5px solid var(--blue-mid);border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;text-align:center;">
+            🔍 Mon profil Vérif'Iz
+          </a>
         </div>
       </div>
     </div>
