@@ -3941,15 +3941,15 @@ function doRoute() {
   } else if (dashboard) {
     show('dashboard-page');
     if (typeof dbProLoad === 'function') dbProLoad();
-  } else if (p.has('confiance')) {
+  } else if (route === 'confiance') {
     show('confiance-page');
-  } else if (p.has('saisie-artisan')) {
+  } else if (route === 'saisie-artisan') {
     show('saisie-artisan-page');
     if (typeof saInit === 'function') saInit();
-  } else if (p.has('confirmation-proprio')) {
+  } else if (route === 'confirmation-proprio') {
     show('confirmation-proprio-page');
     if (typeof cpInit === 'function') cpInit();
-  } else if (p.has('iztrack')) {
+  } else if (route === 'iztrack') {
     show('iztrack-page');
     if (typeof iztLoad === 'function') iztLoad();
   } else if (verifiz) {
