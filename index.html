@@ -4404,8 +4404,7 @@ async function cp2SendAction(action) {
         }
 
         /* Lien vers la fiche iztrack avec l'adresse pré-remplie */
-        var linkEl = document.getElementById("cp2-link-iztrack");
-        if (linkEl) linkEl.href = "#iztrack";
+        /* lien géré par navGo dans le onclick */
       }
     } else {
       showState("cp2-error");
@@ -4811,14 +4810,14 @@ async function cp2SendAction(action) {
           </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <a id="cp2-link-iztrack" href="#iztrack"
-            style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--navy);color:white;border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:700;text-decoration:none;text-align:center;">
+          <button onclick="navGo('iztrack')" id="cp2-link-iztrack"
+            style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--navy);color:white;border:none;border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;">
             📋 Voir la fiche du bien
-          </a>
-          <a href="#verifiz"
-            style="display:flex;align-items:center;justify-content:center;gap:8px;background:white;color:var(--navy);border:1.5px solid var(--blue-mid);border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;text-align:center;">
+          </button>
+          <button onclick="navGo('verifiz')"
+            style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:white;color:var(--navy);border:1.5px solid var(--blue-mid);border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;">
             🔍 Mon profil Vérif'Iz
-          </a>
+          </button>
         </div>
       </div>
     </div>
