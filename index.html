@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1C32'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='15' fill='%23E8683A'%3Eim%3C/text%3E%3C/svg%3E">
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230F1C32'/><text x='16' y='21' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='15' fill='%23E8683A'>im</text></svg>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IZ IMMO — Traçabilité certifiée</title>
+<title>Historim — Osons la transparence !</title>
+<meta name="description" content="Historim — La première plateforme de traçabilité certifiée pour l'habitat.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1C32'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='500' font-size='14' fill='%23E8683A'%3Eim%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Palette principale */
-  --navy: #1A2B4A;
-  --navy-deep: #0F1C32;
+  --navy: #0F1C32;
+  --navy-deep: #0A1220;
   --orange: #E8683A;
   --orange-light: #D4580A;
 
@@ -20,7 +24,7 @@
   --beige-text: #6B5A44;
 
   /* Compatibilité (redirige vers beige) */
-  --cream: #F7F3ED;
+  --cream: #F8F9FA;
   --white: #FAF7F3;
   --gray-light: #EDE6DC;
   --gray: #6B5A44;
@@ -28,7 +32,7 @@
   /* Accents */
   --blue-light: #DDE8F0;
   --blue-mid: #B8CCE4;
-  --green-cert: #2A7D5F;
+  --green-cert: #06D6A0;
   --green-bg: #E6F4EE;
   --amber: #C4860A;
   --amber-bg: #FDF0D8;
@@ -885,7 +889,7 @@ select.form-input { cursor: pointer; }
 }
 
 /* ============================================================
-   VÉRIF'IZ
+   VÉRIF
    ============================================================ */
 .section-verifiz { padding: 90px 80px; background: var(--gray-light); }
 
@@ -970,7 +974,7 @@ select.form-input { cursor: pointer; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   font-size: 0.95rem; font-weight: 800; line-height: 1;
 }
-.vz-score-badge.score-high { background: #2A7D5F; color: white; }
+.vz-score-badge.score-high { background: #06D6A0; color: white; }
 .vz-score-badge.score-mid  { background: #C4860A; color: white; }
 .vz-score-badge.score-low  { background: var(--gray-light); color: var(--gray); }
 .vz-score-badge-lbl { font-size: 0.48rem; font-weight: 600; opacity: 0.7; margin-top: 1px; }
@@ -979,7 +983,7 @@ select.form-input { cursor: pointer; }
 .vz-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
 .vz-badge { font-size: 0.6rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
 .vz-badge-cert  { background: var(--green-bg); color: var(--green-cert); }
-.vz-badge-rge   { background: #E8F5EF; color: #1a7a4a; }
+.vz-badge-rge   { background: #E0FAF4; color: #1a7a4a; }
 .vz-badge-qual  { background: var(--blue-light); color: var(--navy); }
 .vz-badge-dec   { background: var(--slate-bg); color: var(--slate); }
 
@@ -1549,7 +1553,7 @@ function dbRenderProfiles() {
   min-height: 70vh; display: flex; align-items: center;
   position: relative; overflow: hidden;
 }
-.pn-hero-prop { background: linear-gradient(135deg, #0F1C32 0%, #1A2B4A 100%); }
+.pn-hero-prop { background: linear-gradient(135deg, #0F1C32 0%, #0F1C32 100%); }
 .pn-hero-artisan { background: linear-gradient(135deg, #0F1C32 0%, #1C2D1C 100%); }
 .pn-hero-agent { background: linear-gradient(135deg, #0F1C32 0%, #1C1C2D 100%); }
 .pn-hero-acquereur { background: linear-gradient(135deg, #0F1C32 0%, #1C2526 100%); }
@@ -1647,7 +1651,7 @@ function dbRenderProfiles() {
 #flux-btn-prev:disabled, #flux-btn-next:disabled { opacity:0.4; cursor:not-allowed; }
 
 
-/* ===== VÉRIF'IZ — champ métier animé ===== */
+/* ===== VÉRIF — champ métier animé ===== */
 .vz-select-hidden { display: none; }
 .vz-field-metier { position: relative; }
 
@@ -1661,8 +1665,8 @@ function dbRenderProfiles() {
 }
 .inner-nav-cta:hover { background: var(--orange-light) !important; }
 
-/* ===== LOGO IZ IMMO D1 V4 ===== */
-.logo-izimmo {
+/* ===== LOGO Historim D1 V4 ===== */
+.logo-historim {
   display: inline-flex; align-items: center;
   font-family: 'Satoshi', sans-serif;
   font-weight: 900; letter-spacing: -1.5px; line-height: 1;
@@ -1675,13 +1679,13 @@ function dbRenderProfiles() {
   margin: 0 8px; align-self: center;
 }
 .logo-sep-dark { background: rgba(255,255,255,0.2); }
-.logo-immo { color: #1A2B4A; }
+.logo-immo { color: #0F1C32; }
 .logo-immo-dark { color: white; }
 
 /* Tailles */
-nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
-.logo-izimmo.logo-xl { font-size: 3.5rem; letter-spacing: -3px; }
-.logo-izimmo.logo-xl .logo-sep { height: 0.6em; margin: 0 14px; }
+nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
+.logo-historim.logo-xl { font-size: 3.5rem; letter-spacing: -3px; }
+.logo-historim.logo-xl .logo-sep { height: 0.6em; margin: 0 14px; }
 
 /* Baseline sous le logo (header uniquement) */
 .logo-with-baseline { display: inline-flex; flex-direction: column; gap: 2px; }
@@ -1791,7 +1795,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
   .pn-cta-row { flex-direction: column; gap: 10px; }
   .pn-cta-row a, .pn-cta-row button { width: 100%; text-align: center; justify-content: center; }
 
-  /* Vérif'Iz */
+  /* Vérif */
   .section-verifiz { padding: 20px !important; }
   .vz-search-bar { flex-direction: column; gap: 8px; }
   .vz-search-field { min-width: unset !important; width: 100%; }
@@ -1806,11 +1810,11 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
   #saisie-page > div > div:first-child { display: none !important; } /* masquer grid wrapper */
   #saisie-page
 
-  /* Iz'Track */
+  /* Histor */
   #iztrack-page > div { padding: 20px 16px !important; }
   #iztrack-page > div > div:nth-child(2) { grid-template-columns: 1fr 1fr !important; }
 
-  /* ProBoard */
+  /* Mon Atelier */
   .pb-hero { padding: 24px 16px; }
   .pb-hero-inner { flex-direction: column; gap: 16px; }
   .pb-body { padding: 16px; }
@@ -1886,7 +1890,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <!-- NAV -->
 <nav>
   <a href="/" class="inner-nav-logo"><span class="logo-with-baseline">
-    <span class="logo-izimmo logo-light" style="font-size:1.35rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px;background:rgba(26,43,74,0.2)"></span>IMMO</span>
+    <span class="logo-historim logo-light" style="font-size:1.35rem">Histor<em style="color:var(--orange);font-style:italic;font-weight:500;">im</em></span>
     <span class="logo-baseline">Traçabilité certifiée</span>
   </span></a>
   <ul class="nav-links">
@@ -1895,11 +1899,11 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <div class="nav-dropdown">
         <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;">
           <span class="nav-dd-icon">🔍</span>
-          <div><strong>Vérif'Iz</strong><span>Répertoire d'artisans certifiés</span></div>
+          <div><strong>Vérif</strong><span>Répertoire d'artisans certifiés</span></div>
         </a>
         <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;">
           <span class="nav-dd-icon">📋</span>
-          <div><strong>Iz'Track</strong><span>Fiche vivante du logement</span></div>
+          <div><strong>Histor</strong><span>Fiche vivante du logement</span></div>
         </a>
         <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;">
           <span class="nav-dd-icon">📄</span>
@@ -1924,8 +1928,8 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <!-- Menu mobile -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="/" onclick="toggleMobileMenu()">Accueil</a>
-  <a href="#verifiz" onclick="toggleMobileMenu()">🔍 Vérif'Iz</a>
-  <a href="#iztrack" onclick="toggleMobileMenu()">📋 Iz'Track</a>
+  <a href="#verifiz" onclick="toggleMobileMenu()">🔍 Vérif</a>
+  <a href="#iztrack" onclick="toggleMobileMenu()">📋 Histor</a>
   <a href="#saisie" onclick="toggleMobileMenu()">📄 Saisir</a>
   <a href="#saisie-artisan" onclick="toggleMobileMenu()">📱 App artisan</a>
   <a href="#dashboard" onclick="toggleMobileMenu()">🏠 Tableau de bord</a>
@@ -1974,7 +1978,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <section style="padding:90px 80px; background:var(--beige-deep);" id="demo">
   <div style="text-align:center; margin-bottom:48px;">
     <div style="font-size:0.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--orange); margin-bottom:12px;">Démonstration</div>
-    <h2 style="font-size:2.2rem; font-weight:800; color:var(--navy); letter-spacing:-0.8px; margin-bottom:12px; line-height:1.15;">Iz'Immo en <em style="color:var(--orange); font-style:normal;">4 étapes</em></h2>
+    <h2 style="font-size:2.2rem; font-weight:800; color:var(--navy); letter-spacing:-0.8px; margin-bottom:12px; line-height:1.15;">Historim en <em style="color:var(--orange); font-style:normal;">4 étapes</em></h2>
     <p style="font-size:0.9rem; color:var(--gray); max-width:460px; margin:0 auto; line-height:1.6;">De la facture à la certification — le flux complet en moins de 30 secondes.</p>
   </div>
 
@@ -1985,7 +1989,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <!-- Barre navigateur -->
       <div style="background:var(--navy-deep); padding:10px 16px; display:flex; align-items:center; gap:10px;">
         <div style="display:flex;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:#FF5F56"></div><div style="width:10px;height:10px;border-radius:50%;background:#FFBD2E"></div><div style="width:10px;height:10px;border-radius:50%;background:#27C93F"></div></div>
-        <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:4px;padding:4px 12px;font-size:0.68rem;color:rgba(255,255,255,0.45);font-family:monospace;" id="demo-url">app.izimmo.fr · Saisir une opération</div>
+        <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:4px;padding:4px 12px;font-size:0.68rem;color:rgba(255,255,255,0.45);font-family:monospace;" id="demo-url">app.historim.fr · Saisir une opération</div>
       </div>
       <!-- Contenu des scènes -->
       <div style="position:relative; min-height:340px; overflow:hidden;">
@@ -2207,7 +2211,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
   var demoTimer = null;
 
   var scenes   = [1,2,3,4];
-  var urls     = ['app.izimmo.fr · Saisir une opération','app.izimmo.fr · Données extraites','app.izimmo.fr · Notification artisan','app.izimmo.fr · Fiche IzTrack'];
+  var urls     = ['app.historim.fr · Saisir une opération','app.historim.fr · Données extraites','app.historim.fr · Notification artisan','app.historim.fr · Fiche IzTrack'];
   var durations = [3800, 3200, 3500, 4000];
 
   function demoGo(step) {
@@ -2292,18 +2296,18 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 
 <!-- SOLUTION — 3 produits condensés -->
 <section class="section-solution-compact" id="produit">
-  <div class="solution-label">La solution Iz'Immo</div>
+  <div class="solution-label">La solution Historim</div>
   <h2 class="solution-title">Trois outils, une seule mission</h2>
   <div class="solution-cards">
     <a href="#verifiz" class="solution-card">
       <div class="solution-icon">🔍</div>
       <div class="solution-name">Vérif'<em>Iz</em></div>
-      <div class="solution-desc">Répertoire d'artisans certifiés, classés par score de transparence Iz'Immo.</div>
+      <div class="solution-desc">Répertoire d'artisans certifiés, classés par score de transparence Historim.</div>
       <div class="solution-cta">Explorer →</div>
     </a>
     <a href="#saisie" class="solution-card solution-card-mid">
       <div class="solution-icon">📋</div>
-      <div class="solution-name">Iz'<em>Track</em></div>
+      <div class="solution-name">Histor</div>
       <div class="solution-desc">La fiche vivante de votre logement. Historique certifié transmissible à la vente.</div>
       <div class="solution-cta">Saisir une intervention →</div>
     </a>
@@ -2325,7 +2329,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <div class="how-step-num">1</div>
       <div class="how-step-icon">📄</div>
       <div class="how-step-title">Upload de la facture</div>
-      <div class="how-step-desc">Iz'Immo extrait automatiquement le SIRET, la date, la nature et le montant.</div>
+      <div class="how-step-desc">Historim extrait automatiquement le SIRET, la date, la nature et le montant.</div>
       <span class="how-badge">OCR + IA</span>
     </div>
     <div class="how-connector"></div>
@@ -2354,7 +2358,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <section class="section-cta" id="contact">
   <div class="section-tag-dark">Rejoindre le projet</div>
   <h2 class="cta-title">Osons la <em>transparence</em><br>ensemble</h2>
-  <p class="cta-sub">Vous êtes agent immobilier, artisan, réseau professionnel ou investisseur ? Participez à la construction du pilote Iz'Immo.</p>
+  <p class="cta-sub">Vous êtes agent immobilier, artisan, réseau professionnel ou investisseur ? Participez à la construction du pilote Historim.</p>
   <div class="cta-btns">
     <a href="mailto:pererol.antoine@outlook.fr" class="btn-primary" style="font-size:0.95rem;padding:15px 32px">📧 Contacter Antoine</a>
   </div>
@@ -2368,24 +2372,24 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-logo"><span class="logo-izimmo logo-light" style="font-size:1.15rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span></div>
+    <div class="footer-logo"><span class="logo-historim logo-light" style="font-size:1.15rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span></div>
     <div class="footer-tagline">Osons la transparence !</div>
   </div>
   <div class="footer-links">
-    <a href="#verifiz">Vérif'Iz</a>
-    <a href="#saisie">Iz'Track</a>
-    <a href="#proboard=d1">ProBoard</a>
+    <a href="#verifiz">Vérif</a>
+    <a href="#saisie">Histor</a>
+    <a href="#proboard=d1">Mon Atelier</a>
     <a href="#dashboard">Mon espace</a>
   </div>
   <div class="footer-right">
-    <div>© 2025 Iz'Immo · Tous droits réservés</div>
+    <div>© 2025 Historim · Tous droits réservés</div>
   </div>
 </footer>
 
-<!-- MODAL VÉRIF'IZ -->
+<!-- MODAL VÉRIF -->
 </div><!-- /site-main -->
 
-<!-- Modal Vérif'Iz (hors site-main) -->
+<!-- Modal Vérif (hors site-main) -->
 <div class="vz-modal-overlay" id="vz-modal" onclick="if(event.target===this)vzCloseModal()">
   <div class="vz-modal" id="vz-modal-content"></div>
 </div>
@@ -2398,7 +2402,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <div id="persona-proprietaire-page" style="display:none">
   <nav class="inner-nav">
     <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
+      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
       <span class="logo-baseline">Traçabilité certifiée</span>
     </span></a>
     <div class="inner-nav-links">
@@ -2406,8 +2410,8 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
+          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
           <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
@@ -2437,16 +2441,16 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       </div>
       <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:24px; align-items:center;">
         <div style="background:#FAF7F3; border-radius:14px; padding:28px; border:2px solid #FECACA;">
-          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Iz'Immo</div>
+          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Historim</div>
           <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Marie vend son appartement 280 000€</div>
           <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">L'acquéreur demande : "La chaudière a quel âge ? La toiture a été refaite quand ?" Marie ne sait pas retrouver les factures. Le doute s'installe.</div>
           <div style="background:#FEF2F2; border-radius:8px; padding:12px 16px; font-size:0.82rem; color:#DC2626; font-weight:600;">→ Négociation de 18 000€. Vente à 262 000€.</div>
         </div>
         <div style="font-size:2rem; color:var(--orange); font-weight:800;">VS</div>
         <div style="background:#FAF7F3; border-radius:14px; padding:28px; border:2px solid #BBF7D0;">
-          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Iz'Immo</div>
+          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Historim</div>
           <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Sophie vend son appartement 280 000€</div>
-          <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">Elle partage sa fiche Iz'Track : chaudière changée en 2022 (certifiée), toiture rénovée en 2021 (certifiée), 4 interventions tracées. Score : 91/100.</div>
+          <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">Elle partage sa fiche Histor : chaudière changée en 2022 (certifiée), toiture rénovée en 2021 (certifiée), 4 interventions tracées. Score : 91/100.</div>
           <div style="background:var(--green-bg); border-radius:8px; padding:12px 16px; font-size:0.82rem; color:var(--green-cert); font-weight:600;">→ Négociation réduite à 3 000€. Vente à 277 000€.</div>
         </div>
       </div>
@@ -2525,7 +2529,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <div id="persona-artisan-page" style="display:none">
   <nav class="inner-nav">
     <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
+      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
       <span class="logo-baseline">Traçabilité certifiée</span>
     </span></a>
     <div class="inner-nav-links">
@@ -2533,8 +2537,8 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
+          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
           <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
@@ -2545,8 +2549,8 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
   </nav>
   <div class="inner-nav-menu" id="inner-nav-menu-artisan">
     <a href="#" onclick="window.location.hash=''; closeInnerMenu();">Accueil</a>
-    <a href="#verifiz" onclick="closeInnerMenu()">🔍 Vérif'Iz</a>
-    <a href="#iztrack" onclick="closeInnerMenu()">📋 Iz'Track</a>
+    <a href="#verifiz" onclick="closeInnerMenu()">🔍 Vérif</a>
+    <a href="#iztrack" onclick="closeInnerMenu()">📋 Histor</a>
     <a href="#saisie" onclick="closeInnerMenu()">📄 Enregistrer une opération</a>
     <a href="#saisie-artisan" onclick="closeInnerMenu()">📱 App artisan</a>
     <a href="#confiance" onclick="closeInnerMenu()">Engagements</a>
@@ -2558,9 +2562,9 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
     <div class="pn-hero-inner">
       <div class="pn-tag">🔧 Artisan</div>
       <h1 class="pn-title">Votre travail est bon.<br><em>Prouvez-le.</em></h1>
-      <p class="pn-desc">88% des clients consultent les avis en ligne avant de choisir un artisan. Mais les avis Google s'inventent. Vos interventions certifiées par Iz'Immo, elles, sont vérifiables — liées à votre SIRET, validées chantier par chantier.</p>
+      <p class="pn-desc">88% des clients consultent les avis en ligne avant de choisir un artisan. Mais les avis Google s'inventent. Vos interventions certifiées par Historim, elles, sont vérifiables — liées à votre SIRET, validées chantier par chantier.</p>
       <div class="pn-ctas">
-        <a href="#verifiz" class="btn-primary">Rejoindre Vérif'Iz →</a>
+        <a href="#verifiz" class="btn-primary">Rejoindre Vérif →</a>
         <a href="#proboard=d1" class="btn-secondary">Voir un profil exemple</a>
       </div>
     </div>
@@ -2569,9 +2573,9 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
   <!-- WIN-WIN — Le cercle vertueux -->
   <section style="background:var(--navy-deep); padding:64px 60px;">
     <div style="max-width:900px; margin:0 auto; text-align:center;">
-      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px;">Le principe Iz'Immo</div>
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px;">Le principe Historim</div>
       <h2 style="font-size:2rem; font-weight:800; color:white; letter-spacing:-0.8px; margin-bottom:10px; line-height:1.2;">Vous validez. <em style="color:var(--orange)">On vous référence.</em><br>C'est tout.</h2>
-      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); margin-bottom:52px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.6;">Iz'Immo est un <strong style="color:white">gagnant-gagnant total</strong>. Plus vous certifiez vos chantiers, plus vous remontez dans Vérif'Iz. Gratuitement.</p>
+      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); margin-bottom:52px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.6;">Historim est un <strong style="color:white">gagnant-gagnant total</strong>. Plus vous certifiez vos chantiers, plus vous remontez dans Vérif. Gratuitement.</p>
 
       <!-- Cercle vertueux -->
       <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; position:relative; margin-bottom:48px;">
@@ -2598,14 +2602,14 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
         <div style="text-align:center; padding:0 16px; position:relative; z-index:1;">
           <div style="width:88px; height:88px; border-radius:50%; background:rgba(42,125,95,0.2); border:2px solid var(--green-cert); margin:0 auto 16px; display:flex; align-items:center; justify-content:center; font-size:2rem;">🔍</div>
           <div style="font-size:0.95rem; font-weight:800; color:white; margin-bottom:6px;">Vous êtes trouvé</div>
-          <div style="font-size:0.78rem; color:rgba(255,255,255,0.5); line-height:1.6;">Propriétaires, agents et acquéreurs vous trouvent sur Vérif'Iz. Votre profil certifié parle avant vous.</div>
+          <div style="font-size:0.78rem; color:rgba(255,255,255,0.5); line-height:1.6;">Propriétaires, agents et acquéreurs vous trouvent sur Vérif. Votre profil certifié parle avant vous.</div>
           <div style="margin-top:10px; display:inline-block; background:rgba(42,125,95,0.15); border:1px solid rgba(42,125,95,0.3); color:#4CAF50; font-size:0.65rem; font-weight:700; padding:3px 10px; border-radius:10px;">Référencement 100% gratuit</div>
         </div>
       </div>
 
       <!-- Encadré central fort -->
       <div style="background:rgba(232,104,58,0.1); border:1.5px solid rgba(232,104,58,0.3); border-radius:14px; padding:24px 32px; display:inline-block; max-width:560px;">
-        <div style="font-size:1.1rem; font-weight:800; color:white; margin-bottom:8px;">Iz'Immo ne vous coûte rien.</div>
+        <div style="font-size:1.1rem; font-weight:800; color:white; margin-bottom:8px;">Historim ne vous coûte rien.</div>
         <div style="font-size:0.85rem; color:rgba(255,255,255,0.65); line-height:1.7;">Pas d'abonnement. Pas de commission. Pas de démarche commerciale. Vous faites votre travail, vous le certifiez — et le répertoire fait le reste.</div>
       </div>
     </div>
@@ -2620,16 +2624,16 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       </div>
       <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:24px; align-items:center;">
         <div style="background:white; border-radius:14px; padding:28px; border:2px solid #FECACA;">
-          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Iz'Immo</div>
+          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Historim</div>
           <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Karim, électricien, 12 ans d'expérience</div>
           <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">Aucune présence en ligne. Clients via bouche-à-oreille uniquement. Impossible de prouver son sérieux à un nouveau client. Il perd des marchés face à des concurrents moins qualifiés mais mieux référencés.</div>
           <div style="background:#FEF2F2; border-radius:8px; padding:12px 16px; font-size:0.82rem; color:#DC2626; font-weight:600;">→ Invisible. Pas trouvable. Limité à son réseau.</div>
         </div>
         <div style="font-size:2rem; color:var(--orange); font-weight:800; text-align:center;">VS</div>
         <div style="background:white; border-radius:14px; padding:28px; border:2px solid #BBF7D0;">
-          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Iz'Immo</div>
+          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Historim</div>
           <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Jean, plombier, score 94/100</div>
-          <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">47 interventions certifiées, visibles publiquement. Il valide chaque chantier en 15 secondes. Classé #1 sur Paris 1er-4e dans Vérif'Iz. Les clients le trouvent et lui font confiance dès le premier contact.</div>
+          <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">47 interventions certifiées, visibles publiquement. Il valide chaque chantier en 15 secondes. Classé #1 sur Paris 1er-4e dans Vérif. Les clients le trouvent et lui font confiance dès le premier contact.</div>
           <div style="background:var(--green-bg); border-radius:8px; padding:12px 16px; font-size:0.82rem; color:var(--green-cert); font-weight:600;">→ #1 sur sa zone. Carnet de commandes plein.</div>
         </div>
       </div>
@@ -2651,12 +2655,12 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <div class="pn-benefit">
         <div class="pn-benefit-icon">📈</div>
         <div class="pn-benefit-title">Visibilité boostée automatiquement</div>
-        <div class="pn-benefit-desc">Votre position dans Vérif'Iz dépend de votre score. Chaque validation en 15 secondes vous fait remonter. <strong>Seulement 27% des artisans</strong> ont une vraie présence numérique — soyez devant.</div>
+        <div class="pn-benefit-desc">Votre position dans Vérif dépend de votre score. Chaque validation en 15 secondes vous fait remonter. <strong>Seulement 27% des artisans</strong> ont une vraie présence numérique — soyez devant.</div>
       </div>
       <div class="pn-benefit">
         <div class="pn-benefit-icon">🎯</div>
         <div class="pn-benefit-title">Des clients qui vous cherchent déjà</div>
-        <div class="pn-benefit-desc">Propriétaires, agents immobiliers et acquéreurs consultent Vérif'Iz avant de choisir. Votre profil certifié est votre vitrine — sans effort commercial supplémentaire.</div>
+        <div class="pn-benefit-desc">Propriétaires, agents immobiliers et acquéreurs consultent Vérif avant de choisir. Votre profil certifié est votre vitrine — sans effort commercial supplémentaire.</div>
       </div>
     </div>
     <div class="pn-stat-band">
@@ -2664,10 +2668,10 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <div class="pn-stat-sep"></div>
       <div class="pn-stat"><span class="pn-stat-num">15 s</span><span class="pn-stat-lbl">pour valider une intervention</span></div>
       <div class="pn-stat-sep"></div>
-      <div class="pn-stat"><span class="pn-stat-num">0 €</span><span class="pn-stat-lbl">pour rejoindre le répertoire Vérif'Iz</span></div>
+      <div class="pn-stat"><span class="pn-stat-num">0 €</span><span class="pn-stat-lbl">pour rejoindre le répertoire Vérif</span></div>
     </div>
     <div style="display:flex; gap:12px; justify-content:center; margin-top:48px; flex-wrap:wrap;">
-      <a href="#verifiz" class="btn-primary" style="font-size:0.88rem; padding:13px 26px;">Rejoindre Vérif'Iz →</a>
+      <a href="#verifiz" class="btn-primary" style="font-size:0.88rem; padding:13px 26px;">Rejoindre Vérif →</a>
       <a href="#saisie-artisan" style="display:inline-flex; align-items:center; gap:8px; background:var(--navy); color:white; padding:13px 26px; border-radius:8px; font-weight:700; font-size:0.88rem; text-decoration:none;">📱 Voir l'interface artisan →</a>
       <a href="#confirmation-proprio" style="display:inline-flex; align-items:center; gap:8px; background:white; color:var(--navy); border:1.5px solid var(--blue-mid); padding:13px 26px; border-radius:8px; font-weight:600; font-size:0.88rem; text-decoration:none;">Voir la confirmation propriétaire →</a>
     </div>
@@ -2678,7 +2682,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <div id="persona-agent-page" style="display:none">
   <nav class="inner-nav">
     <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
+      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
       <span class="logo-baseline">Traçabilité certifiée</span>
     </span></a>
     <div class="inner-nav-links">
@@ -2686,8 +2690,8 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
+          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
           <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
@@ -2700,7 +2704,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
     <div class="pn-hero-inner">
       <div class="pn-tag">🏢 Agent immobilier</div>
       <h1 class="pn-title">Vendez plus vite.<br><em>Négociez moins.</em></h1>
-      <p class="pn-desc">7 biens sur 10 sont négociés à la baisse dans les grandes villes. Le délai moyen de vente est de 77 jours. Iz'Track change la donne : un historique certifié lève les objections dès la visite.</p>
+      <p class="pn-desc">7 biens sur 10 sont négociés à la baisse dans les grandes villes. Le délai moyen de vente est de 77 jours. Histor change la donne : un historique certifié lève les objections dès la visite.</p>
       <div class="pn-ctas">
         <a href="#" onclick="openPartnerModal(); return false;" class="btn-primary">Devenir agence partenaire →</a>
         <a href="#dashboard&adresse=17 cours Lafayette, 69003 Lyon" class="btn-secondary">Voir une fiche bien</a>
@@ -2717,15 +2721,15 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       </div>
       <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:24px; align-items:center;">
         <div style="background:#FAF7F3; border-radius:14px; padding:28px; border:2px solid #FECACA;">
-          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Iz'Track</div>
+          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Histor</div>
           <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Visite d'un appartement à Lyon</div>
           <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">"La toiture a quel âge ? Les fenêtres ont été changées ?" Le vendeur cherche ses papiers. L'acquéreur hésite. 3 contre-visites. Négociation de 12 000€. Compromis signé à J+68.</div>
           <div style="background:#FEF2F2; border-radius:8px; padding:12px 16px; font-size:0.82rem; color:#DC2626; font-weight:600;">→ 68 jours. 12 000€ perdus. Énergie gaspillée.</div>
         </div>
         <div style="font-size:2rem; color:var(--orange); font-weight:800;">VS</div>
         <div style="background:#FAF7F3; border-radius:14px; padding:28px; border:2px solid #BBF7D0;">
-          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Iz'Track</div>
-          <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Même appartement, avec fiche Iz'Track</div>
+          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Histor</div>
+          <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Même appartement, avec fiche Histor</div>
           <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">L'acquéreur consulte la fiche avant la visite. Score 91/100, 6 interventions certifiées. Il arrive rassuré. Une seule visite. Offre au prix le jour même.</div>
           <div style="background:var(--green-bg); border-radius:8px; padding:12px 16px; font-size:0.82rem; color:var(--green-cert); font-weight:600;">→ Offre au prix. Compromis à J+12.</div>
         </div>
@@ -2742,17 +2746,17 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <div class="pn-benefit">
         <div class="pn-benefit-icon">🤝</div>
         <div class="pn-benefit-title">Un argument exclusif sur le mandat</div>
-        <div class="pn-benefit-desc">Proposez Iz'Track à vos vendeurs comme service premium. Un différenciateur concret que vos concurrents n'ont pas encore sur le marché.</div>
+        <div class="pn-benefit-desc">Proposez Histor à vos vendeurs comme service premium. Un différenciateur concret que vos concurrents n'ont pas encore sur le marché.</div>
       </div>
       <div class="pn-benefit">
         <div class="pn-benefit-icon">⏱️</div>
         <div class="pn-benefit-title">Transactions accélérées</div>
-        <div class="pn-benefit-desc">L'historique certifié lève les objections dès la visite. <strong>77 jours de délai moyen</strong> contre 59 il y a un an — Iz'Track vous permet de vendre avant tout le monde.</div>
+        <div class="pn-benefit-desc">L'historique certifié lève les objections dès la visite. <strong>77 jours de délai moyen</strong> contre 59 il y a un an — Histor vous permet de vendre avant tout le monde.</div>
       </div>
       <div class="pn-benefit">
         <div class="pn-benefit-icon">🏆</div>
         <div class="pn-benefit-title">Score agence visible</div>
-        <div class="pn-benefit-desc">Votre ProBoard affiche votre score de transparence agence. Un gage de sérieux immédiatement lisible pour vos vendeurs et acquéreurs.</div>
+        <div class="pn-benefit-desc">Votre Mon Atelier affiche votre score de transparence agence. Un gage de sérieux immédiatement lisible pour vos vendeurs et acquéreurs.</div>
       </div>
     </div>
     <div class="pn-stat-band">
@@ -2772,7 +2776,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
 <div id="persona-acquereur-page" style="display:none">
   <nav class="inner-nav">
     <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
+      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
       <span class="logo-baseline">Traçabilité certifiée</span>
     </span></a>
     <div class="inner-nav-links">
@@ -2780,8 +2784,8 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
+          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
           <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
@@ -2794,7 +2798,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
     <div class="pn-hero-inner">
       <div class="pn-tag">🔑 Acquéreur</div>
       <h1 class="pn-title">Ce que vous ne voyez pas<br><em>peut vous coûter cher.</em></h1>
-      <p class="pn-desc">Iz'Immo vous permet de vous projeter dans la sérénité. Consultez l'historique certifié d'un bien avant de vous engager — que vous achetiez ou que vous louiez. 43% des litiges viennent de malfaçons non documentées.</p>
+      <p class="pn-desc">Historim vous permet de vous projeter dans la sérénité. Consultez l'historique certifié d'un bien avant de vous engager — que vous achetiez ou que vous louiez. 43% des litiges viennent de malfaçons non documentées.</p>
       <div class="pn-ctas">
         <a href="#dashboard&adresse=42 rue de Clichy, 75009 Paris" class="btn-primary">Voir une fiche certifiée →</a>
         <a href="#verifiz" class="btn-secondary">Vérifier un artisan</a>
@@ -2811,15 +2815,15 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       </div>
       <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:24px; align-items:center;">
         <div style="background:#FAF7F3; border-radius:14px; padding:28px; border:2px solid #FECACA;">
-          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Iz'Immo</div>
+          <div style="font-size:0.72rem; font-weight:700; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">❌ Sans Historim</div>
           <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Thomas s'engage sur un appartement "tout rénové"</div>
           <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">Le propriétaire dit "tout a été refait". Aucun document. 8 mois plus tard : fuite dans la salle de bain, installation électrique non conforme. 11 000€ de travaux imprévus — et un recours impossible.</div>
           <div style="background:#FEF2F2; border-radius:8px; padding:12px 16px; font-size:0.82rem; color:#DC2626; font-weight:600;">→ Litige. 11 000€ de mauvaise surprise.</div>
         </div>
         <div style="font-size:2rem; color:var(--orange); font-weight:800;">VS</div>
         <div style="background:#FAF7F3; border-radius:14px; padding:28px; border:2px solid #BBF7D0;">
-          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Iz'Immo</div>
-          <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Léa consulte la fiche Iz'Track avant même la visite</div>
+          <div style="font-size:0.72rem; font-weight:700; color:var(--green-cert); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">✅ Avec Historim</div>
+          <div style="font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Léa consulte la fiche Histor avant même la visite</div>
           <div style="font-size:0.82rem; color:var(--gray); line-height:1.7; margin-bottom:16px;">Score 91/100. Plomberie certifiée en 2023, électricité mise aux normes en 2022. Elle sait exactement ce qui a été fait, par qui, quand. Elle s'engage en toute connaissance de cause — et se projette dans la sérénité.</div>
           <div style="background:var(--green-bg); border-radius:8px; padding:12px 16px; font-size:0.82rem; color:var(--green-cert); font-weight:600;">→ Engagement serein. Zéro mauvaise surprise.</div>
         </div>
@@ -2854,7 +2858,7 @@ nav .logo-izimmo, .inner-nav .logo-izimmo { font-size: 1.35rem; }
       <div class="pn-stat-sep"></div>
       <div class="pn-stat"><span class="pn-stat-num">52%</span><span class="pn-stat-lbl">des Français refusent d'acheter un bien sans doc travaux (TNS Sofres)</span></div>
       <div class="pn-stat-sep"></div>
-      <div class="pn-stat"><span class="pn-stat-num">0€</span><span class="pn-stat-lbl">pour consulter une fiche Iz'Track partagée</span></div>
+      <div class="pn-stat"><span class="pn-stat-num">0€</span><span class="pn-stat-lbl">pour consulter une fiche Histor partagée</span></div>
     </div>
     <div style="text-align:center;margin-top:48px">
       <a href="#dashboard&adresse=42 rue de Clichy, 75009 Paris" class="btn-primary" style="font-size:0.95rem;padding:14px 32px">Voir une fiche certifiée →</a>
@@ -2922,7 +2926,7 @@ const fComments = [
   {
     step: 'Étape 2 / 4',
     title: "L'artisan reçoit un email",
-    body: "Iz'Immo génère automatiquement un email avec un lien unique. L'artisan voit le résumé de l'intervention et confirme en un clic — sans créer de compte.",
+    body: "Historim génère automatiquement un email avec un lien unique. L'artisan voit le résumé de l'intervention et confirme en un clic — sans créer de compte.",
     highlight: "🔒 Le lien est unique et sécurisé. Il expire après confirmation. L'artisan n'a besoin de rien installer.",
     tags: ['Email automatique', 'Lien unique', '15 secondes']
   },
@@ -2936,7 +2940,7 @@ const fComments = [
   {
     step: 'Étape 4 / 4',
     title: "La fiche est à jour",
-    body: "L'intervention certifiée apparaît dans la fiche Iz'Track du bien. Elle est désormais consultable par le propriétaire, l'agent immobilier et l'acquéreur.",
+    body: "L'intervention certifiée apparaît dans la fiche Histor du bien. Elle est désormais consultable par le propriétaire, l'agent immobilier et l'acquéreur.",
     highlight: "🏠 Chaque intervention certifiée renforce la valeur du bien et réduit les marges de négociation lors d'une vente.",
     tags: ['IzTrack', 'Fiche bien', 'Transparent']
   }
@@ -3004,10 +3008,10 @@ const fComments = [
    ============================================================ */
 
 /* ============================================================
-   VÉRIF'IZ — Données de démo + logique recherche
+   VÉRIF — Données de démo + logique recherche
    ============================================================ */
 /* ============================================================
-   VÉRIF'IZ — Full Supabase
+   VÉRIF — Full Supabase
    ============================================================ */
 
 let vzAllData     = [];
@@ -3082,17 +3086,17 @@ function artisanNiveau(a) {
   var hasKbis     = badges.includes('certifie'); /* certifie = SIRET + Kbis vérifié */
   var hasRgeQual  = badges.includes('rge') || badges.includes('qualibat');
 
-  /* Niveau 3 — Certifié Iz'Immo */
+  /* Niveau 3 — Certifié Historim */
   if (hasSiret && nb >= 1 && hasDecennale && hasKbis && hasRgeQual) {
-    return { niveau: 3, label: 'Certifié', icon: '✓✓✓', color: '#2A7D5F', bg: '#E8F5EF', border: '#2A7D5F' };
+    return { niveau: 3, label: 'Certifié', icon: '✓✓✓', color: '#06D6A0', bg: '#E0FAF4', border: '#06D6A0' };
   }
   /* Niveau 2 — Qualifié */
   if (hasSiret && nb >= 1 && hasDecennale && hasKbis) {
-    return { niveau: 2, label: 'Qualifié', icon: '✓✓', color: '#C4860A', bg: '#FEF3E2', border: '#D4943A' };
+    return { niveau: 2, label: 'Qualifié', icon: '✓✓', color: '#C4860A', bg: '#FDEEE7', border: '#E8683A' };
   }
   /* Niveau 1 — Vérifié */
   if (hasSiret && nb >= 1) {
-    return { niveau: 1, label: 'Vérifié', icon: '✓', color: '#1A2B4A', bg: '#D9E4F0', border: '#B8CCE4' };
+    return { niveau: 1, label: 'Vérifié', icon: '✓', color: '#0F1C32', bg: '#D9E4F0', border: '#B8CCE4' };
   }
   return null;
 }
@@ -3137,9 +3141,9 @@ function artisanBadgeHTML(score, interventions, artisan) {
     if (niv) return { label: niv.icon + ' ' + niv.label, color: niv.color, bg: niv.bg, border: niv.border };
   }
   /* Fallback sur le score */
-  if (score >= 92) return { label: '✓✓✓ Certifié',  color: '#2A7D5F', bg: '#E8F5EF', border: '#2A7D5F' };
-  if (score >= 70) return { label: '✓✓ Qualifié',   color: '#C4860A', bg: '#FEF3E2', border: '#D4943A' };
-  if (score >= 40) return { label: '✓ Vérifié',     color: '#1A2B4A', bg: '#D9E4F0', border: '#B8CCE4' };
+  if (score >= 92) return { label: '✓✓✓ Certifié',  color: '#06D6A0', bg: '#E0FAF4', border: '#06D6A0' };
+  if (score >= 70) return { label: '✓✓ Qualifié',   color: '#C4860A', bg: '#FDEEE7', border: '#E8683A' };
+  if (score >= 40) return { label: '✓ Vérifié',     color: '#0F1C32', bg: '#D9E4F0', border: '#B8CCE4' };
   return null;
 }
 
@@ -3154,7 +3158,7 @@ function artisanBadgeEl(score, interventions) {
 
 function bienBadgeEl(score) {
   if (score >= 90) return '<span style="display:inline-flex;align-items:center;gap:4px;background:#FFF9E6;color:#FFD700;border:1.5px solid #FFD700;font-size:0.65rem;font-weight:800;padding:3px 10px;border-radius:20px;">🏆 Fiche exemplaire</span>';
-  if (score >= 75) return '<span style="display:inline-flex;align-items:center;gap:4px;background:#E8F5EF;color:#2A7D5F;border:1.5px solid #2A7D5F;font-size:0.65rem;font-weight:800;padding:3px 10px;border-radius:20px;">⭐ Très transparent</span>';
+  if (score >= 75) return '<span style="display:inline-flex;align-items:center;gap:4px;background:#E0FAF4;color:#06D6A0;border:1.5px solid #06D6A0;font-size:0.65rem;font-weight:800;padding:3px 10px;border-radius:20px;">⭐ Très transparent</span>';
   if (score >= 55) return '<span style="display:inline-flex;align-items:center;gap:4px;background:#FEF0EA;color:#E8683A;border:1.5px solid #E8683A;font-size:0.65rem;font-weight:800;padding:3px 10px;border-radius:20px;">✅ Bien documenté</span>';
   return '';
 }
@@ -3303,7 +3307,7 @@ function vzOpenModal(id) {
     </div>
     <div class="vz-modal-body">
       <div class="vz-modal-kpis">
-        <div class="vz-modal-kpi"><div class="vz-modal-kpi-num" style="color:${a.score>=80?'#2A7D5F':a.score>=60?'#C4860A':'#C0392B'}">${a.score}</div><div class="vz-modal-kpi-lbl">Score</div></div>
+        <div class="vz-modal-kpi"><div class="vz-modal-kpi-num" style="color:${a.score>=80?'#06D6A0':a.score>=60?'#C4860A':'#C0392B'}">${a.score}</div><div class="vz-modal-kpi-lbl">Score</div></div>
         <div class="vz-modal-kpi"><div class="vz-modal-kpi-num">${a.interventions}</div><div class="vz-modal-kpi-lbl">Interventions</div></div>
         <div class="vz-modal-kpi"><div class="vz-modal-kpi-num">${a.satisfaction}★</div><div class="vz-modal-kpi-lbl">Satisfaction</div></div>
         <div class="vz-modal-kpi"><div class="vz-modal-kpi-num" style="font-size:0.82rem">${a.rang || '—'}</div><div class="vz-modal-kpi-lbl">Classement</div></div>
@@ -3312,7 +3316,7 @@ function vzOpenModal(id) {
       <div class="vz-modal-refs">${refs}</div>
       <div class="vz-modal-section-title">Zone d'intervention</div>
       <div style="font-size:0.82rem;color:var(--gray);margin-bottom:20px">📍 ${a.zone || ''}</div>
-      <button class="vz-contact-btn" onclick="window.location.hash='proboard=${a.id}'">Voir le ProBoard complet →</button>
+      <button class="vz-contact-btn" onclick="window.location.hash='proboard=${a.id}'">Voir le Mon Atelier complet →</button>
     </div>`;
 
   document.getElementById('vz-modal').classList.add('open');
@@ -3336,7 +3340,7 @@ function pbInit(artisanId) {
     const found = dbProData.find(a => a.id === artisanId);
     if (found) { pbRender(found); return; }
   }
-  // 2. Chercher dans vzAllData (chargé via Vérif'Iz)
+  // 2. Chercher dans vzAllData (chargé via Vérif)
   if (vzAllData && vzAllData.length > 0) {
     const found = vzAllData.find(a => a.id === artisanId);
     if (found) { pbRender(found); return; }
@@ -3368,7 +3372,7 @@ function pbRender(a) {
   // Calculer le score artisan avec les 3 niveaux
   const artScore = artisanCalculerScore(a);
   const niv = artScore.niveau;
-  const arcColor = artScore.total >= 75 ? '#2A7D5F' : artScore.total >= 45 ? '#C4860A' : '#8A9BAB';
+  const arcColor = artScore.total >= 75 ? '#06D6A0' : artScore.total >= 45 ? '#C4860A' : '#8A9BAB';
   const circumference = 289;
   const offset = circumference - (circumference * artScore.total / 100);
   const arc = document.getElementById('pb-score-arc');
@@ -3376,7 +3380,7 @@ function pbRender(a) {
   const scoreNumEl = document.getElementById('pb-score-num');
   if (scoreNumEl) { scoreNumEl.textContent = artScore.total; scoreNumEl.style.color = arcColor; }
 
-  // Badge niveau dans le ProBoard
+  // Badge niveau dans le Mon Atelier
   const badgeEl = document.getElementById('pb-top-badge');
   if (badgeEl) {
     if (niv) {
@@ -3412,8 +3416,8 @@ function pbRender(a) {
       if (!el) return;
       var active = artScore.niv >= n;
       el.style.opacity = active ? '1' : '0.35';
-      el.style.background = active ? (n===3 ? '#E8F5EF' : n===2 ? '#FEF3E2' : '#D9E4F0') : 'transparent';
-      el.style.border = active ? '1px solid ' + (n===3 ? '#2A7D5F' : n===2 ? '#D4943A' : '#B8CCE4') : 'none';
+      el.style.background = active ? (n===3 ? '#E0FAF4' : n===2 ? '#FDEEE7' : '#D9E4F0') : 'transparent';
+      el.style.border = active ? '1px solid ' + (n===3 ? '#06D6A0' : n===2 ? '#E8683A' : '#B8CCE4') : 'none';
     });
   }, 300);
 
@@ -3617,7 +3621,7 @@ function dbComputeAndRender(adresse) {
   ));
 
   // Score arc + couleur selon niveau
-  const scoreColor = score >= 80 ? '#2A7D5F' : score >= 50 ? '#D4943A' : '#C0392B';
+  const scoreColor = score >= 80 ? '#06D6A0' : score >= 50 ? '#E8683A' : '#C0392B';
   const circumference = 339;
   const offset = circumference - (circumference * score / 100);
   const arc = document.getElementById('db-score-arc');
@@ -3655,7 +3659,7 @@ function dbComputeAndRender(adresse) {
     if (ann)  ann.textContent  = 'Construction ' + fiche.annee;
 
     // DPE
-    const dpeColors = { A:'#2A7D5F', B:'#4CAF50', C:'#8BC34A', D:'#E8A020', E:'#FF9800', F:'#FF5722', G:'#C0392B' };
+    const dpeColors = { A:'#06D6A0', B:'#4CAF50', C:'#8BC34A', D:'#E8A020', E:'#FF9800', F:'#FF5722', G:'#C0392B' };
     const dpeBadge = document.getElementById('db-dpe-badge');
     const gesBadge = document.getElementById('db-ges-badge');
     if (dpeBadge) { dpeBadge.textContent = fiche.dpe; dpeBadge.style.color = dpeColors[fiche.dpe] || '#E8A020'; }
@@ -3884,7 +3888,7 @@ function doRoute() {
   console.log('[IzImmo] doRoute hash=', hash);
 
   closeInnerMenu();
-  /* Fermer le modal Vérif'Iz s'il est ouvert */
+  /* Fermer le modal Vérif s'il est ouvert */
   try {
     var vzModal = document.getElementById('vz-modal');
     if (vzModal) vzModal.classList.remove('open');
@@ -4450,12 +4454,12 @@ async function cp2SendAction(action) {
 </script>
 
 <!-- ============================================================
-     PAGE VÉRIF'IZ — ?verifiz
+     PAGE VÉRIF — ?verifiz
      ============================================================ -->
 <div id="verifiz-page" style="display:none; min-height:100vh; background:var(--gray-light);">
   <nav class="inner-nav">
     <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
+      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
       <span class="logo-baseline">Traçabilité certifiée</span>
     </span></a>
     <div class="inner-nav-links">
@@ -4463,8 +4467,8 @@ async function cp2SendAction(action) {
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
+          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
           <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
@@ -4478,8 +4482,8 @@ async function cp2SendAction(action) {
   </nav>
   <div class="inner-nav-menu" id="inner-nav-menu">
     <a href="#" onclick="window.location.hash=''; closeInnerMenu();">Accueil</a>
-    <a href="#verifiz" onclick="closeInnerMenu()">🔍 Vérif'Iz</a>
-    <a href="#iztrack" onclick="closeInnerMenu()">📋 Iz'Track</a>
+    <a href="#verifiz" onclick="closeInnerMenu()">🔍 Vérif</a>
+    <a href="#iztrack" onclick="closeInnerMenu()">📋 Histor</a>
     <a href="#saisie" onclick="closeInnerMenu()">📄 Enregistrer une opération</a>
     <a href="#saisie-artisan" onclick="closeInnerMenu()">📱 App artisan</a>
     <a href="#confiance" onclick="closeInnerMenu()">Engagements</a>
@@ -4487,9 +4491,9 @@ async function cp2SendAction(action) {
   </div>
   <div style="padding: 48px 80px 80px; max-width:1200px; margin:0 auto;">
     <div style="margin-bottom:36px">
-      <div class="section-tag-dark">Vérif'Iz</div>
+      <div class="section-tag-dark">Vérif</div>
       <h1 class="section-title" style="margin-bottom:8px">Trouvez un artisan certifié</h1>
-      <p class="section-sub" style="margin:0">Des professionnels vérifiés, classés par leur score de transparence Iz'Immo</p>
+      <p class="section-sub" style="margin:0">Des professionnels vérifiés, classés par leur score de transparence Historim</p>
     </div>
     <!-- Barre de recherche -->
     <div class="vz-search-bar">
@@ -4523,7 +4527,7 @@ async function cp2SendAction(action) {
         <span class="vz-search-icon">🏅</span>
         <select class="vz-select" id="vz-certif" onchange="vzToggleFilterSelect(this.value)">
           <option value="all">Toutes certifications</option>
-          <option value="certifie">✓ Certifié Iz'Immo</option>
+          <option value="certifie">✓ Certifié Historim</option>
           <option value="rge">🌿 RGE</option>
           <option value="qualibat">🏅 Qualibat</option>
           <option value="decennale">🛡️ Décennale</option>
@@ -4578,7 +4582,7 @@ async function cp2SendAction(action) {
   <nav class="inner-nav">
     <a href="#" onclick="navGo('')" class="inner-nav-logo">
       <span class="logo-with-baseline">
-        <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
+        <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
         <span class="logo-baseline">Traçabilité certifiée</span>
       </span>
     </a>
@@ -4586,8 +4590,8 @@ async function cp2SendAction(action) {
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
           <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
@@ -4764,420 +4768,7 @@ async function cp2SendAction(action) {
 <div id="confirmer-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
   <div style="max-width:480px; margin:0 auto; padding:60px 24px;">
     <div style="text-align:center; margin-bottom:32px;">
-      <div style="font-size:1.4rem; font-weight:900; color:var(--navy);">IZ<span style="display:inline-block;width:2px;background:var(--orange);height:1em;vertical-align:middle;margin:0 8px;border-radius:1px;"></span>IMMO</div>
-      <div style="font-size:0.7rem; color:var(--gray); margin-top:3px; letter-spacing:1px; text-transform:uppercase;">Validation d'intervention</div>
-    </div>
-
-    <div id="cp2-loading" style="background:white; border-radius:16px; padding:40px; text-align:center; box-shadow:0 8px 32px rgba(26,43,74,0.1);">
-      <div style="font-size:2rem; margin-bottom:12px;">⏳</div>
-      <div style="font-size:0.95rem; font-weight:700; color:var(--navy);">Chargement…</div>
-    </div>
-
-    <div id="cp2-pending" style="display:none; background:white; border-radius:16px; overflow:hidden; box-shadow:0 8px 32px rgba(26,43,74,0.1);">
-      <div style="background:var(--navy); padding:20px 28px;">
-        <div style="font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Iz'Immo</div>
-        <div style="font-size:1.05rem; font-weight:800; color:white;">Avez-vous realisé cette intervention ?</div>
-      </div>
-      <div style="padding:24px 28px;">
-        <div id="cp2-details" style="background:var(--beige); border-radius:10px; padding:16px; margin-bottom:20px;"></div>
-        <p style="font-size:0.82rem; color:var(--gray); line-height:1.6; margin-bottom:18px; text-align:center;">
-          En confirmant, cette intervention sera <strong style="color:var(--navy);">certifiée</strong> sur Iz'Immo.
-        </p>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <button onclick="cp2Confirm()" style="width:100%; background:var(--green-cert); color:white; border:none; border-radius:10px; padding:14px; font-family:'Satoshi',sans-serif; font-size:0.92rem; font-weight:800; cursor:pointer;">
-            ✓ Oui, je confirme cette intervention
-          </button>
-          <button onclick="cp2Refuse()" style="width:100%; background:white; color:var(--gray); border:1.5px solid var(--blue-light); border-radius:10px; padding:12px; font-family:'Satoshi',sans-serif; font-size:0.82rem; font-weight:600; cursor:pointer;">
-            Ce n'est pas correct — signaler
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div id="cp2-confirmed" style="display:none; background:white; border-radius:16px; overflow:hidden; box-shadow:0 8px 32px rgba(26,43,74,0.1);">
-      <div style="background:var(--green-cert); padding:28px; text-align:center;">
-        <div style="font-size:2.5rem; margin-bottom:8px;">✅</div>
-        <div style="font-size:1.1rem; font-weight:800; color:white;">Intervention certifiée !</div>
-        <div style="font-size:0.78rem; color:rgba(255,255,255,0.75); margin-top:4px;" id="cp2-confirmed-date"></div>
-      </div>
-      <div style="padding:24px 28px;">
-        <div id="cp2-confirmed-recap" style="background:var(--beige); border-radius:10px; padding:16px; margin-bottom:16px;"></div>
-        <div style="background:var(--navy-deep); border-radius:10px; padding:14px 16px; margin-bottom:20px; display:flex; align-items:center; gap:12px;">
-          <span style="font-size:1.4rem;">🏅</span>
-          <div>
-            <div style="font-size:0.82rem; font-weight:800; color:white;">Votre score Vérif'Iz a été mis à jour</div>
-            <div style="font-size:0.72rem; color:rgba(255,255,255,0.5); margin-top:2px;">Chaque intervention certifiée améliore votre position dans le répertoire.</div>
-          </div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <button onclick="navGo('iztrack')" id="cp2-link-iztrack"
-            style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--navy);color:white;border:none;border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;">
-            📋 Voir la fiche du bien
-          </button>
-          <button onclick="navGo('verifiz')"
-            style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:white;color:var(--navy);border:1.5px solid var(--blue-mid);border-radius:10px;padding:13px;font-family:'Satoshi',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;">
-            🔍 Mon profil Vérif'Iz
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div id="cp2-refused" style="display:none; background:white; border-radius:16px; overflow:hidden; box-shadow:0 8px 32px rgba(26,43,74,0.1);">
-      <div style="background:var(--amber); padding:28px; text-align:center;">
-        <div style="font-size:2rem; margin-bottom:8px;">⚠️</div>
-        <div style="font-size:1rem; font-weight:800; color:white;">Signalement enregistré</div>
-      </div>
-      <div style="padding:24px 28px; text-align:center;">
-        <p style="font-size:0.85rem; color:var(--gray); line-height:1.6;">Le propriétaire sera informé.</p>
-      </div>
-    </div>
-
-    <div id="cp2-error" style="display:none; background:white; border-radius:16px; padding:32px; text-align:center; box-shadow:0 8px 32px rgba(26,43,74,0.1);">
-      <div style="font-size:2rem; margin-bottom:12px;">❌</div>
-      <div id="cp2-error-msg" style="font-size:0.88rem; font-weight:700; color:var(--navy); margin-bottom:8px;"></div>
-      <p style="font-size:0.78rem; color:var(--gray);">Si vous pensez qu'il s'agit d'une erreur, contactez-nous.</p>
-    </div>
-  </div>
-</div>
-
-<div id="saisie-artisan-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
-
-  <nav class="inner-nav">
-    <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
-      <span class="logo-baseline">Traçabilité certifiée</span>
-    </span></a>
-    <div class="inner-nav-links">
-      <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-link">Accueil</a>
-      <span class="inner-nav-dropdown-wrap">
-        <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
-        <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
-          <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
-          <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
-        </div>
-      </span>
-      <a href="#confiance" class="inner-nav-link">Engagements</a>
-      <a href="#dashboard" class="inner-nav-link">🏠 Mon tableau de bord</a>
-    </div>
-    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
-  </nav>
-
-  <div style="max-width:1100px; margin:0 auto; padding:48px 40px; display:grid; grid-template-columns:1fr 380px; gap:60px; align-items:start;">
-
-    <!-- COLONNE GAUCHE : explication -->
-    <div>
-      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px;">Le flux artisan</div>
-      <h1 style="font-size:2.2rem; font-weight:900; color:var(--navy); letter-spacing:-1px; line-height:1.2; margin-bottom:14px;">Vous posez vos outils.<br>Vous certifiez en <em style="color:var(--orange);">30 secondes.</em></h1>
-      <p style="font-size:0.92rem; color:var(--gray); line-height:1.7; margin-bottom:36px; max-width:480px;">Depuis votre téléphone, juste après le chantier. Le propriétaire reçoit une notification pour confirmer. La fiche du bien se met à jour automatiquement.</p>
-
-      <!-- Étapes -->
-      <div style="display:flex; flex-direction:column; gap:20px; margin-bottom:40px;">
-        <div id="sa-step-lbl-1" style="display:flex; align-items:flex-start; gap:16px; padding:16px 20px; border-radius:12px; background:white; box-shadow:0 4px 16px rgba(26,43,74,0.08); border-left:4px solid var(--orange);">
-          <div style="width:32px; height:32px; border-radius:50%; background:var(--orange); color:white; font-size:0.85rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
-          <div>
-            <div style="font-size:0.88rem; font-weight:800; color:var(--navy); margin-bottom:3px;">Vous saisissez l'intervention</div>
-            <div style="font-size:0.78rem; color:var(--gray); line-height:1.5;">Adresse du bien, type de travaux, montant, date. 30 secondes depuis votre téléphone.</div>
-          </div>
-        </div>
-        <div id="sa-step-lbl-2" style="display:flex; align-items:flex-start; gap:16px; padding:16px 20px; border-radius:12px; background:white; opacity:0.5; border-left:4px solid var(--blue-mid);">
-          <div style="width:32px; height:32px; border-radius:50%; background:var(--blue-mid); color:var(--navy); font-size:0.85rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</div>
-          <div>
-            <div style="font-size:0.88rem; font-weight:800; color:var(--navy); margin-bottom:3px;">Le propriétaire confirme</div>
-            <div style="font-size:0.78rem; color:var(--gray); line-height:1.5;">Il reçoit une notification et valide en un clic. L'intervention est certifiée.</div>
-          </div>
-        </div>
-        <div id="sa-step-lbl-3" style="display:flex; align-items:flex-start; gap:16px; padding:16px 20px; border-radius:12px; background:white; opacity:0.5; border-left:4px solid var(--blue-mid);">
-          <div style="width:32px; height:32px; border-radius:50%; background:var(--blue-mid); color:var(--navy); font-size:0.85rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</div>
-          <div>
-            <div style="font-size:0.88rem; font-weight:800; color:var(--navy); margin-bottom:3px;">Votre score monte</div>
-            <div style="font-size:0.78rem; color:var(--gray); line-height:1.5;">Chaque intervention certifiée améliore votre position dans Vérif'Iz. Gratuitement.</div>
-          </div>
-        </div>
-      </div>
-
-      <a href="#verifiz" style="display:inline-flex; align-items:center; gap:8px; background:var(--orange); color:white; padding:12px 24px; border-radius:8px; font-weight:700; font-size:0.88rem; text-decoration:none;">Voir mon profil Vérif'Iz →</a>
-    </div>
-
-    <!-- COLONNE DROITE : téléphone simulé -->
-    <div style="position:sticky; top:88px;">
-
-      <!-- Cadre téléphone -->
-      <div style="background:var(--navy-deep); border-radius:40px; padding:14px; box-shadow:0 32px 80px rgba(26,43,74,0.35); width:340px; margin:0 auto;">
-        <!-- Encoche -->
-        <div style="background:black; border-radius:28px; overflow:hidden;">
-          <div style="background:#1a1a1a; padding:10px 0 4px; text-align:center;">
-            <div style="width:80px; height:20px; background:#111; border-radius:12px; margin:0 auto;"></div>
-          </div>
-          <!-- Écran -->
-          <div style="background:var(--beige); min-height:580px; position:relative; overflow:hidden;">
-
-            <!-- Barre statut -->
-            <div style="background:var(--navy); padding:8px 16px; display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:0.65rem; color:white; font-weight:700;">9:41</span>
-              <span style="font-family:'Satoshi',sans-serif; font-size:0.72rem; font-weight:900; color:white;">IZ<span style="color:var(--orange)">IMMO</span></span>
-              <span style="font-size:0.65rem; color:white;">●●●</span>
-            </div>
-
-            <!-- Écrans de l'app -->
-            <div id="sa-screen-1" class="sa-screen active">
-              <!-- Header -->
-              <div style="background:var(--navy); padding:14px 16px 18px;">
-                <div style="font-size:0.62rem; color:rgba(255,255,255,0.45); margin-bottom:3px;">Bonjour,</div>
-                <div style="font-size:0.95rem; font-weight:800; color:white;">Jean Dupont 🔧</div>
-                <div style="display:flex; align-items:center; gap:6px; margin-top:8px;">
-                  <div style="background:rgba(232,104,58,0.2); border:1px solid rgba(232,104,58,0.4); border-radius:20px; padding:3px 10px; font-size:0.62rem; color:var(--orange); font-weight:700;">✓✓✓ Certifié</div>
-                  <div style="font-size:0.62rem; color:rgba(255,255,255,0.4);">Score : 94/100</div>
-                </div>
-              </div>
-              <div style="padding:16px;">
-                <div style="font-size:0.75rem; font-weight:700; color:var(--navy); margin-bottom:12px;">+ Nouvelle intervention</div>
-                <div style="display:flex; flex-direction:column; gap:8px;">
-                  <div>
-                    <label style="font-size:0.62rem; font-weight:700; color:var(--gray); display:block; margin-bottom:3px;">ADRESSE DU BIEN</label>
-                    <div style="background:white; border:1.5px solid var(--orange); border-radius:8px; padding:9px 12px; font-size:0.78rem; color:var(--navy); font-weight:600;">15 rue de la Paix, Paris 1er</div>
-                  </div>
-                  <div>
-                    <label style="font-size:0.62rem; font-weight:700; color:var(--gray); display:block; margin-bottom:3px;">TYPE DE TRAVAUX</label>
-                    <div style="background:white; border:1.5px solid var(--blue-light); border-radius:8px; padding:9px 12px; font-size:0.78rem; color:var(--navy); display:flex; justify-content:space-between;">Plomberie <span style="color:var(--gray);">▼</span></div>
-                  </div>
-                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                    <div>
-                      <label style="font-size:0.62rem; font-weight:700; color:var(--gray); display:block; margin-bottom:3px;">MONTANT TTC</label>
-                      <div style="background:white; border:1.5px solid var(--blue-light); border-radius:8px; padding:9px 12px; font-size:0.78rem; color:var(--navy);">1 850 €</div>
-                    </div>
-                    <div>
-                      <label style="font-size:0.62rem; font-weight:700; color:var(--gray); display:block; margin-bottom:3px;">DATE</label>
-                      <div style="background:white; border:1.5px solid var(--blue-light); border-radius:8px; padding:9px 12px; font-size:0.78rem; color:var(--navy);">25/03/2025</div>
-                    </div>
-                  </div>
-                  <div>
-                    <label style="font-size:0.62rem; font-weight:700; color:var(--gray); display:block; margin-bottom:3px;">DESCRIPTION</label>
-                    <div style="background:white; border:1.5px solid var(--blue-light); border-radius:8px; padding:9px 12px; font-size:0.78rem; color:var(--navy);">Remplacement robinetterie salle de bain</div>
-                  </div>
-                </div>
-                <button onclick="saNextScreen(2)" style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:13px; font-family:'Satoshi',sans-serif; font-size:0.85rem; font-weight:800; margin-top:14px; cursor:pointer;">Enregistrer l'intervention →</button>
-              </div>
-            </div>
-
-            <!-- Écran 2 : envoi notification -->
-            <div id="sa-screen-2" class="sa-screen">
-              <div style="padding:24px 16px; text-align:center;">
-                <div style="font-size:2.5rem; margin-bottom:12px;" id="sa-sending-icon">⏳</div>
-                <div id="sa-sending-title" style="font-size:0.95rem; font-weight:800; color:var(--navy); margin-bottom:6px;">Envoi en cours…</div>
-                <div id="sa-sending-sub" style="font-size:0.75rem; color:var(--gray); line-height:1.6; margin-bottom:20px;">Notification envoyée au propriétaire du bien pour confirmation.</div>
-
-                <!-- Progression -->
-                <div style="background:var(--blue-light); border-radius:10px; padding:16px; text-align:left; margin-bottom:16px;">
-                  <div id="sa-prog-1" style="display:flex; align-items:center; gap:8px; margin-bottom:8px; opacity:0.4;">
-                    <span style="font-size:0.8rem;">📤</span>
-                    <span style="font-size:0.72rem; color:var(--navy);">Intervention enregistrée</span>
-                  </div>
-                  <div id="sa-prog-2" style="display:flex; align-items:center; gap:8px; margin-bottom:8px; opacity:0.4;">
-                    <span style="font-size:0.8rem;">🔍</span>
-                    <span style="font-size:0.72rem; color:var(--navy);">SIRET vérifié — Plomberie Parisienne</span>
-                  </div>
-                  <div id="sa-prog-3" style="display:flex; align-items:center; gap:8px; opacity:0.4;">
-                    <span style="font-size:0.8rem;">📱</span>
-                    <span style="font-size:0.72rem; color:var(--navy);">Notification envoyée au propriétaire</span>
-                  </div>
-                </div>
-
-                <div id="sa-screen2-cta" style="display:none;">
-                  <div style="background:var(--green-bg); border-radius:10px; padding:14px; margin-bottom:14px;">
-                    <div style="font-size:0.78rem; font-weight:800; color:var(--green-cert);">✓ Intervention en attente de confirmation</div>
-                    <div style="font-size:0.7rem; color:var(--gray); margin-top:3px;">Le propriétaire va recevoir une notification.</div>
-                  </div>
-                  <button onclick="saNextScreen(3)" style="width:100%; background:var(--navy); color:white; border:none; border-radius:10px; padding:12px; font-family:'Satoshi',sans-serif; font-size:0.82rem; font-weight:700; cursor:pointer;">Voir la confirmation →</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Écran 3 : confirmée -->
-            <div id="sa-screen-3" class="sa-screen">
-              <div style="background:var(--navy); padding:14px 16px 18px;">
-                <div style="font-size:0.72rem; color:rgba(255,255,255,0.45); margin-bottom:3px;">Intervention certifiée !</div>
-                <div style="font-size:0.95rem; font-weight:800; color:white;">15 rue de la Paix, Paris 1er</div>
-              </div>
-              <div style="padding:16px;">
-                <div style="background:var(--green-bg); border-radius:10px; padding:14px; text-align:center; margin-bottom:14px;">
-                  <div style="font-size:2rem; margin-bottom:6px;">🏆</div>
-                  <div style="font-size:0.88rem; font-weight:800; color:var(--green-cert);">Certifiée par le propriétaire</div>
-                  <div style="font-size:0.7rem; color:var(--gray); margin-top:3px;">Marie Dupuis · 25/03/2025 à 14h32</div>
-                </div>
-                <!-- Score mis à jour -->
-                <div style="background:var(--navy-deep); border-radius:10px; padding:14px; margin-bottom:12px;">
-                  <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); margin-bottom:8px; font-weight:700; text-transform:uppercase;">Votre score mis à jour</div>
-                  <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-size:0.75rem; color:rgba(255,255,255,0.6);">Score de transparence</div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <span style="font-size:0.78rem; color:rgba(255,255,255,0.4); text-decoration:line-through;">94</span>
-                      <span style="font-size:1.1rem; font-weight:900; color:var(--orange);">96</span>
-                    </div>
-                  </div>
-                  <div style="margin-top:8px; height:5px; background:rgba(255,255,255,0.1); border-radius:3px;">
-                    <div style="width:96%; height:100%; border-radius:3px; background:var(--orange);"></div>
-                  </div>
-                  <div style="margin-top:8px; font-size:0.65rem; color:rgba(255,255,255,0.35);">+1 intervention certifiée · Plomberie (×2)</div>
-                </div>
-                <!-- Classement -->
-                <div style="background:var(--beige); border-radius:8px; padding:12px; display:flex; align-items:center; gap:10px; margin-bottom:14px;">
-                  <span style="font-size:1.3rem;">🥇</span>
-                  <div>
-                    <div style="font-size:0.78rem; font-weight:800; color:var(--navy);">#1 Paris 1er – 4e</div>
-                    <div style="font-size:0.65rem; color:var(--gray);">Vous êtes le mieux noté de votre zone.</div>
-                  </div>
-                </div>
-                <button onclick="saReset()" style="width:100%; background:transparent; color:var(--navy); border:1.5px solid var(--blue-mid); border-radius:10px; padding:11px; font-family:'Satoshi',sans-serif; font-size:0.8rem; font-weight:600; cursor:pointer;">+ Nouvelle intervention</button>
-              </div>
-            </div>
-
-          </div><!-- /écran -->
-        </div>
-        <!-- Home indicator -->
-        <div style="text-align:center; padding:10px 0 4px;">
-          <div style="width:100px; height:4px; background:rgba(255,255,255,0.3); border-radius:2px; margin:0 auto;"></div>
-        </div>
-      </div><!-- /téléphone -->
-
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     PAGE CONFIRMATION PROPRIÉTAIRE
-     ============================================================ -->
-<div id="confirmation-proprio-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
-
-  <nav class="inner-nav">
-    <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-izimmo logo-light" style="font-size:1.25rem">IZ<span class="logo-sep" style="height:0.6em;margin:0 8px"></span><span style="color:var(--navy)">IMMO</span></span>
-      <span class="logo-baseline">Traçabilité certifiée</span>
-    </span></a>
-    <div class="inner-nav-links">
-      <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-link">Accueil</a>
-      <span class="inner-nav-dropdown-wrap">
-        <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
-        <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif'Iz</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Iz'Track</strong><span>Fiche du logement</span></div></a>
-          <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
-          <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
-        </div>
-      </span>
-      <a href="#confiance" class="inner-nav-link">Engagements</a>
-      <a href="#dashboard" class="inner-nav-link">🏠 Mon tableau de bord</a>
-    </div>
-    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
-  </nav>
-
-  <div style="max-width:480px; margin:0 auto; padding:48px 24px;">
-
-    <!-- Carte notification -->
-    <div id="cp-state-pending" style="background:white; border-radius:16px; overflow:hidden; box-shadow:0 16px 48px rgba(26,43,74,0.12);">
-
-      <!-- Header -->
-      <div style="background:var(--navy-deep); padding:20px 24px;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:3px;">
-          <span style="font-size:1rem;">📱</span>
-          <span style="font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Notification Iz'Immo</span>
-        </div>
-        <div style="font-size:1.1rem; font-weight:800; color:white;">Une intervention vous concerne</div>
-        <div style="font-size:0.72rem; color:rgba(255,255,255,0.4); margin-top:3px;">Bonjour Marie — un artisan a déclaré une intervention sur votre bien.</div>
-      </div>
-
-      <!-- Corps -->
-      <div style="padding:24px;">
-
-        <!-- Artisan -->
-        <div style="display:flex; align-items:center; gap:12px; padding:14px; background:var(--beige); border-radius:10px; margin-bottom:16px;">
-          <div style="width:44px; height:44px; background:var(--navy); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;">🔧</div>
-          <div style="flex:1;">
-            <div style="font-size:0.88rem; font-weight:800; color:var(--navy);">Jean Dupont</div>
-            <div style="font-size:0.72rem; color:var(--gray);">Plomberie Parisienne</div>
-            <div style="display:flex; gap:5px; margin-top:4px; flex-wrap:wrap;">
-              <span style="background:var(--green-bg); color:var(--green-cert); font-size:0.6rem; font-weight:700; padding:2px 7px; border-radius:4px;">✓✓✓ Certifié</span>
-              <span style="background:var(--blue-light); color:var(--navy); font-size:0.6rem; font-weight:700; padding:2px 7px; border-radius:4px;">SIRET vérifié</span>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:1rem; font-weight:900; color:var(--navy);">96</div>
-            <div style="font-size:0.58rem; color:var(--gray);">Score</div>
-          </div>
-        </div>
-
-        <!-- Détails intervention -->
-        <div style="border:1.5px solid var(--blue-light); border-radius:10px; padding:16px; margin-bottom:20px;">
-          <div style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Détails de l'intervention</div>
-          <div style="display:flex; flex-direction:column; gap:7px; font-size:0.78rem;">
-            <div style="display:flex; justify-content:space-between;"><span style="color:var(--gray);">Bien</span><span style="font-weight:700; color:var(--navy); text-align:right; max-width:240px;">15 rue de la Paix, Paris 1er</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:var(--gray);">Type</span><span style="font-weight:700; color:var(--navy);">Plomberie</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:var(--gray);">Description</span><span style="font-weight:700; color:var(--navy);">Remplacement robinetterie</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:var(--gray);">Date</span><span style="font-weight:700; color:var(--navy);">25/03/2025</span></div>
-            <div style="display:flex; justify-content:space-between;"><span style="color:var(--gray);">Montant TTC</span><span style="font-weight:800; color:var(--navy); font-size:0.88rem;">1 850 €</span></div>
-          </div>
-        </div>
-
-        <!-- Question -->
-        <p style="font-size:0.82rem; color:var(--gray); line-height:1.6; margin-bottom:16px; text-align:center;">Cette intervention a-t-elle bien été réalisée sur votre bien ?</p>
-
-        <!-- Boutons -->
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <button onclick="cpConfirm()" style="width:100%; background:var(--green-cert); color:white; border:none; border-radius:10px; padding:14px; font-family:'Satoshi',sans-serif; font-size:0.88rem; font-weight:800; cursor:pointer;">
-            ✓ Oui, je confirme cette intervention
-          </button>
-          <button onclick="cpRefuse()" style="width:100%; background:white; color:var(--gray); border:1.5px solid var(--blue-light); border-radius:10px; padding:12px; font-family:'Satoshi',sans-serif; font-size:0.82rem; font-weight:600; cursor:pointer;">
-            Ce n'est pas correct — signaler
-          </button>
-        </div>
-        <p style="font-size:0.65rem; color:var(--gray); text-align:center; margin-top:10px; line-height:1.5;">En confirmant, cette intervention sera certifiée et visible dans la fiche de votre bien.</p>
-      </div>
-    </div>
-
-    <!-- État : confirmé -->
-    <div id="cp-state-confirmed" style="display:none; background:white; border-radius:16px; overflow:hidden; box-shadow:0 16px 48px rgba(26,43,74,0.12);">
-      <div style="background:var(--green-cert); padding:20px 24px; text-align:center;">
-        <div style="font-size:2.5rem; margin-bottom:8px;">✅</div>
-        <div style="font-size:1.1rem; font-weight:800; color:white;">Intervention certifiée !</div>
-        <div style="font-size:0.75rem; color:rgba(255,255,255,0.75); margin-top:4px;">Votre fiche Iz'Track a été mise à jour.</div>
-      </div>
-      <div style="padding:24px;">
-        <div style="background:var(--beige); border-radius:10px; padding:14px; margin-bottom:16px;">
-          <div style="font-size:0.7rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Ce qui vient de changer</div>
-          <div style="display:flex; flex-direction:column; gap:6px; font-size:0.75rem; color:var(--gray);">
-            <div style="display:flex; gap:8px;"><span style="color:var(--green-cert);">✓</span> Intervention certifiée dans votre fiche</div>
-            <div style="display:flex; gap:8px;"><span style="color:var(--green-cert);">✓</span> Score de transparence recalculé</div>
-            <div style="display:flex; gap:8px;"><span style="color:var(--green-cert);">✓</span> Jean Dupont gagne des points dans Vérif'Iz</div>
-          </div>
-        </div>
-        <div style="display:flex; gap:10px;">
-          <a href="#iztrack" style="flex:1; background:var(--navy); color:white; padding:11px; border-radius:8px; font-weight:700; font-size:0.8rem; text-decoration:none; text-align:center;">Voir ma fiche →</a>
-          <a href="#" onclick="window.location.hash=''; return false;" style="flex:1; background:var(--beige); color:var(--navy); padding:11px; border-radius:8px; font-weight:600; font-size:0.8rem; text-decoration:none; text-align:center; border:1.5px solid var(--blue-light);">Accueil</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- État : refusé -->
-    <div id="cp-state-refused" style="display:none; background:white; border-radius:16px; overflow:hidden; box-shadow:0 16px 48px rgba(26,43,74,0.12);">
-      <div style="background:var(--amber); padding:20px 24px; text-align:center;">
-        <div style="font-size:2rem; margin-bottom:8px;">⚠️</div>
-        <div style="font-size:1rem; font-weight:800; color:white;">Signalement enregistré</div>
-        <div style="font-size:0.75rem; color:rgba(255,255,255,0.8); margin-top:4px;">Notre équipe va examiner cette intervention.</div>
-      </div>
-      <div style="padding:24px; text-align:center;">
-        <p style="font-size:0.82rem; color:var(--gray); line-height:1.6; margin-bottom:16px;">Merci pour votre vigilance. L'intervention restera à l'état "En attente" jusqu'à résolution.</p>
-        <a href="#" onclick="window.location.hash=''; return false;" style="display:inline-block; background:var(--navy); color:white; padding:11px 24px; border-radius:8px; font-weight:700; font-size:0.82rem; text-decoration:none;">Retour à l'accueil</a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div id="artisan-page">
-  <div class="ap-body">
-    <div class="ap-topbar">
-      <div class="ap-logo"><span style="font-family:Satoshi,sans-serif;font-weight:900;letter-spacing:-1px"><span style="color:#E8683A">IZ</span><span style="display:inline-block;width:1.5px;height:0.6em;background:rgba(255,255,255,0.2);margin:0 5px;vertical-align:middle;border-radius:1px"></span><span style="color:var(--navy)">IMMO</span></span></div>
+      <div style="font-size:1.4rem; font-weight:900; color:var(--navy);">Historim</span></div>
       <div class="ap-secure"><div class="ap-secure-dot"></div>Lien sécurisé</div>
     </div>
     <div class="ap-wrap">
@@ -5218,14 +4809,14 @@ async function cp2SendAction(action) {
 
         <div class="ap-action-card">
           <div class="ap-action-title">Cette intervention est-elle exacte ?</div>
-          <div class="ap-action-sub">En confirmant, vous certifiez avoir réalisé ces travaux. Cette certification est liée à votre SIRET et visible sur la fiche Iz'Track du bien.</div>
+          <div class="ap-action-sub">En confirmant, vous certifiez avoir réalisé ces travaux. Cette certification est liée à votre SIRET et visible sur la fiche Histor du bien.</div>
           <button class="ap-btn-confirm" id="ap-btn-confirm" onclick="apConfirm()">✓ Oui, je confirme cette intervention</button>
           <button class="ap-btn-refuse" onclick="apOpenRefuse()">✗ Non, je ne reconnais pas cette intervention</button>
         </div>
 
         <div class="ap-info-card">
           <div class="ap-info-title">💡 Pourquoi certifier ?</div>
-          <div class="ap-info-text">Chaque certification renforce votre score de transparence Iz'Immo et améliore votre position dans le répertoire Vérif'Iz. Aucun compte requis.</div>
+          <div class="ap-info-text">Chaque certification renforce votre score de transparence Historim et améliore votre position dans le répertoire Vérif. Aucun compte requis.</div>
         </div>
       </div>
 
@@ -5233,12 +4824,12 @@ async function cp2SendAction(action) {
         <div class="ap-success-card">
           <div class="ap-success-check">✓</div>
           <div class="ap-success-title" id="ap-success-title">Intervention certifiée !</div>
-          <div class="ap-success-sub" id="ap-success-sub">Merci. La fiche Iz'Track du bien est mise à jour. Le propriétaire et l'agent peuvent désormais présenter cette intervention comme certifiée.</div>
+          <div class="ap-success-sub" id="ap-success-sub">Merci. La fiche Histor du bien est mise à jour. Le propriétaire et l'agent peuvent désormais présenter cette intervention comme certifiée.</div>
           <div class="ap-score-bump" id="ap-score-bump">
             <div class="ap-score-bump-lbl">⬆ Votre score de transparence</div>
             <div class="ap-score-bump-val">+5 pts</div>
           </div>
-          <a href="#" class="ap-btn-register" onclick="return false">🏅 Créer mon profil Vérif'Iz gratuit</a>
+          <a href="#" class="ap-btn-register" onclick="return false">🏅 Créer mon profil Vérif gratuit</a>
           <div class="ap-btn-skip">Vous pouvez fermer cette page</div>
         </div>
       </div>
@@ -5247,7 +4838,7 @@ async function cp2SendAction(action) {
         <div class="ap-refused-card">
           <div class="ap-refused-icon">🚩</div>
           <div class="ap-refused-title">Refus enregistré</div>
-          <div class="ap-refused-sub">Votre refus a été transmis à Iz'Immo et au propriétaire. Cette intervention sera marquée comme contestée.<br><br>Merci pour votre honnêteté — c'est ce qui rend le système fiable.</div>
+          <div class="ap-refused-sub">Votre refus a été transmis à Historim et au propriétaire. Cette intervention sera marquée comme contestée.<br><br>Merci pour votre honnêteté — c'est ce qui rend le système fiable.</div>
         </div>
       </div>
 
@@ -5260,7 +4851,7 @@ async function cp2SendAction(action) {
       </div>
 
       <div class="ap-footer">
-        <div>Iz'Immo · Osons la transparence !</div>
+        <div>Historim · Osons la transparence !</div>
         <div style="margin-top:6px">Ce lien est personnel et à usage unique</div>
       </div>
     </div>
@@ -5295,7 +4886,7 @@ async function cp2SendAction(action) {
     
     <div id="partner-form-wrap">
       <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px;">🏢 Agence partenaire</div>
-      <h3 style="font-size:1.4rem; font-weight:800; color:var(--navy); margin-bottom:6px; letter-spacing:-0.5px;">Rejoindre le pilote Iz'Immo</h3>
+      <h3 style="font-size:1.4rem; font-weight:800; color:var(--navy); margin-bottom:6px; letter-spacing:-0.5px;">Rejoindre le pilote Historim</h3>
       <p style="font-size:0.82rem; color:var(--gray); margin-bottom:24px; line-height:1.6;">Antoine vous recontacte sous 24h pour vous présenter le projet et discuter d'un partenariat.</p>
       
       <div style="display:flex; flex-direction:column; gap:14px;">
@@ -5362,7 +4953,7 @@ function submitPartnerForm() {
   // Envoi mailto silencieux
   var tel = document.getElementById('pm-tel').value.trim();
   var msg = document.getElementById('pm-message').value.trim();
-  var body = encodeURIComponent(`Nouvelle demande partenaire Iz'Immo\nNom : ${nom}\nAgence : ${agence}\nEmail : ${email}\nTel : ${tel}\nMessage : ${msg}`);
+  var body = encodeURIComponent(`Nouvelle demande partenaire Historim\nNom : ${nom}\nAgence : ${agence}\nEmail : ${email}\nTel : ${tel}\nMessage : ${msg}`);
   window.open('mailto:pererol.antoine@outlook.fr?subject=Demande+partenaire+Iz%27Immo+-+' + encodeURIComponent(agence) + '&body=' + body);
   document.getElementById('partner-form-wrap').style.display = 'none';
   document.getElementById('partner-success').style.display = 'block';
@@ -6012,7 +5603,7 @@ async function apiAdresseSearch(query) {
           var meta = [b.type_bien, b.surface ? b.surface + ' m²' : null].filter(Boolean).join(' · ');
           return '<div class="f-addr-item" onclick="fAdresseSelectEncoded('' + data + '')">' +
             '<div style="font-size:0.82rem;font-weight:700;color:var(--navy);">' + b.adresse + '</div>' +
-            (meta ? '<div style="font-size:0.68rem;color:var(--orange);margin-top:1px;">📋 ' + meta + ' — Iz'Track actif</div>' : '') +
+            (meta ? '<div style="font-size:0.68rem;color:var(--orange);margin-top:1px;">📋 ' + meta + ' — Histor actif</div>' : '') +
             '</div>';
         }).join('');
       }
