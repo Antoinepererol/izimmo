@@ -2401,24 +2401,21 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 <!-- PAGE PROPRIÉTAIRE -->
 <div id="persona-proprietaire-page" style="display:none">
   <nav class="inner-nav">
-    <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
-      <span class="logo-baseline">Traçabilité certifiée</span>
-    </span></a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
-      <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-link">Accueil</a>
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
-          <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
-          <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
-      <a href="#confiance" class="inner-nav-link">Engagements</a>
-      <a href="#dashboard" class="inner-nav-link">🏠 Mon tableau de bord</a>
-    </div></nav>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
+    </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 
   <section class="pn-hero pn-hero-prop">
     <div class="pn-hero-inner">
@@ -2528,24 +2525,21 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 <!-- PAGE ARTISAN -->
 <div id="persona-artisan-page" style="display:none">
   <nav class="inner-nav">
-    <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
-      <span class="logo-baseline">Traçabilité certifiée</span>
-    </span></a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
-      <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-link">Accueil</a>
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
-          <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
-          <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
-      <a href="#confiance" class="inner-nav-link">Engagements</a>
-      <a href="#dashboard" class="inner-nav-link">🏠 Mon tableau de bord</a>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
     </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
   <div class="inner-nav-menu" id="inner-nav-menu-artisan">
     <a href="#" onclick="window.location.hash=''; closeInnerMenu();">Accueil</a>
@@ -2681,24 +2675,21 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 <!-- PAGE AGENT IMMOBILIER -->
 <div id="persona-agent-page" style="display:none">
   <nav class="inner-nav">
-    <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
-      <span class="logo-baseline">Traçabilité certifiée</span>
-    </span></a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
-      <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-link">Accueil</a>
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
-          <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
-          <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
-      <a href="#confiance" class="inner-nav-link">Engagements</a>
-      <a href="#dashboard" class="inner-nav-link">🏠 Mon tableau de bord</a>
-    </div></nav>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
+    </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 
   <section class="pn-hero pn-hero-agent">
     <div class="pn-hero-inner">
@@ -2775,24 +2766,21 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 <!-- PAGE ACQUÉREUR -->
 <div id="persona-acquereur-page" style="display:none">
   <nav class="inner-nav">
-    <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
-      <span class="logo-baseline">Traçabilité certifiée</span>
-    </span></a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
-      <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-link">Accueil</a>
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
-          <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
-          <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
-      <a href="#confiance" class="inner-nav-link">Engagements</a>
-      <a href="#dashboard" class="inner-nav-link">🏠 Mon tableau de bord</a>
-    </div></nav>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
+    </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 
   <section class="pn-hero pn-hero-acquereur">
     <div class="pn-hero-inner">
@@ -2873,12 +2861,19 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
   <nav class="inner-nav">
     <a href="/" class="inner-nav-logo">Iz'<span>Immo</span></a>
     <div class="inner-nav-links">
-      <a href="/" class="inner-nav-link">Accueil</a>
-      <a href="?verifiz" class="inner-nav-link">🔍 Vérif</a>
-      <a href="?saisie" class="inner-nav-link">📄 Saisir</a>
-      <a href="?dashboard" class="inner-nav-link active">🏠 Mon espace</a>
-      <a href="?proboard=d1" class="inner-nav-link">🔧 Mon Atelier</a>
+      <span class="inner-nav-dropdown-wrap">
+        <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
+        <div class="inner-nav-dropdown">
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+        </div>
+      </span>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
     </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- Sélecteur de bien -->
@@ -3102,12 +3097,19 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
   <nav class="inner-nav">
     <a href="/" class="inner-nav-logo">Iz'<span>Immo</span></a>
     <div class="inner-nav-links">
-      <a href="/" class="inner-nav-link">Accueil</a>
-      <a href="?verifiz" class="inner-nav-link">🔍 Vérif</a>
-      <a href="?saisie" class="inner-nav-link">📄 Saisir</a>
-      <a href="?dashboard" class="inner-nav-link">🏠 Mon espace</a>
-      <a href="?proboard=d1" class="inner-nav-link active">🔧 Mon Atelier</a>
+      <span class="inner-nav-dropdown-wrap">
+        <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
+        <div class="inner-nav-dropdown">
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+        </div>
+      </span>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
     </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- Hero artisan -->
@@ -3207,12 +3209,7 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 
 <div id="iztrack-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
   <nav class="inner-nav">
-    <a href="#" onclick="navGo('')" class="inner-nav-logo">
-      <span class="logo-with-baseline">
-        <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;font-weight:500;">im</em></span>
-        <span class="logo-baseline">Traçabilité certifiée</span>
-      </span>
-    </a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
@@ -3220,6 +3217,7 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
           <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
           <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
       <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
@@ -3244,16 +3242,35 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
         <div id="izt-score-detail" style="display:none; position:absolute; right:0; top:calc(100% + 8px); background:white; border-radius:12px; padding:18px; width:260px; box-shadow:0 12px 40px rgba(26,43,74,0.2); z-index:50; text-align:left; cursor:default;" onclick="event.stopPropagation()">
           <div style="font-size:0.72rem; font-weight:700; color:var(--navy); margin-bottom:12px;">Détail du score</div>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🏠 Complétude fiche</span><span id="izt-p1-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/25</span></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar1" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"></div></div></div>
-            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🌱 DPE / GES</span><span id="izt-p2-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/20</span></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar2" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"></div></div></div>
-            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🔧 Interventions</span><span id="izt-p3-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/55</span></div><div id="izt-ratio-certif" style="font-size:0.62rem; color:var(--orange); font-weight:600; margin-bottom:2px;"></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar3" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"></div></div></div>
+            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🏠 Complétude fiche</span><span id="izt-p1-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/25</span></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar1" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"><span id="izt-bar1-val" style="display:none;"></span><span id="izt-p1-bar" style="display:none;"></span></div></div></div>
+            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🌱 DPE / GES</span><span id="izt-p2-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/20</span></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar2" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"><span id="izt-bar2-val" style="display:none;"></span><span id="izt-p2-bar" style="display:none;"></span></div></div></div>
+            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🔧 Interventions</span><span id="izt-p3-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/55</span></div><div id="izt-ratio-certif" style="font-size:0.62rem; color:var(--orange); font-weight:600; margin-bottom:2px;"></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar3" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"><span id="izt-bar3-val" style="display:none;"></span><span id="izt-p3-bar" style="display:none;"></span></div></div></div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- DPE row -->
-    <div id="izt-dpe-row" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;"></div>
+    <div id="izt-dpe-row" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:90px;">
+        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">DPE</div>
+        <div id="izt-dpe" style="font-size:1.6rem; font-weight:900; color:var(--orange);">—</div>
+      </div>
+      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:90px;">
+        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">GES</div>
+        <div id="izt-ges" style="font-size:1.6rem; font-weight:900; color:var(--navy);">—</div>
+      </div>
+      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:90px;">
+        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">Interventions</div>
+        <div id="izt-nb-interv" style="font-size:1.6rem; font-weight:900; color:var(--navy);">—</div>
+        <div id="izt-cert-count" style="font-size:0.65rem; color:var(--green-cert); font-weight:700; margin-top:2px;"></div>
+      </div>
+      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:110px;">
+        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">Montant total</div>
+        <div id="izt-montant" style="font-size:1.1rem; font-weight:900; color:var(--navy);">—</div>
+      </div>
+    </div>
+    <div id="izt-cert-badge" style="display:none;"></div>
 
     <!-- Layout 2 colonnes -->
     <div style="display:grid; grid-template-columns:1fr 340px; gap:20px; align-items:start;">
@@ -3337,12 +3354,7 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 
 <div id="confiance-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
   <nav class="inner-nav">
-    <a href="#" onclick="navGo('')" class="inner-nav-logo">
-      <span class="logo-with-baseline">
-        <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;font-weight:500;">im</em></span>
-        <span class="logo-baseline">Traçabilité certifiée</span>
-      </span>
-    </a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
@@ -3350,9 +3362,10 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
           <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
           <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
           <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
-      <a onclick="navGo('confiance')" class="inner-nav-link active" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
       <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
     </div>
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -3432,15 +3445,18 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 
 <div id="saisie-artisan-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
   <nav class="inner-nav">
-    <a href="#" onclick="navGo('')" class="inner-nav-logo">
-      <span class="logo-with-baseline">
-        <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;font-weight:500;">im</em></span>
-        <span class="logo-baseline">Traçabilité certifiée</span>
-      </span>
-    </a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
-      <a onclick="navGo('verifiz')" class="inner-nav-link" style="cursor:pointer;">🔍 Vérif</a>
-      <a onclick="navGo('saisie-artisan')" class="inner-nav-link active" style="cursor:pointer;">📱 App artisan</a>
+      <span class="inner-nav-dropdown-wrap">
+        <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
+        <div class="inner-nav-dropdown">
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+        </div>
+      </span>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
       <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
     </div>
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -4860,20 +4876,53 @@ async function saisieSubmit(e) {
   iconEl.textContent = "⏳";
   labelEl.textContent = "Enregistrement…";
 
-  var payload = {
-    adresse_bien:       adresse,
-    type_travaux:       type,
-    description:        description || null,
-    date_intervention:  date,
-    montant_ttc:        montant,
-    artisan_nom:        artisanNom,
-    artisan_entreprise: artisanEnt || null,
-    artisan_siret:      siret || null,
-    artisan_contact:    artisanEmail,
-    statut:             "en_attente"
-  };
-
   try {
+    /* ---- 1. Lookup ou création automatique du bien ---- */
+    var bienId = null;
+    try {
+      /* Chercher un bien existant avec cette adresse (insensible à la casse) */
+      var resBien = await sb
+        .from("biens")
+        .select("id, adresse")
+        .ilike("adresse", adresse.slice(0, 20) + "%")
+        .limit(1)
+        .single();
+
+      if (resBien.data) {
+        /* Bien existant trouvé */
+        bienId = resBien.data.id;
+        console.log("[Saisie] Bien existant trouvé:", bienId);
+      } else {
+        /* Créer une fiche bien minimale */
+        var resCree = await sb
+          .from("biens")
+          .insert({ adresse: adresse })
+          .select("id")
+          .single();
+        if (resCree.data) {
+          bienId = resCree.data.id;
+          console.log("[Saisie] Nouveau bien créé:", bienId);
+        }
+      }
+    } catch(bienErr) {
+      console.warn("[Saisie] Bien lookup/create:", bienErr.message);
+    }
+
+    /* ---- 2. Insérer l'intervention liée au bien ---- */
+    var payload = {
+      adresse_bien:       adresse,
+      type_travaux:       type,
+      description:        description || null,
+      date_intervention:  date,
+      montant_ttc:        montant,
+      artisan_nom:        artisanNom,
+      artisan_entreprise: artisanEnt || null,
+      artisan_siret:      siret || null,
+      artisan_contact:    artisanEmail,
+      statut:             "en_attente",
+      bien_id:            bienId || null
+    };
+
     var res = await sb.from("interventions").insert(payload).select().single();
     if (res.error) throw new Error(res.error.message);
 
@@ -4896,8 +4945,16 @@ async function saisieSubmit(e) {
     var msgEl = document.getElementById("s-success-email-msg");
     if (msgEl) {
       msgEl.textContent = emailSent
-        ? "Un email de confirmation a ete envoye a " + artisanEmail + "."
-        : "Intervention enregistree. L'email sera envoye prochainement.";
+        ? "Un email de confirmation a été envoyé à " + artisanEmail + "."
+        : "Intervention enregistrée. L'email sera envoyé prochainement.";
+    }
+    /* Stocker le bien_id pour le bouton "Voir la fiche" */
+    if (bienId) {
+      var ficheBtn = document.getElementById("s-btn-fiche");
+      if (ficheBtn) {
+        ficheBtn.style.display = "inline-flex";
+        ficheBtn.onclick = function() { navGo("iztrack"); };
+      }
     }
     window.scrollTo(0, 0);
 
@@ -5134,27 +5191,21 @@ async function cp2SendAction(action) {
      ============================================================ -->
 <div id="verifiz-page" style="display:none; min-height:100vh; background:var(--gray-light);">
   <nav class="inner-nav">
-    <a href="#" onclick="window.location.hash='';" class="inner-nav-logo"><span class="logo-with-baseline">
-      <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
-      <span class="logo-baseline">Traçabilité certifiée</span>
-    </span></a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
-      <a href="#" onclick="window.location.hash=''; return false;" class="inner-nav-link">Accueil</a>
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
-          <a href="#verifiz" class="nav-dd-item"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
-          <a href="#iztrack" class="nav-dd-item"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
-          <a href="#saisie" class="nav-dd-item"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
-          <a href="#saisie-artisan" class="nav-dd-item"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
+          <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Artisans certifiés</span></div></a>
+          <a onclick="navGo('iztrack')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche du logement</span></div></a>
+          <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + IA</span></div></a>
+          <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
-      <a href="#confiance" class="inner-nav-link">Engagements</a>
-      <a href="#dashboard" class="inner-nav-link">🏠 Mon tableau de bord</a>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
     </div>
-    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
   <div class="inner-nav-menu" id="inner-nav-menu">
     <a href="#" onclick="window.location.hash=''; closeInnerMenu();">Accueil</a>
@@ -5256,12 +5307,7 @@ async function cp2SendAction(action) {
 <div id="saisie-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
 
   <nav class="inner-nav">
-    <a href="#" onclick="navGo('')" class="inner-nav-logo">
-      <span class="logo-with-baseline">
-        <span class="logo-historim logo-light" style="font-size:1.25rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span>
-        <span class="logo-baseline">Traçabilité certifiée</span>
-      </span>
-    </a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
