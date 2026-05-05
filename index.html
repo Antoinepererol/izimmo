@@ -4948,8 +4948,9 @@ async function saisieSubmit(e) {
         ? "Un email de confirmation a été envoyé à " + artisanEmail + "."
         : "Intervention enregistrée. L'email sera envoyé prochainement.";
     }
-    /* Stocker le bien_id pour le bouton "Voir la fiche" */
+    /* Stocker le bien_id en session + préparer le bouton "Voir la fiche" */
     if (bienId) {
+      sessionStorage.setItem("historim_bien_id", bienId);
       var ficheBtn = document.getElementById("s-btn-fiche");
       if (ficheBtn) {
         ficheBtn.style.display = "inline-flex";
@@ -5843,17 +5844,28 @@ function iztAfficherInterventions(interventions) {
 async function iztLoad() {
   var el = function(id) { return document.getElementById(id); };
 
-  /* Scénario démo — peut être passé via #iztrack?scenario=X */
+  /* Lire les paramètres de l'URL */
   var params = new URLSearchParams(window.location.hash.replace(/^#[^?]*\??/, ''));
   var scenario = params.get('scenario') || '1';
+  var bienIdParam = params.get('bien_id');
+
+  /* Récupérer le bien_id depuis l'URL ou depuis sessionStorage */
+  var bienId = bienIdParam || sessionStorage.getItem('historim_bien_id');
   var adresse = '15 rue de la Paix, 75001 Paris';
 
   /* 1. Charger le bien depuis Supabase */
   var bien = null;
   try {
-    var resBien = await sb.from('biens').select('*').ilike('adresse', '%' + adresse.slice(0, 15) + '%').single();
-    if (resBien.data) bien = resBien.data;
-  } catch(e) { console.warn('Bien non trouvé, utilisation démo'); }
+    if (bienId) {
+      /* Charger directement par ID */
+      var resBien = await sb.from('biens').select('*').eq('id', bienId).single();
+      if (resBien.data) {
+        bien = resBien.data;
+        adresse = bien.adresse;
+        console.log('[Histor] Bien chargé par ID:', bienId);
+      }
+    }
+  } catch(e) { console.warn('[Histor] Bien par ID non trouvé:', e.message); }
 
   /* Scénarios démo si pas de bien en base */
   if (!bien) {
@@ -5883,12 +5895,17 @@ async function iztLoad() {
   if (el('izt-dpe')) { el('izt-dpe').textContent = bien.dpe || '—'; }
   if (el('izt-ges')) { el('izt-ges').textContent = bien.ges || '—'; }
 
-  /* 3. Charger les interventions depuis Supabase */
+  /* 3. Charger les interventions filtrées par bien_id */
   var interventions = [];
   try {
-    var resInterv = await sb.from('interventions').select('*').order('date_intervention', { ascending: false });
+    var query = sb.from('interventions').select('*').order('date_intervention', { ascending: false });
+    if (bienId) {
+      query = query.eq('bien_id', bienId);
+    }
+    var resInterv = await query;
     if (resInterv.data) interventions = resInterv.data;
-  } catch(e) { console.warn('Interventions non chargées'); }
+    console.log('[Histor] Interventions chargées:', interventions.length, 'pour bien_id:', bienId);
+  } catch(e) { console.warn('[Histor] Interventions non chargées:', e.message); }
 
   /* Fallback démo selon scénario */
   if (!interventions.length) {
