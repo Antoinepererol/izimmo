@@ -3227,6 +3227,9 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
   </nav>
 
   <div style="max-width:1100px; margin:0 auto; padding:32px 24px 80px;">
+    <!-- Liste des biens (visible si plusieurs biens) -->
+    <div id="izt-biens-list" style="display:none; gap:10px; margin-bottom:20px; flex-wrap:wrap; overflow-x:auto; padding-bottom:4px;"></div>
+
     <!-- Header fiche -->
     <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap; gap:14px;">
       <div>
@@ -5843,47 +5846,122 @@ function iztAfficherInterventions(interventions) {
 /* Chargement principal de la fiche */
 async function iztLoad() {
   var el = function(id) { return document.getElementById(id); };
-
-  /* Lire les paramètres de l'URL */
   var params = new URLSearchParams(window.location.hash.replace(/^#[^?]*\??/, ''));
-  var scenario = params.get('scenario') || '1';
   var bienIdParam = params.get('bien_id');
 
-  /* Récupérer le bien_id depuis l'URL ou depuis sessionStorage */
-  var bienId = bienIdParam || sessionStorage.getItem('historim_bien_id');
-  var adresse = '15 rue de la Paix, 75001 Paris';
-
-  /* 1. Charger le bien depuis Supabase */
-  var bien = null;
+  /* Charger tous les biens depuis Supabase */
+  var biens = [];
   try {
-    if (bienId) {
-      /* Charger directement par ID */
-      var resBien = await sb.from('biens').select('*').eq('id', bienId).single();
-      if (resBien.data) {
-        bien = resBien.data;
-        adresse = bien.adresse;
-        console.log('[Histor] Bien chargé par ID:', bienId);
-      }
-    }
-  } catch(e) { console.warn('[Histor] Bien par ID non trouvé:', e.message); }
+    var resBiens = await sb.from('biens').select('*').order('created_at', { ascending: false });
+    if (resBiens.data) biens = resBiens.data;
+  } catch(e) { console.warn('[Histor] Biens non chargés:', e.message); }
 
-  /* Scénarios démo si pas de bien en base */
-  if (!bien) {
-    if (scenario === '2') {
-      /* Scénario 2 — fiche partielle ~50% */
-      adresse = '8 avenue Victor Hugo, 69002 Lyon';
-      bien = { adresse: adresse, type_bien: 'appartement', surface: 48, annee_construction: 1972, nb_pieces: 2, dpe: 'F', ges: null, constructeur: null, permis_construire: null, references_cadastrales: null, assurance_do_assureur: null, assurance_do_police: null };
-    } else if (scenario === '3') {
-      /* Scénario 3 — fiche minimale ~20% */
-      adresse = '22 rue du Commerce, 33000 Bordeaux';
-      bien = { adresse: adresse, type_bien: 'maison', surface: null, annee_construction: null, nb_pieces: null, dpe: null, ges: null, constructeur: null, permis_construire: null, references_cadastrales: null, assurance_do_assureur: null, assurance_do_police: null };
-    } else {
-      /* Scénario 1 (défaut) — fiche complète */
-      bien = { adresse: adresse, type_bien: 'appartement', surface: 65, annee_construction: 1985, nb_pieces: 3, dpe: 'D', ges: 'E', constructeur: 'Groupe Bouygues Immobilier', permis_construire: 'PC75001-1983-0042', references_cadastrales: 'AB 0124', assurance_do_assureur: 'AXA France', assurance_do_police: 'DO-75-1985-4421', assurance_do_debut: '1985-03-01', assurance_do_fin: '1995-03-01' };
-    }
+  /* Si aucun bien en base → fiche démo */
+  if (!biens.length) {
+    iztAfficherDemo();
+    return;
   }
 
-  /* 2. Afficher les infos du bien */
+  /* Si bien_id dans l'URL → afficher ce bien en premier */
+  var bienActif = bienIdParam
+    ? biens.find(function(b) { return b.id === bienIdParam; }) || biens[0]
+    : biens[0];
+
+  /* Charger les interventions de tous les biens */
+  var toutesInterventions = [];
+  try {
+    var resInterv = await sb.from('interventions').select('*').order('date_intervention', { ascending: false });
+    if (resInterv.data) toutesInterventions = resInterv.data;
+  } catch(e) { console.warn('[Histor] Interventions non chargées:', e.message); }
+
+  /* Stocker pour iztSwitchBien */
+  iztAllBiens = biens;
+  iztAllInterventions = toutesInterventions;
+
+  /* Toujours afficher la barre avec le bouton démo */
+  iztAfficherListeBiens(biens, bienActif, toutesInterventions);
+
+  /* Afficher la fiche du bien actif */
+  var interventions = toutesInterventions.filter(function(i) { return i.bien_id === bienActif.id; });
+  iztAfficherFiche(bienActif, interventions);
+}
+
+function iztAfficherDemo() {
+  var bien = {
+    adresse: '15 rue de la Paix, 75001 Paris',
+    type_bien: 'appartement', surface: 65, annee_construction: 1985,
+    nb_pieces: 3, dpe: 'D', ges: 'E',
+    constructeur: 'Groupe Bouygues Immobilier',
+    permis_construire: 'PC75001-1983-0042',
+    references_cadastrales: 'AB 0124',
+    assurance_do_assureur: 'AXA France',
+    assurance_do_police: 'DO-75-1985-4421'
+  };
+  var interventions = [
+    { type_travaux: 'Plomberie', description: 'Réparation fuite évier cuisine', artisan_nom: 'Jean Dupont', artisan_entreprise: 'Plomberie Parisienne', montant_ttc: 180, date_intervention: '2025-01-15', statut: 'certifie', decennale_assureur: 'Allianz', decennale_police: 'DEC-2024-JD-0891', decennale_fin: '2034-01-15' },
+    { type_travaux: 'Rénovation énergétique', description: 'Installation chaudière à condensation', artisan_nom: 'Thermique IDF', montant_ttc: 3800, date_intervention: '2024-06-12', statut: 'certifie', decennale_assureur: 'MAAF Pro', decennale_police: 'DEC-2023-TIDF-0234', decennale_fin: '2033-06-12' },
+    { type_travaux: 'Électricité', description: 'Mise aux normes tableau électrique', artisan_nom: 'Karim Benali', artisan_entreprise: 'Élec Pro Paris', montant_ttc: 2200, date_intervention: '2024-03-08', statut: 'certifie' },
+    { type_travaux: 'Toiture', description: 'Réfection partielle toiture', artisan_nom: 'Couverture Martin', montant_ttc: 2400, date_intervention: '2024-11-03', statut: 'en_attente' }
+  ];
+  /* La barre reste visible pour revenir aux vrais biens */
+  /* Afficher le badge démo */
+  var adresseEl = document.getElementById('izt-adresse');
+  if (adresseEl) {
+    adresseEl.textContent = bien.adresse;
+    adresseEl.insertAdjacentHTML('afterend', '<span style="margin-left:8px;background:var(--orange);color:white;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:4px;vertical-align:middle;">DÉMO</span>');
+  }
+  iztAfficherFiche(bien, interventions);
+}
+
+function iztAfficherListeBiens(biens, bienActif, toutesInterventions) {
+  var container = document.getElementById('izt-biens-list');
+  if (!container) return;
+  container.style.display = 'flex';
+  var isDemoActif = (bienActif && bienActif._demo);
+  container.innerHTML = biens.map(function(b) {
+    var nbInterv = toutesInterventions.filter(function(i) { return i.bien_id === b.id; }).length;
+    var nbCert = toutesInterventions.filter(function(i) { return i.bien_id === b.id && i.statut === 'certifie'; }).length;
+    var isActif = !isDemoActif && b.id === bienActif.id;
+    return '<div onclick="iztSwitchBien('' + b.id + '')" style="' +
+      'padding:10px 16px; border-radius:8px; cursor:pointer; flex-shrink:0;' +
+      'border:1.5px solid ' + (isActif ? 'var(--orange)' : 'var(--blue-light)') + ';' +
+      'background:' + (isActif ? 'rgba(232,104,58,0.08)' : 'white') + ';">' +
+      '<div style="font-size:0.78rem;font-weight:700;color:var(--navy);">' + b.adresse + '</div>' +
+      '<div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">' + nbInterv + ' intervention' + (nbInterv > 1 ? 's' : '') + ' · ' + nbCert + ' certifiée' + (nbCert > 1 ? 's' : '') + '</div>' +
+      '</div>';
+  }).join('') +
+  /* Bouton démo toujours visible */
+  '<div onclick="iztSwitchDemo()" style="' +
+    'padding:10px 16px; border-radius:8px; cursor:pointer; flex-shrink:0;' +
+    'border:1.5px dashed ' + (isDemoActif ? 'var(--orange)' : 'var(--blue-light)') + ';' +
+    'background:' + (isDemoActif ? 'rgba(232,104,58,0.08)' : 'rgba(255,255,255,0.6)') + ';">' +
+    '<div style="font-size:0.78rem;font-weight:700;color:var(--gray);">⭐ Fiche démo</div>' +
+    '<div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Exemple complet certifié</div>' +
+  '</div>';
+}
+
+var iztAllBiens = [];
+var iztAllInterventions = [];
+
+function iztSwitchDemo() {
+  /* Basculer sur la fiche démo depuis la liste */
+  iztAfficherListeBiens(iztAllBiens, { _demo: true }, iztAllInterventions);
+  iztAfficherDemo();
+}
+
+async function iztSwitchBien(bienId) {
+  /* Charger depuis le cache si déjà là, sinon recharger */
+  var bien = iztAllBiens.find(function(b) { return b.id === bienId; });
+  if (!bien) { await iztLoad(); return; }
+  var interventions = iztAllInterventions.filter(function(i) { return i.bien_id === bienId; });
+  iztAfficherListeBiens(iztAllBiens, bien, iztAllInterventions);
+  iztAfficherFiche(bien, interventions);
+}
+
+function iztAfficherFiche(bien, interventions) {
+  var el = function(id) { return document.getElementById(id); };
+
+  /* Adresse + meta */
   if (el('izt-adresse')) el('izt-adresse').textContent = bien.adresse;
   var meta = [
     bien.type_bien ? (bien.type_bien.charAt(0).toUpperCase() + bien.type_bien.slice(1)) : null,
@@ -5892,63 +5970,31 @@ async function iztLoad() {
     bien.annee_construction ? 'Construit en ' + bien.annee_construction : null
   ].filter(Boolean).join(' · ');
   if (el('izt-meta')) el('izt-meta').textContent = meta;
-  if (el('izt-dpe')) { el('izt-dpe').textContent = bien.dpe || '—'; }
-  if (el('izt-ges')) { el('izt-ges').textContent = bien.ges || '—'; }
+  if (el('izt-dpe')) el('izt-dpe').textContent = bien.dpe || '—';
+  if (el('izt-ges')) el('izt-ges').textContent = bien.ges || '—';
 
-  /* 3. Charger les interventions filtrées par bien_id */
-  var interventions = [];
-  try {
-    var query = sb.from('interventions').select('*').order('date_intervention', { ascending: false });
-    if (bienId) {
-      query = query.eq('bien_id', bienId);
-    }
-    var resInterv = await query;
-    if (resInterv.data) interventions = resInterv.data;
-    console.log('[Histor] Interventions chargées:', interventions.length, 'pour bien_id:', bienId);
-  } catch(e) { console.warn('[Histor] Interventions non chargées:', e.message); }
-
-  /* Fallback démo selon scénario */
-  if (!interventions.length) {
-    if (scenario === '2') {
-      interventions = [
-        { type_travaux: 'Plomberie', description: 'Remplacement chauffe-eau', artisan_nom: 'Martin Plomberie', montant_ttc: 950, date_intervention: '2023-09-10', statut: 'certifie' },
-        { type_travaux: 'Peinture / Revêtements', description: 'Peinture salon et chambres', artisan_nom: 'Dupain Déco', montant_ttc: 2200, date_intervention: '2024-02-14', statut: 'en_attente' },
-        { type_travaux: 'Électricité', description: 'Mise aux normes prises', artisan_nom: 'Élec Sud', montant_ttc: 680, date_intervention: '2022-11-05', statut: 'en_attente' }
-      ];
-    } else if (scenario === '3') {
-      interventions = [
-        { type_travaux: 'Autre', description: 'Travaux divers', artisan_nom: 'Artisan inconnu', montant_ttc: 500, date_intervention: '2021-06-01', statut: 'en_attente' }
-      ];
-    } else {
-      interventions = [
-        { type_travaux: 'Plomberie', description: 'Réparation fuite évier cuisine', artisan_nom: 'Jean Dupont', artisan_entreprise: 'Plomberie Parisienne', montant_ttc: 180, date_intervention: '2025-01-15', statut: 'certifie', decennale_assureur: 'Allianz', decennale_police: 'DEC-2024-JD-0891', decennale_fin: '2034-01-15' },
-        { type_travaux: 'Rénovation énergétique', description: 'Installation chaudière à condensation', artisan_nom: 'Thermique IDF', montant_ttc: 3800, date_intervention: '2024-06-12', statut: 'certifie', decennale_assureur: 'MAAF Pro', decennale_police: 'DEC-2023-TIDF-0234', decennale_fin: '2033-06-12' },
-        { type_travaux: 'Électricité', description: 'Mise aux normes tableau électrique', artisan_nom: 'Karim Benali', artisan_entreprise: 'Élec Pro Paris', montant_ttc: 2200, date_intervention: '2024-03-08', statut: 'certifie' },
-        { type_travaux: 'Toiture', description: 'Réfection partielle toiture', artisan_nom: 'Couverture Martin', montant_ttc: 2400, date_intervention: '2024-11-03', statut: 'en_attente' }
-      ];
-    }
-  }
-
-  /* 4. KPIs */
+  /* KPIs */
   var certifiees = interventions.filter(function(i) { return i.statut === 'certifie'; }).length;
-  var montantTotal = interventions.reduce(function(s, i) { return s + (i.montant_ttc || 0); }, 0);
+  var montantTotal = interventions.reduce(function(s, i) { return s + (Number(i.montant_ttc) || 0); }, 0);
   if (el('izt-nb-interv')) el('izt-nb-interv').textContent = interventions.length;
   if (el('izt-cert-count')) el('izt-cert-count').textContent = certifiees + ' certifiée' + (certifiees > 1 ? 's' : '');
   if (el('izt-montant')) el('izt-montant').textContent = montantTotal.toLocaleString('fr-FR') + ' €';
-  if (el('izt-cert-badge')) el('izt-cert-badge').textContent = '✓ ' + certifiees + ' intervention' + (certifiees > 1 ? 's' : '') + ' certifiée' + (certifiees > 1 ? 's' : '');
 
-  /* 5. Calculer et afficher le score */
+  /* Score */
   var score = iztCalculerScore(bien, interventions);
   setTimeout(function() { iztAfficherScore(score); }, 300);
 
-  /* 6. Afficher les interventions */
+  /* Interventions */
   iztAfficherInterventions(interventions);
 
-  /* 7. Panneau notaire */
+  /* Panneau notaire */
   iztFillIdentite(bien);
   iztFillDO(bien);
   iztFillDecennales(interventions);
   iztFillCompletion(bien, interventions);
+
+  /* Stocker pour iztSwitchBien */
+  if (bien.id) sessionStorage.setItem('historim_bien_id', bien.id);
 }
 
 /* Toggle popup score */
