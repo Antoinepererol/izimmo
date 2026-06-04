@@ -1883,6 +1883,82 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 }
 
 
+
+/* ===== NAV PRINCIPALE ===== */
+.main-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px; background: rgba(248,249,250,0.92);
+  backdrop-filter: blur(12px); border-bottom: 1px solid rgba(15,28,50,0.06);
+}
+.nav-logo { text-decoration: none; line-height: 1; }
+.nav-links {
+  display: flex; gap: 8px; list-style: none; align-items: center; margin: 0; padding: 0;
+}
+.nav-links > li { position: relative; }
+.nav-links > li > a {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 14px; border-radius: 8px;
+  font-family: 'Satoshi', sans-serif; font-size: 0.85rem; font-weight: 600;
+  color: var(--navy); text-decoration: none; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-links > li > a:hover { background: rgba(15,28,50,0.05); }
+.nav-links .btn-nav {
+  background: var(--orange); color: white !important;
+}
+.nav-links .btn-nav:hover { background: #d4521f; }
+
+/* Dropdown */
+.nav-dropdown-wrap { position: relative; }
+.nav-dropdown {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  background: white; border-radius: 12px; padding: 8px;
+  box-shadow: 0 16px 48px rgba(15,28,50,0.16);
+  border: 1px solid rgba(15,28,50,0.06);
+  min-width: 290px; opacity: 0; visibility: hidden;
+  transform: translateY(-8px); transition: all 0.18s ease; z-index: 1001;
+}
+.nav-dropdown-wrap.open .nav-dropdown,
+.nav-dropdown-wrap:hover .nav-dropdown {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.nav-dd-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 11px 12px; border-radius: 8px; text-decoration: none;
+  transition: background 0.15s;
+}
+.nav-dd-item:hover { background: var(--beige); }
+.nav-dd-icon {
+  font-size: 1.1rem; flex-shrink: 0; width: 32px; height: 32px;
+  background: var(--beige); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-dd-item div { display: flex; flex-direction: column; }
+.nav-dd-item strong { font-size: 0.84rem; font-weight: 700; color: var(--navy); }
+.nav-dd-item span:not(.nav-dd-icon) { font-size: 0.72rem; color: var(--gray); margin-top: 1px; }
+.nav-dropdown-trigger::after { content: ''; }
+
+.mobile-menu-btn {
+  display: none; background: none; border: none; font-size: 1.5rem;
+  color: var(--navy); cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 880px) {
+  .main-nav { padding: 14px 20px; }
+  .nav-links {
+    position: fixed; top: 64px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 4px;
+    background: white; padding: 16px 20px;
+    box-shadow: 0 16px 48px rgba(15,28,50,0.16);
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-dropdown { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; padding: 4px 0 4px 16px; min-width: 0; }
+  .mobile-menu-btn { display: block; }
+}
+
 </style>
 </head>
 <body>
@@ -1912,21 +1988,42 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 </nav>
 
 <!-- HERO -->
-<section style="min-height:100vh; background:var(--navy); display:flex; align-items:center; padding:100px 80px 80px;">
-  <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+<section style="background:var(--navy); padding:130px 48px 90px; position:relative; overflow:hidden;">
+  <!-- Halo décoratif -->
+  <div style="position:absolute; top:-120px; right:-120px; width:480px; height:480px; background:radial-gradient(circle, rgba(232,104,58,0.14), transparent 70%); border-radius:50%; pointer-events:none;"></div>
+  <div style="position:absolute; bottom:-160px; left:-100px; width:420px; height:420px; background:radial-gradient(circle, rgba(202,228,237,0.06), transparent 70%); border-radius:50%; pointer-events:none;"></div>
 
-    <div>
-      <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(232,104,58,0.15); border:1px solid rgba(232,104,58,0.3); color:var(--orange); padding:6px 14px; border-radius:20px; font-size:0.72rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:28px;">● Startup Proptech française</div>
-      <h1 style="font-size:3.4rem; font-weight:900; color:white; line-height:1.1; letter-spacing:-1.5px; margin-bottom:16px;">L'historique certifié<br>de votre bien.</h1>
-      <p style="font-size:1.05rem; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:40px; max-width:540px; margin-left:auto; margin-right:auto;">Chaque intervention, chaque artisan, chaque document — centralisés, vérifiés, transmissibles. Pour acheter et vendre en toute confiance.</p>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
-        <button onclick="navGo('histor')" style="background:var(--orange); color:white; border:none; padding:14px 28px; border-radius:8px; font-weight:700; font-size:0.92rem; font-family:'Satoshi',sans-serif; cursor:pointer;">Voir une fiche exemple →</button>
-        <button onclick="navGo('saisie')" style="background:transparent; color:white; border:1px solid rgba(255,255,255,0.25); padding:14px 28px; border-radius:8px; font-weight:600; font-size:0.92rem; font-family:'Satoshi',sans-serif; cursor:pointer;">Enregistrer une intervention</button>
-      </div>
+  <div style="max-width:780px; margin:0 auto; text-align:center; position:relative; z-index:1;">
+    <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(232,104,58,0.12); border:1px solid rgba(232,104,58,0.3); color:var(--orange); padding:7px 16px; border-radius:30px; font-size:0.7rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:30px;">
+      <span style="width:6px; height:6px; background:var(--orange); border-radius:50%; display:inline-block;"></span>
+      Startup Proptech française
     </div>
 
+    <h1 style="font-size:3.6rem; font-weight:900; color:white; line-height:1.08; letter-spacing:-2px; margin-bottom:22px;">
+      L'historique certifié<br>de votre bien.
+    </h1>
 
+    <p style="font-size:1.1rem; color:rgba(255,255,255,0.62); line-height:1.65; margin:0 auto 38px; max-width:560px;">
+      Chaque intervention, chaque artisan, chaque document — centralisés, vérifiés, transmissibles. Pour acheter et vendre en toute confiance.
+    </p>
 
+    <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+      <button onclick="navGo('histor')" style="background:var(--orange); color:white; border:none; padding:15px 30px; border-radius:10px; font-weight:700; font-size:0.95rem; font-family:'Satoshi',sans-serif; cursor:pointer; box-shadow:0 8px 24px rgba(232,104,58,0.3); transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Voir une fiche exemple →</button>
+      <button onclick="navGo('saisie')" style="background:rgba(255,255,255,0.08); color:white; border:1px solid rgba(255,255,255,0.2); padding:15px 30px; border-radius:10px; font-weight:600; font-size:0.95rem; font-family:'Satoshi',sans-serif; cursor:pointer; transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">Enregistrer une intervention</button>
+    </div>
+
+    <!-- Mini trust bar -->
+    <div style="display:flex; gap:32px; justify-content:center; margin-top:52px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.45); font-size:0.78rem; font-weight:500;">
+        <span style="color:var(--green-cert); font-size:0.95rem;">✓</span> Validation par l'artisan
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.45); font-size:0.78rem; font-weight:500;">
+        <span style="color:var(--green-cert); font-size:0.95rem;">✓</span> SIRET vérifié INSEE
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.45); font-size:0.78rem; font-weight:500;">
+        <span style="color:var(--green-cert); font-size:0.95rem;">✓</span> Données non falsifiables
+      </div>
+    </div>
   </div>
 </section>
 
@@ -3366,8 +3463,8 @@ const DEMO_INTERVENTION = {
    MOBILE MENU
    ============================================================ */
 function toggleMobileMenu() {
-  const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('open');
+  var menu = document.querySelector('.main-nav .nav-links');
+  if (menu) menu.classList.toggle('open');
 }
 
 /* ============================================================
