@@ -1887,507 +1887,285 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 </head>
 <body>
 <div id="site-main">
+
 <!-- NAV -->
-<nav>
-  <a href="/" class="inner-nav-logo"><span class="logo-with-baseline">
-    <span class="logo-historim logo-light" style="font-size:1.35rem">Histor<em style="color:var(--orange);font-style:italic;font-weight:500;">im</em></span>
-    <span class="logo-baseline">Traçabilité certifiée</span>
-  </span></a>
+<nav class="main-nav" id="main-nav">
+  <a href="#" onclick="navGo('')" class="nav-logo">
+    <span class="logo-historim logo-dark" style="font-size:1.35rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;">im</em></span>
+    <span style="display:block;font-size:0.58rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;">Traçabilité certifiée</span>
+  </a>
   <ul class="nav-links">
     <li class="nav-dropdown-wrap" id="nav-dd-wrap">
       <a href="#" class="nav-dropdown-trigger" onclick="navToggleDropdown(document.getElementById('nav-dd-wrap')); return false;">Fonctionnalités ▾</a>
       <div class="nav-dropdown">
-        <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;">
-          <span class="nav-dd-icon">🔍</span>
-          <div><strong>Vérif</strong><span>Répertoire d'artisans certifiés</span></div>
-        </a>
-        <a onclick="navGo('histor')" class="nav-dd-item" style="cursor:pointer;">
-          <span class="nav-dd-icon">📋</span>
-          <div><strong>Histor</strong><span>Fiche vivante du logement</span></div>
-        </a>
-        <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;">
-          <span class="nav-dd-icon">📄</span>
-          <div><strong>Enregistrer une opération</strong><span>Upload facture + extraction IA</span></div>
-        </a>
-        <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;">
-          <span class="nav-dd-icon">📱</span>
-          <div><strong>App artisan</strong><span>Certification depuis le chantier</span></div>
-        </a>
+        <a onclick="navGo('verifiz')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>Vérif</strong><span>Répertoire d'artisans certifiés</span></div></a>
+        <a onclick="navGo('histor')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>Histor</strong><span>Fiche vivante du logement</span></div></a>
+        <a onclick="navGo('saisie')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📄</span><div><strong>Enregistrer une opération</strong><span>Upload + validation artisan</span></div></a>
+        <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification depuis le chantier</span></div></a>
       </div>
     </li>
     <li><a onclick="navGo('confiance')" style="cursor:pointer;">Engagements</a></li>
     <li><a onclick="navGo('dashboard')" style="cursor:pointer;">🏠 Mon tableau de bord</a></li>
     <li><a href="#contact" class="btn-nav">Nous contacter</a></li>
   </ul>
-  <!-- Burger mobile -->
-  <button class="nav-burger" id="nav-burger" onclick="toggleMobileMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
 </nav>
 
-<!-- Menu mobile -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/" onclick="toggleMobileMenu()">Accueil</a>
-  <a href="#verifiz" onclick="toggleMobileMenu()">🔍 Vérif</a>
-  <a href="#histor" onclick="toggleMobileMenu()">📋 Histor</a>
-  <a href="#saisie" onclick="toggleMobileMenu()">📄 Saisir</a>
-  <a href="#saisie-artisan" onclick="toggleMobileMenu()">📱 App artisan</a>
-  <a href="#dashboard" onclick="toggleMobileMenu()">🏠 Tableau de bord</a>
-  <a href="#confiance" onclick="toggleMobileMenu()">🤝 Engagements</a>
-  <a href="#contact" onclick="toggleMobileMenu()">✉️ Nous contacter</a>
-</div>
-
 <!-- HERO -->
-<section class="hero-full">
-  <div class="hero-full-inner">
-    <p class="hero-slogan">Osons la transparence !</p>
-    <h1 class="hero-title-new">La vraie valeur d'un bien<br>réside dans <em>son histoire.</em></h1>
-    <p class="hero-desc-new">La première plateforme qui trace et certifie l'historique d'un bien — validé par les artisans eux-mêmes.</p>
+<section style="min-height:100vh; background:var(--navy); display:flex; align-items:center; padding:100px 80px 80px;">
+  <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
 
-    <p class="persona-intro">Je suis…</p>
-    <div class="persona-grid">
-      <a href="#persona=proprietaire" class="persona-card">
-        <div class="persona-emoji">🏠</div>
-        <div class="persona-label">Propriétaire</div>
-        <div class="persona-pitch">Je veux valoriser mon bien à la vente</div>
-        <div class="persona-arrow">→</div>
-      </a>
-      <a href="#persona=artisan" class="persona-card">
-        <div class="persona-emoji">🔧</div>
-        <div class="persona-label">Artisan</div>
-        <div class="persona-pitch">Je veux booster ma visibilité et ma réputation</div>
-        <div class="persona-arrow">→</div>
-      </a>
-      <a href="#persona=agent" class="persona-card">
-        <div class="persona-emoji">🏢</div>
-        <div class="persona-label">Agent immobilier</div>
-        <div class="persona-pitch">Je veux différencier mes mandats et réduire les litiges</div>
-        <div class="persona-arrow">→</div>
-      </a>
-      <a href="#persona=acquereur" class="persona-card">
-        <div class="persona-emoji">🔑</div>
-        <div class="persona-label">Acquéreur</div>
-        <div class="persona-pitch">Je veux connaître le vrai état d'un bien avant d'acheter</div>
-        <div class="persona-arrow">→</div>
-      </a>
+    <div>
+      <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(232,104,58,0.15); border:1px solid rgba(232,104,58,0.3); color:var(--orange); padding:6px 14px; border-radius:20px; font-size:0.72rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:28px;">● Startup Proptech française</div>
+      <h1 style="font-size:3.4rem; font-weight:900; color:white; line-height:1.1; letter-spacing:-1.5px; margin-bottom:16px;">L'historique certifié<br>de votre bien.</h1>
+      <p style="font-size:1.05rem; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:40px; max-width:540px; margin-left:auto; margin-right:auto;">Chaque intervention, chaque artisan, chaque document — centralisés, vérifiés, transmissibles. Pour acheter et vendre en toute confiance.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+        <button onclick="navGo('histor')" style="background:var(--orange); color:white; border:none; padding:14px 28px; border-radius:8px; font-weight:700; font-size:0.92rem; font-family:'Satoshi',sans-serif; cursor:pointer;">Voir une fiche exemple →</button>
+        <button onclick="navGo('saisie')" style="background:transparent; color:white; border:1px solid rgba(255,255,255,0.25); padding:14px 28px; border-radius:8px; font-weight:600; font-size:0.92rem; font-family:'Satoshi',sans-serif; cursor:pointer;">Enregistrer une intervention</button>
+      </div>
     </div>
+
+
+
   </div>
 </section>
 
-<!-- DÉMO ANIMÉE -->
-<section style="padding:90px 80px; background:var(--beige-deep);" id="demo">
-  <div style="text-align:center; margin-bottom:48px;">
-    <div style="font-size:0.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--orange); margin-bottom:12px;">Démonstration</div>
-    <h2 style="font-size:2.2rem; font-weight:800; color:var(--navy); letter-spacing:-0.8px; margin-bottom:12px; line-height:1.15;">Historim en <em style="color:var(--orange); font-style:normal;">4 étapes</em></h2>
-    <p style="font-size:0.9rem; color:var(--gray); max-width:460px; margin:0 auto; line-height:1.6;">De la facture à la certification — le flux complet en moins de 30 secondes.</p>
-  </div>
+<!-- SECTION FICHE EXEMPLE -->
+<section style="padding:72px 80px; background:var(--beige);">
+  <div style="max-width:1100px; margin:0 auto;">
 
-  <div style="max-width:960px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
-
-    <!-- Fenêtre simulée -->
-    <div id="demo-window" style="background:white; border-radius:16px; box-shadow:0 24px 80px rgba(26,43,74,0.15); overflow:hidden; min-height:380px;">
-      <!-- Barre navigateur -->
-      <div style="background:var(--navy-deep); padding:10px 16px; display:flex; align-items:center; gap:10px;">
-        <div style="display:flex;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:#FF5F56"></div><div style="width:10px;height:10px;border-radius:50%;background:#FFBD2E"></div><div style="width:10px;height:10px;border-radius:50%;background:#27C93F"></div></div>
-        <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:4px;padding:4px 12px;font-size:0.68rem;color:rgba(255,255,255,0.45);font-family:monospace;" id="demo-url">app.historim.fr · Saisir une opération</div>
-      </div>
-      <!-- Contenu des scènes -->
-      <div style="position:relative; min-height:340px; overflow:hidden;">
-
-        <!-- SCÈNE 1 : Upload -->
-        <div class="demo-scene active" id="demo-scene-1" style="padding:24px;">
-          <div style="font-size:0.68rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Étape 1 — Upload facture</div>
-          <div style="border:2px dashed var(--blue-mid);border-radius:10px;padding:20px;text-align:center;background:var(--beige);margin-bottom:16px;">
-            <div style="font-size:2rem;margin-bottom:6px;" id="demo-upload-icon">📎</div>
-            <div style="font-size:0.82rem;font-weight:700;color:var(--navy);" id="demo-upload-text">facture_plomberie.pdf</div>
-            <div style="font-size:0.68rem;color:var(--gray);" id="demo-upload-sub">Déposé · 247 Ko</div>
-          </div>
-          <div id="demo-ai-box" style="background:var(--navy-deep);border-radius:8px;padding:12px 14px;">
-            <div style="font-size:0.7rem;font-weight:700;color:var(--orange);margin-bottom:8px;">⚙️ Extraction IA…</div>
-            <div id="demo-ai-steps" style="display:flex;flex-direction:column;gap:4px;">
-              <div id="das1" style="font-size:0.72rem;color:rgba(255,255,255,0.35);">📖 Lecture du document…</div>
-              <div id="das2" style="font-size:0.72rem;color:rgba(255,255,255,0.35);">👤 Identification artisan…</div>
-              <div id="das3" style="font-size:0.72rem;color:rgba(255,255,255,0.35);">💶 Extraction montant…</div>
-              <div id="das4" style="font-size:0.72rem;color:rgba(255,255,255,0.35);">🔍 Vérification SIRET…</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SCÈNE 2 : Données extraites -->
-        <div class="demo-scene" id="demo-scene-2" style="padding:24px;">
-          <div style="font-size:0.68rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Étape 1 — Données extraites ✓</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div style="background:var(--beige);border-radius:7px;padding:8px 10px;">
-              <div style="font-size:0.6rem;color:var(--gray);margin-bottom:2px;">Artisan</div>
-              <div style="font-size:0.78rem;font-weight:700;color:var(--navy);">Jean Dupont</div>
-            </div>
-            <div style="background:var(--beige);border-radius:7px;padding:8px 10px;">
-              <div style="font-size:0.6rem;color:var(--gray);margin-bottom:2px;">SIRET</div>
-              <div style="font-size:0.78rem;font-weight:700;color:var(--navy);font-family:monospace;">41234567800014</div>
-            </div>
-            <div style="background:var(--beige);border-radius:7px;padding:8px 10px;">
-              <div style="font-size:0.6rem;color:var(--gray);margin-bottom:2px;">Type</div>
-              <div style="font-size:0.78rem;font-weight:700;color:var(--navy);">Plomberie</div>
-            </div>
-            <div style="background:var(--beige);border-radius:7px;padding:8px 10px;">
-              <div style="font-size:0.6rem;color:var(--gray);margin-bottom:2px;">Montant TTC</div>
-              <div style="font-size:0.78rem;font-weight:700;color:var(--navy);">1 850 €</div>
-            </div>
-            <div style="background:var(--beige);border-radius:7px;padding:8px 10px;">
-              <div style="font-size:0.6rem;color:var(--gray);margin-bottom:2px;">Date</div>
-              <div style="font-size:0.78rem;font-weight:700;color:var(--navy);">15/03/2025</div>
-            </div>
-            <div style="background:var(--beige);border-radius:7px;padding:8px 10px;">
-              <div style="font-size:0.6rem;color:var(--gray);margin-bottom:2px;">Bien</div>
-              <div style="font-size:0.78rem;font-weight:700;color:var(--navy);">15 rue de la Paix</div>
-            </div>
-          </div>
-          <div style="margin-top:10px;background:var(--green-bg);border-radius:6px;padding:8px 12px;font-size:0.72rem;color:var(--green-cert);font-weight:600;">✓ Données extraites — sauvegardées en base</div>
-        </div>
-
-        <!-- SCÈNE 3 : Email artisan -->
-        <div class="demo-scene" id="demo-scene-3" style="padding:24px;">
-          <div style="font-size:0.68rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Étape 2 — Notification artisan</div>
-          <div style="border:1.5px solid var(--blue-light);border-radius:10px;overflow:hidden;">
-            <div style="background:var(--navy-deep);padding:7px 12px;font-size:0.62rem;color:rgba(255,255,255,0.4);font-family:monospace;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__">pererol.antoine@outlook.fr</a> → <a href="/cdn-cgi/l/email-protection" class="__cf_email__">pererol.antoine@outlook.fr</a></div>
-            <div style="padding:14px;">
-              <div style="font-size:0.68rem;color:var(--gray);margin-bottom:8px;">Objet : <strong style="color:var(--navy)">Confirmez-vous cette intervention ?</strong></div>
-              <div style="background:var(--beige);border-radius:6px;padding:10px;font-size:0.72rem;color:var(--navy);line-height:1.6;margin-bottom:10px;">
-                <div><strong>Bien :</strong> 15 rue de la Paix, Paris 1er</div>
-                <div><strong>Type :</strong> Plomberie · 1 850 €</div>
-                <div><strong>Date :</strong> 15/03/2025</div>
-              </div>
-              <div id="demo-confirm-btn" style="background:var(--orange);color:white;text-align:center;padding:9px;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;">✓ Je confirme cette intervention</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SCÈNE 4 : Certifié -->
-        <div class="demo-scene" id="demo-scene-4" style="padding:24px;">
-          <div style="font-size:0.68rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Étape 4 — Fiche certifiée</div>
-          <div style="border:1.5px solid var(--blue-light);border-radius:10px;overflow:hidden;">
-            <div style="background:var(--navy-deep);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
-              <div>
-                <div style="font-size:0.6rem;color:var(--orange);font-weight:700;text-transform:uppercase;margin-bottom:2px;">15 rue de la Paix, Paris 1er</div>
-                <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">Appartement · 65m² · 1985</div>
-              </div>
-              <div style="text-align:center;">
-                <div id="demo-score-num" style="font-size:1.6rem;font-weight:900;color:var(--orange);line-height:1;">64</div>
-                <div style="font-size:0.55rem;color:rgba(255,255,255,0.4);">Score</div>
-              </div>
-            </div>
-            <div style="padding:12px 16px;">
-              <div style="background:var(--green-bg);border-left:3px solid var(--green-cert);border-radius:0 6px 6px 0;padding:10px 12px;">
-                <div style="font-size:0.65rem;font-weight:700;color:var(--orange);text-transform:uppercase;margin-bottom:2px;">Plomberie</div>
-                <div style="font-size:0.8rem;font-weight:700;color:var(--navy);">Remplacement robinetterie</div>
-                <div style="font-size:0.65rem;color:var(--gray);margin-top:3px;display:flex;gap:8px;align-items:center;">
-                  <span>👤 Jean Dupont</span>
-                  <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid rgba(42,125,95,0.2);">✓ Certifié</span>
-                </div>
-              </div>
-              <div style="margin-top:8px;display:flex;align-items:center;gap:6px;">
-                <div style="height:5px;flex:1;background:var(--blue-light);border-radius:3px;overflow:hidden;">
-                  <div id="demo-score-bar" style="width:64%;height:100%;background:linear-gradient(90deg,var(--navy),var(--orange));border-radius:3px;transition:width 1.5s ease;"></div>
-                </div>
-                <span style="font-size:0.65rem;color:var(--orange);font-weight:700;" id="demo-score-pct">64%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+    <div style="text-align:center; margin-bottom:44px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:10px;">Exemple concret</div>
+      <h2 style="font-size:2rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:8px;">À quoi ressemble une fiche Histor ?</h2>
+      <p style="font-size:0.88rem; color:var(--gray); max-width:480px; margin:0 auto; line-height:1.6;">Un historique complet, certifié par les artisans eux-mêmes. Consultable en un clic lors d'une transaction.</p>
     </div>
 
-    <!-- Légendes des étapes -->
-    <div style="display:flex;flex-direction:column;gap:20px;">
-      <div class="demo-step-label active" id="demo-lbl-1">
-        <div style="display:flex;align-items:flex-start;gap:14px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--orange);color:white;font-size:0.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
-          <div>
-            <div style="font-size:0.9rem;font-weight:800;color:var(--navy);margin-bottom:3px;">Upload de la facture</div>
-            <div style="font-size:0.78rem;color:var(--gray);line-height:1.5;">Le propriétaire dépose sa facture. Claude extrait automatiquement les données clés.</div>
-          </div>
+    <!-- Fiche bien statique -->
+    <div style="background:white; border-radius:16px; box-shadow:0 16px 48px rgba(26,43,74,0.1); overflow:hidden; max-width:900px; margin:0 auto;">
+
+      <!-- Header fiche -->
+      <div style="background:var(--navy); padding:20px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div style="font-size:0.62rem; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Fiche Histor</div>
+          <div style="font-size:1.05rem; font-weight:900; color:white;">15 rue de la Paix, 75001 Paris</div>
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.5); margin-top:3px;">Appartement · 65 m² · 3 pièces · Construit en 1985</div>
         </div>
-      </div>
-      <div class="demo-step-label" id="demo-lbl-2">
-        <div style="display:flex;align-items:flex-start;gap:14px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-light);color:var(--navy);font-size:0.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
-          <div>
-            <div style="font-size:0.9rem;font-weight:800;color:var(--navy);margin-bottom:3px;">Données extraites</div>
-            <div style="font-size:0.78rem;color:var(--gray);line-height:1.5;">Artisan, SIRET, montant, date — pré-remplis automatiquement. Sauvegardés en base.</div>
-          </div>
-        </div>
-      </div>
-      <div class="demo-step-label" id="demo-lbl-3">
-        <div style="display:flex;align-items:flex-start;gap:14px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-light);color:var(--navy);font-size:0.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
-          <div>
-            <div style="font-size:0.9rem;font-weight:800;color:var(--navy);margin-bottom:3px;">Notification artisan</div>
-            <div style="font-size:0.78rem;color:var(--gray);line-height:1.5;">L'artisan reçoit un email. Il confirme en un clic — sans compte, sans application.</div>
-          </div>
-        </div>
-      </div>
-      <div class="demo-step-label" id="demo-lbl-4">
-        <div style="display:flex;align-items:flex-start;gap:14px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-light);color:var(--navy);font-size:0.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
-          <div>
-            <div style="font-size:0.9rem;font-weight:800;color:var(--navy);margin-bottom:3px;">Fiche certifiée</div>
-            <div style="font-size:0.78rem;color:var(--gray);line-height:1.5;">L'intervention est certifiée. Le score de transparence monte. La fiche est consultable.</div>
-          </div>
+        <div style="background:rgba(255,255,255,0.08); border-radius:10px; padding:12px 18px; text-align:center;">
+          <div style="font-size:1.8rem; font-weight:900; color:var(--orange); line-height:1;">82</div>
+          <div style="font-size:0.6rem; color:rgba(255,255,255,0.4); font-weight:600; text-transform:uppercase; letter-spacing:0.8px; margin-top:3px;">Score de transparence</div>
+          <div style="margin-top:6px; background:rgba(6,214,160,0.2); border-radius:4px; padding:2px 8px; font-size:0.62rem; font-weight:700; color:var(--green-cert);">⭐ Très transparent</div>
         </div>
       </div>
 
-      <a href="#saisie" style="margin-top:8px;display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:white;padding:12px 24px;border-radius:8px;font-weight:700;font-size:0.85rem;text-decoration:none;width:fit-content;">
-        Essayer maintenant →
-      </a>
+      <!-- KPIs -->
+      <div style="display:flex; gap:0; border-bottom:1px solid var(--beige);">
+        <div style="flex:1; padding:14px 20px; text-align:center; border-right:1px solid var(--beige);">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">DPE</div>
+          <div style="font-size:1.4rem; font-weight:900;"><span style="background:#E8A020;color:white;padding:2px 10px;border-radius:4px;">D</span></div>
+        </div>
+        <div style="flex:1; padding:14px 20px; text-align:center; border-right:1px solid var(--beige);">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">Interventions</div>
+          <div style="font-size:1.4rem; font-weight:900; color:var(--navy);">4</div>
+          <div style="font-size:0.62rem; color:var(--green-cert); font-weight:600;">3 certifiées</div>
+        </div>
+        <div style="flex:1; padding:14px 20px; text-align:center; border-right:1px solid var(--beige);">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">Montant total</div>
+          <div style="font-size:1.2rem; font-weight:900; color:var(--navy);">8 580 €</div>
+        </div>
+        <div style="flex:1; padding:14px 20px; text-align:center;">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">Dernière intervention</div>
+          <div style="font-size:0.88rem; font-weight:700; color:var(--navy);">Jan. 2025</div>
+        </div>
+      </div>
+
+      <!-- Interventions -->
+      <div style="padding:20px 28px;">
+        <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; gap:6px;"><span style="width:3px;height:10px;background:var(--orange);border-radius:2px;display:inline-block;"></span>Historique des interventions</div>
+
+        <!-- Intervention 1 — certifiée -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:14px 16px; background:var(--beige); border-radius:10px; border-left:4px solid var(--green-cert); margin-bottom:10px;">
+          <div>
+            <div style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Plomberie</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réparation fuite évier cuisine</div>
+            <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              Jean Dupont · Plomberie Parisienne
+              <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span>
+            </div>
+            <div style="display:flex; gap:14px; margin-top:5px; font-size:0.65rem; color:var(--gray);">
+              <span>📅 15/01/2025</span><span>⏱ 2h</span>
+            </div>
+          </div>
+          <div style="text-align:right; flex-shrink:0;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--navy);">180 €</div>
+          </div>
+        </div>
+
+        <!-- Intervention 2 — certifiée -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:14px 16px; background:var(--beige); border-radius:10px; border-left:4px solid var(--green-cert); margin-bottom:10px;">
+          <div>
+            <div style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Rénovation énergétique</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Installation chaudière à condensation</div>
+            <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              Thermique IDF
+              <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span>
+              <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">RGE</span>
+            </div>
+            <div style="display:flex; gap:14px; margin-top:5px; font-size:0.65rem; color:var(--gray);">
+              <span>📅 12/06/2024</span><span>⏱ 1 jour</span>
+            </div>
+          </div>
+          <div style="text-align:right; flex-shrink:0;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--navy);">3 800 €</div>
+          </div>
+        </div>
+
+        <!-- Intervention 3 — certifiée -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:14px 16px; background:var(--beige); border-radius:10px; border-left:4px solid var(--green-cert); margin-bottom:10px;">
+          <div>
+            <div style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Électricité</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Mise aux normes tableau électrique</div>
+            <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              Karim Benali · Élec Pro Paris
+              <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span>
+            </div>
+            <div style="display:flex; gap:14px; margin-top:5px; font-size:0.65rem; color:var(--gray);">
+              <span>📅 08/03/2024</span>
+            </div>
+          </div>
+          <div style="text-align:right; flex-shrink:0;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--navy);">2 200 €</div>
+          </div>
+        </div>
+
+        <!-- Intervention 4 — en attente -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:14px 16px; background:var(--beige); border-radius:10px; border-left:4px solid var(--orange); margin-bottom:16px; opacity:0.75;">
+          <div>
+            <div style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Toiture</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réfection partielle toiture</div>
+            <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px;">
+              Couverture Martin
+              <span style="background:var(--amber-bg);color:var(--orange);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">⏳ En attente de validation</span>
+            </div>
+            <div style="display:flex; gap:14px; margin-top:5px; font-size:0.65rem; color:var(--gray);">
+              <span>📅 03/11/2024</span>
+            </div>
+          </div>
+          <div style="text-align:right; flex-shrink:0;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--navy);">2 400 €</div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="text-align:center;">
+          <button onclick="navGo('histor')" style="background:var(--navy);color:white;border:none;padding:12px 28px;border-radius:8px;font-weight:700;font-size:0.88rem;font-family:'Satoshi',sans-serif;cursor:pointer;">Voir la fiche complète →</button>
+        </div>
+      </div>
     </div>
 
   </div>
 </section>
 
-<style>
-.demo-scene { display:none; position:absolute; top:0; left:0; right:0; animation: demoFadeIn 0.4s ease; }
-.demo-scene.active { display:block; }
-@keyframes demoFadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-.demo-step-label { padding:14px 16px; border-radius:10px; transition:all 0.3s; opacity:0.45; }
-.demo-step-label.active { opacity:1; background:white; box-shadow:0 4px 16px rgba(26,43,74,0.08); }
-.demo-step-label.active div > div:first-child { background:var(--orange) !important; color:white !important; }
-@media (max-width:900px) {
-  #demo > div:last-child { grid-template-columns:1fr !important; }
-}
-
-.f-addr-item:hover { background: var(--beige) !important; }
-.f-addr-item:last-child { border-bottom: none !important; }
-
-.sa-screen { display:none; position:absolute; top:0; left:0; right:0; animation:saFadeIn 0.3s ease; }
-.sa-screen.active { display:block; }
-@keyframes saFadeIn { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
-
-/* Menu déroulant nav */
-.nav-dropdown-wrap { position: relative; }
-.nav-dropdown-trigger { cursor: pointer; user-select: none; }
-.nav-dropdown {
-  display: none; position: absolute; top: calc(100% + 8px); left: 50%;
-  transform: translateX(-50%); width: 280px;
-  background: white; border-radius: 12px;
-  box-shadow: 0 16px 48px rgba(26,43,74,0.15);
-  border: 1px solid rgba(26,43,74,0.08);
-  padding: 8px; z-index: 300;
-  /* Zone de sécurité au-dessus pour éviter fermeture accidentelle */
-  margin-top: 0;
-}
-.nav-dropdown::before {
-  content: ''; position: absolute; top: -8px; left: 0; right: 0; height: 12px;
-}
-.nav-dropdown-wrap.open .nav-dropdown { display: block; }
-.nav-dropdown-wrap:hover .nav-dropdown { display: block; }
-.nav-dd-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 12px; border-radius: 8px; text-decoration: none;
-  transition: background 0.15s; color: var(--navy);
-}
-.nav-dd-item:hover { background: var(--beige); }
-.nav-dd-item strong { display: block; font-size: 0.82rem; font-weight: 700; color: var(--navy); }
-.nav-dd-item span { display: block; font-size: 0.68rem; color: var(--gray); margin-top: 1px; }
-.nav-dd-icon { font-size: 1.1rem; flex-shrink: 0; width: 28px; text-align: center; }
-.nav-dd-sep { height: 1px; background: var(--blue-light); margin: 4px 0; }
-
-.inner-nav-dropdown-wrap { position: relative; display: inline-block; }
-.inner-nav-dropdown {
-  display: none; position: absolute; top: calc(100% + 8px); left: 50%;
-  transform: translateX(-50%); width: 260px;
-  background: white; border-radius: 10px;
-  box-shadow: 0 12px 36px rgba(26,43,74,0.15);
-  border: 1px solid rgba(26,43,74,0.08);
-  padding: 6px; z-index: 300;
-}
-.inner-nav-dropdown-wrap:hover .inner-nav-dropdown { display: block; }
-</style>
-
-<script>
-(function() {
-  var demoStep = 1;
-  var demoRunning = false;
-  var demoTimer = null;
-
-  var scenes   = [1,2,3,4];
-  var urls     = ['app.historim.fr · Saisir une opération','app.historim.fr · Données extraites','app.historim.fr · Notification artisan','app.historim.fr · Fiche IzTrack'];
-  var durations = [3800, 3200, 3500, 4000];
-
-  function demoGo(step) {
-    // Scènes
-    scenes.forEach(function(s) {
-      var el = document.getElementById('demo-scene-' + s);
-      if (el) el.classList.toggle('active', s === step);
-    });
-    // Labels
-    scenes.forEach(function(s) {
-      var el = document.getElementById('demo-lbl-' + s);
-      if (el) el.classList.toggle('active', s === step);
-    });
-    // URL bar
-    var urlEl = document.getElementById('demo-url');
-    if (urlEl) urlEl.textContent = urls[step - 1];
-
-    // Animations spécifiques
-    if (step === 1) demoAnimateAI();
-    if (step === 4) demoAnimateScore();
-  }
-
-  function demoAnimateAI() {
-    var steps = ['das1','das2','das3','das4'];
-    steps.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) { el.style.color = 'rgba(255,255,255,0.35)'; el.textContent = el.textContent.replace('✓','').trim(); }
-    });
-    steps.forEach(function(id, i) {
-      setTimeout(function() {
-        var el = document.getElementById(id);
-        if (el) { el.style.color = '#4CAF50'; el.textContent = '✓ ' + el.textContent.replace('✓','').trim(); }
-      }, 400 + i * 500);
-    });
-  }
-
-  function demoAnimateScore() {
-    var num = document.getElementById('demo-score-num');
-    var bar = document.getElementById('demo-score-bar');
-    var pct = document.getElementById('demo-score-pct');
-    if (!num) return;
-    var start = 64; var target = 82; var current = start;
-    setTimeout(function() {
-      if (bar) bar.style.width = target + '%';
-      var iv = setInterval(function() {
-        current++;
-        if (num) num.textContent = current;
-        if (pct) pct.textContent = current + '%';
-        if (current >= target) clearInterval(iv);
-      }, 60);
-    }, 600);
-  }
-
-  function demoNext() {
-    demoStep = demoStep >= 4 ? 1 : demoStep + 1;
-    demoGo(demoStep);
-    demoTimer = setTimeout(demoNext, durations[demoStep - 1]);
-  }
-
-  function demoStart() {
-    if (demoRunning) return;
-    demoRunning = true;
-    demoGo(1);
-    demoTimer = setTimeout(demoNext, durations[0]);
-  }
-
-  // Démarrer quand la section est visible (IntersectionObserver)
-  var section = document.getElementById('demo');
-  if (section && window.IntersectionObserver) {
-    var obs = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting) { demoStart(); obs.disconnect(); }
-    }, { threshold: 0.1 });
-    obs.observe(section);
-  } else {
-    setTimeout(demoStart, 500);
-  }
-  // Fallback : démarrer après 2s dans tous les cas
-  setTimeout(function() { demoStart(); }, 2000);
-})();
-</script>
-
-
-<!-- SOLUTION — 3 produits condensés -->
-<section class="section-solution-compact" id="produit">
-  <div class="solution-label">La solution Historim</div>
-  <h2 class="solution-title">Trois outils, une seule mission</h2>
-  <div class="solution-cards">
-    <a href="#verifiz" class="solution-card">
-      <div class="solution-icon">🔍</div>
-      <div class="solution-name">Vérif'<em>Iz</em></div>
-      <div class="solution-desc">Répertoire d'artisans certifiés, classés par score de transparence Historim.</div>
-      <div class="solution-cta">Explorer →</div>
-    </a>
-    <a href="#saisie" class="solution-card solution-card-mid">
-      <div class="solution-icon">📋</div>
-      <div class="solution-name">Histor</div>
-      <div class="solution-desc">La fiche vivante de votre logement. Historique certifié transmissible à la vente.</div>
-      <div class="solution-cta">Saisir une intervention →</div>
-    </a>
-    <a href="#proboard=d1" class="solution-card">
-      <div class="solution-icon">📊</div>
-      <div class="solution-name">Pro<em>Board</em></div>
-      <div class="solution-desc">La vitrine professionnelle certifiée pour les artisans et agences immobilières.</div>
-      <div class="solution-cta">Voir un exemple →</div>
-    </a>
+<!-- SECTION 2 — Le problème -->
+<section style="padding:80px; background:var(--beige-deep);">
+  <div style="max-width:860px; margin:0 auto; text-align:center;">
+    <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:20px;">Le problème</div>
+    <div style="font-size:4rem; font-weight:900; color:var(--navy); line-height:1; margin-bottom:16px;">72%</div>
+    <p style="font-size:1.3rem; font-weight:600; color:var(--navy); line-height:1.5; margin-bottom:12px; max-width:640px; margin-left:auto; margin-right:auto;">des acheteurs découvrent l'état réel d'un bien après la signature.</p>
+    <p style="font-size:0.82rem; color:var(--gray); margin-bottom:6px;">Travaux cachés, malfaçons non documentées, historique introuvable.</p>
+    <p style="font-size:0.72rem; color:var(--gray); font-style:italic;">Source : Observatoire du Logement</p>
   </div>
 </section>
 
-<!-- COMMENT ÇA MARCHE — 3 étapes -->
-<section class="section-how">
-  <div class="how-label">Le fonctionnement</div>
-  <h2 class="how-title">De la facture à la certification<br>en 15 secondes</h2>
-  <div class="how-steps">
-    <div class="how-step">
-      <div class="how-step-num">1</div>
-      <div class="how-step-icon">📄</div>
-      <div class="how-step-title">Upload de la facture</div>
-      <div class="how-step-desc">Historim extrait automatiquement le SIRET, la date, la nature et le montant.</div>
-      <span class="how-badge">OCR + IA</span>
+<!-- SECTION 3 — Comment ça marche -->
+<section style="padding:80px; background:white;">
+  <div style="max-width:960px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:56px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px;">Le fonctionnement</div>
+      <h2 style="font-size:2.2rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px;">Simple. Certifié. Transmissible.</h2>
     </div>
-    <div class="how-connector"></div>
-    <div class="how-step">
-      <div class="how-step-num">2</div>
-      <div class="how-step-icon">✅</div>
-      <div class="how-step-title">Validation artisan</div>
-      <div class="how-step-desc">L'artisan reçoit un SMS. En un clic, il certifie l'intervention depuis son téléphone.</div>
-      <span class="how-badge">15 secondes</span>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px; position:relative;">
+      <div style="position:absolute; top:36px; left:16%; right:16%; height:2px; background:linear-gradient(90deg,var(--orange),rgba(232,104,58,0.2));"></div>
+      <div style="text-align:center; position:relative; z-index:1;">
+        <div style="width:72px;height:72px;border-radius:50%;background:var(--orange);color:white;font-size:1.6rem;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 0 0 8px rgba(232,104,58,0.12);">🔧</div>
+        <h3 style="font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:10px;">L'artisan enregistre</h3>
+        <p style="font-size:0.82rem;color:var(--gray);line-height:1.6;">Depuis son téléphone, après le chantier. En 30 secondes, l'intervention est déclarée et liée à son SIRET vérifié.</p>
+      </div>
+      <div style="text-align:center; position:relative; z-index:1;">
+        <div style="width:72px;height:72px;border-radius:50%;background:var(--beige);border:2px solid var(--orange);color:var(--navy);font-size:1.6rem;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">✅</div>
+        <h3 style="font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:10px;">Le propriétaire confirme</h3>
+        <p style="font-size:0.82rem;color:var(--gray);line-height:1.6;">Il reçoit une notification et valide en un clic. L'intervention est certifiée — impossible à falsifier.</p>
+      </div>
+      <div style="text-align:center; position:relative; z-index:1;">
+        <div style="width:72px;height:72px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-cert);color:var(--green-cert);font-size:1.6rem;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">📋</div>
+        <h3 style="font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:10px;">La fiche est accessible</h3>
+        <p style="font-size:0.82rem;color:var(--gray);line-height:1.6;">L'historique certifié est consultable par le propriétaire, son agent immobilier et le notaire lors de la transaction.</p>
+      </div>
     </div>
-    <div class="how-connector"></div>
-    <div class="how-step">
-      <div class="how-step-num">3</div>
-      <div class="how-step-icon">🔑</div>
-      <div class="how-step-title">Fiche certifiée</div>
-      <div class="how-step-desc">Le score monte. L'agent partage un accès sécurisé à l'acquéreur avant la transaction.</div>
-      <span class="how-badge">Accès sécurisé</span>
+    <div style="text-align:center; margin-top:48px;">
+      <button onclick="navGo('saisie')" style="background:var(--navy);color:white;border:none;padding:14px 32px;border-radius:8px;font-weight:700;font-size:0.92rem;font-family:'Satoshi',sans-serif;cursor:pointer;">Enregistrer ma première intervention →</button>
     </div>
-  </div>
-  <div style="text-align:center;margin-top:40px">
-    <a href="#saisie" class="btn-primary" style="font-size:0.9rem">Essayer maintenant →</a>
   </div>
 </section>
 
-<!-- CTA CONTACT -->
-<section class="section-cta" id="contact">
-  <div class="section-tag-dark">Rejoindre le projet</div>
-  <h2 class="cta-title">Osons la <em>transparence</em><br>ensemble</h2>
-  <p class="cta-sub">Vous êtes agent immobilier, artisan, réseau professionnel ou investisseur ? Participez à la construction du pilote Historim.</p>
-  <div class="cta-btns">
-    <a href="mailto:pererol.antoine@outlook.fr" class="btn-primary" style="font-size:0.95rem;padding:15px 32px">📧 Contacter Antoine</a>
+<!-- SECTION 4 — Pour qui -->
+<section style="padding:60px 80px; background:var(--navy-deep);">
+  <div style="max-width:960px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap;">
+    <div style="font-size:0.88rem; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Pour</div>
+    <div style="display:flex; gap:40px; flex-wrap:wrap; align-items:center;">
+      <div style="text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:6px;">🏠</div>
+        <div style="font-size:0.82rem; font-weight:700; color:white;">Propriétaires</div>
+        <div style="font-size:0.7rem; color:rgba(255,255,255,0.4); margin-top:2px;">Valorisez votre bien</div>
+      </div>
+      <div style="width:1px; height:40px; background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:6px;">🔧</div>
+        <div style="font-size:0.82rem; font-weight:700; color:white;">Artisans</div>
+        <div style="font-size:0.7rem; color:rgba(255,255,255,0.4); margin-top:2px;">Certifiez vos chantiers</div>
+      </div>
+      <div style="width:1px; height:40px; background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:6px;">🏛️</div>
+        <div style="font-size:0.82rem; font-weight:700; color:white;">Notaires</div>
+        <div style="font-size:0.7rem; color:rgba(255,255,255,0.4); margin-top:2px;">Sécurisez les transactions</div>
+      </div>
+      <div style="width:1px; height:40px; background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:6px;">🏢</div>
+        <div style="font-size:0.82rem; font-weight:700; color:white;">Agents immobiliers</div>
+        <div style="font-size:0.7rem; color:rgba(255,255,255,0.4); margin-top:2px;">Différenciez vos mandats</div>
+      </div>
+    </div>
   </div>
-  <div class="cta-contacts">
-    <div class="cta-contact-item">📧 <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__">pererol.antoine@outlook.fr</a></strong></div>
-    <div class="cta-contact-item">📞 <strong>06.38.43.62.88</strong></div>
-    <div class="cta-contact-item">💼 <strong>LinkedIn : Antoine Pererol</strong></div>
+</section>
+
+<!-- CTA FINAL -->
+<section style="padding:80px; background:var(--beige); text-align:center;" id="contact">
+  <div style="max-width:560px; margin:0 auto;">
+    <h2 style="font-size:2.2rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:12px; line-height:1.2;">Osons la <em style="color:var(--orange); font-style:normal;">transparence</em>.</h2>
+    <p style="font-size:0.92rem; color:var(--gray); margin-bottom:32px; line-height:1.6;">Rejoignez le pilote Historim. Propriétaires, artisans, agents, notaires — construisons ensemble le standard de confiance de l'immobilier.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:28px;">
+      <a href="mailto:pererol.antoine@outlook.fr" style="background:var(--orange);color:white;padding:14px 28px;border-radius:8px;font-weight:700;font-size:0.92rem;text-decoration:none;">📧 Contacter Antoine</a>
+      <button onclick="navGo('histor')" style="background:white;color:var(--navy);border:1.5px solid var(--blue-mid);padding:14px 28px;border-radius:8px;font-weight:600;font-size:0.92rem;font-family:'Satoshi',sans-serif;cursor:pointer;">Voir une fiche →</button>
+    </div>
+    <div style="font-size:0.78rem; color:var(--gray);">📞 06.38.43.62.88 · 💼 Antoine Pererol sur LinkedIn</div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer style="background:var(--navy-deep); padding:32px 80px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
   <div>
-    <div class="footer-logo"><span class="logo-historim logo-light" style="font-size:1.15rem">Histor<em style="color:var(--orange);font-style:italic;">im</em></span></span></div>
-    <div class="footer-tagline">Osons la transparence !</div>
+    <div style="font-size:1.1rem;font-weight:900;color:white;">Histor<em style="color:var(--orange);font-style:italic;">im</em></div>
+    <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:4px;font-style:italic;">Osons la transparence !</div>
   </div>
-  <div class="footer-links">
-    <a href="#verifiz">Vérif</a>
-    <a href="#saisie">Histor</a>
-    <a href="#proboard=d1">Mon Atelier</a>
-    <a href="#dashboard">Mon espace</a>
-  </div>
-  <div class="footer-right">
-    <div>© 2025 Historim · Tous droits réservés</div>
+  <div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-align:right;line-height:1.6;">
+    <div>Vérif · Histor · Mon Atelier</div>
+    <div style="margin-top:4px;">© 2025 Historim · Tous droits réservés</div>
   </div>
 </footer>
 
-<!-- MODAL VÉRIF -->
 </div><!-- /site-main -->
+
 
 <!-- Modal Vérif (hors site-main) -->
 <div class="vz-modal-overlay" id="vz-modal" onclick="if(event.target===this)vzCloseModal()">
@@ -4715,7 +4493,7 @@ document.addEventListener('click', function(e) {
 
 
 /* ============================================================
-   SAISIE — Étape 1 : formulaire + enregistrement Supabase
+   SAISIE — Formulaire 2 étapes + enregistrement Supabase
    ============================================================ */
 
 var saisieAdresseTimer = null;
@@ -4723,12 +4501,45 @@ var saisieAdresseSelected = null;
 var saisieSiretTimer = null;
 var saisieSiretCache = {};
 
-/* --- Autocomplétion adresse (API adresse.data.gouv.fr) --- */
+/* --- Étape 1 → Étape 2 --- */
+function saisieEtape1(e) {
+  e.preventDefault();
+  var adresse = (document.getElementById("s-adresse").value || "").trim();
+  var type    = (document.getElementById("s-type").value || "").trim();
+  var date    = (document.getElementById("s-date").value || "").trim();
+  var errEl   = document.getElementById("s-error-1");
+  errEl.style.display = "none";
+
+  if (!adresse) { errEl.textContent = "Veuillez renseigner l'adresse du bien."; errEl.style.display = "block"; return; }
+  if (!type)    { errEl.textContent = "Veuillez sélectionner un type de travaux."; errEl.style.display = "block"; return; }
+  if (!date)    { errEl.textContent = "Veuillez indiquer la date des travaux."; errEl.style.display = "block"; return; }
+
+  /* Passer à l'étape 2 */
+  document.getElementById("s-etape-1").style.display = "none";
+  document.getElementById("s-etape-2").style.display = "block";
+
+  /* Mettre à jour l'indicateur */
+  var ind1 = document.getElementById("s-step-ind-1");
+  var ind2 = document.getElementById("s-step-ind-2");
+  if (ind1) { ind1.querySelector("div").style.background = "var(--green-cert)"; ind1.querySelector("div").textContent = "✓"; }
+  if (ind2) { ind2.style.opacity = "1"; ind2.querySelector("div").style.background = "var(--orange)"; ind2.querySelector("div").style.color = "white"; }
+}
+
+function saisieRetourEtape1() {
+  document.getElementById("s-etape-2").style.display = "none";
+  document.getElementById("s-etape-1").style.display = "block";
+
+  var ind1 = document.getElementById("s-step-ind-1");
+  var ind2 = document.getElementById("s-step-ind-2");
+  if (ind1) { ind1.querySelector("div").style.background = "var(--orange)"; ind1.querySelector("div").textContent = "1"; }
+  if (ind2) { ind2.style.opacity = "0.4"; ind2.querySelector("div").style.background = "var(--blue-mid)"; ind2.querySelector("div").style.color = "var(--navy)"; }
+}
+
+/* --- Autocomplétion adresse --- */
 function saisieAdresseSearch(query) {
   var dd = document.getElementById("s-adresse-dd");
   if (!dd) return;
   if (!query || query.length < 3) { dd.style.display = "none"; return; }
-
   clearTimeout(saisieAdresseTimer);
   saisieAdresseTimer = setTimeout(async function() {
     try {
@@ -4737,67 +4548,42 @@ function saisieAdresseSearch(query) {
       if (!res.ok) throw new Error("API indisponible");
       var data = await res.json();
       var features = data.features || [];
-
       dd.innerHTML = "";
       if (!features.length) { dd.style.display = "none"; return; }
-
       features.forEach(function(f) {
         var props = f.properties;
         var div = document.createElement("div");
         div.style.cssText = "padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--beige);";
-        div.innerHTML =
-          "<div style=\"font-size:0.82rem;font-weight:700;color:var(--navy);\">" + props.label + "</div>" +
-          "<div style=\"font-size:0.68rem;color:var(--gray);margin-top:2px;\">" + (props.postcode || "") + " " + (props.city || "") + "</div>";
+        div.innerHTML = "<div style='font-size:0.82rem;font-weight:700;color:var(--navy);'>" + props.label + "</div>" +
+          "<div style='font-size:0.68rem;color:var(--gray);margin-top:2px;'>" + (props.postcode || "") + " " + (props.city || "") + "</div>";
         div.onmouseover = function() { this.style.background = "var(--beige)"; };
         div.onmouseout  = function() { this.style.background = "white"; };
-        div.onclick = (function(feat) { return function() { saisieAdresseSelect(feat); }; })(f);
+        div.onclick = (function(feat) { return function() {
+          var input = document.getElementById("s-adresse");
+          if (input) { input.value = feat.properties.label; input.style.borderColor = "var(--green-cert)"; }
+          dd.style.display = "none";
+          saisieAdresseSelected = { label: feat.properties.label, code_postal: feat.properties.postcode || "", ville: feat.properties.city || "" };
+        }; })(f);
         dd.appendChild(div);
       });
       dd.style.display = "block";
-    } catch(e) {
-      dd.style.display = "none";
-    }
+    } catch(e) { dd.style.display = "none"; }
   }, 300);
 }
 
-function saisieAdresseSelect(f) {
-  try {
-    var props = f.properties;
-    var coords = f.geometry && f.geometry.coordinates;
-    var input = document.getElementById("s-adresse");
-    var dd    = document.getElementById("s-adresse-dd");
-    if (input) { input.value = props.label; input.style.borderColor = "var(--green-cert)"; }
-    if (dd)    dd.style.display = "none";
-    saisieAdresseSelected = {
-      label: props.label,
-      code_postal: props.postcode || "",
-      ville: props.city || "",
-      lat: coords ? coords[1] : null,
-      lon: coords ? coords[0] : null
-    };
-  } catch(e) {}
-}
-
-/* --- Vérification SIRET (Vercel Function /api/siret) --- */
+/* --- Vérification SIRET --- */
 async function saisieCheckSiret(val) {
   val = (val || "").replace(/\s/g, "");
   var iconEl   = document.getElementById("s-siret-icon");
   var resultEl = document.getElementById("s-siret-result");
   var input    = document.getElementById("s-siret");
-
   if (iconEl)   iconEl.textContent = "";
   if (resultEl) resultEl.style.display = "none";
   if (input)    input.style.borderColor = "var(--blue-light)";
-
   if (val.length < 14) return;
-  if (!/^\d{14}$/.test(val)) {
-    if (iconEl) iconEl.textContent = "⚠️";
-    return;
-  }
+  if (!/^\d{14}$/.test(val)) { if (iconEl) iconEl.textContent = "⚠️"; return; }
   if (iconEl) iconEl.textContent = "⏳";
-
   if (saisieSiretCache[val]) { saisieSiretRender(saisieSiretCache[val]); return; }
-
   clearTimeout(saisieSiretTimer);
   saisieSiretTimer = setTimeout(async function() {
     try {
@@ -4806,10 +4592,7 @@ async function saisieCheckSiret(val) {
       var data = await res.json();
       saisieSiretCache[val] = data;
       saisieSiretRender(data);
-    } catch(e) {
-      if (iconEl) iconEl.textContent = "⚠️";
-      console.warn("SIRET check failed:", e.message);
-    }
+    } catch(e) { if (iconEl) iconEl.textContent = "⚠️"; }
   }, 500);
 }
 
@@ -4819,7 +4602,6 @@ function saisieSiretRender(r) {
   var input    = document.getElementById("s-siret");
   var entEl    = document.getElementById("s-artisan-ent");
   if (!r) return;
-
   if (r.actif) {
     if (iconEl)  iconEl.textContent = "✅";
     if (input)   input.style.borderColor = "var(--green-cert)";
@@ -4827,37 +4609,29 @@ function saisieSiretRender(r) {
       resultEl.style.display = "block";
       resultEl.style.background = "var(--green-bg)";
       resultEl.style.color = "var(--green-cert)";
-      resultEl.innerHTML = "<strong>" + r.raisonSociale + "</strong>" +
-        (r.naf ? " — NAF " + r.naf : "") +
-        (r.adresse ? "<br>" + r.adresse : "") +
-        "<br><span style=\"font-size:0.65rem;font-weight:700;\">✓ SIRET actif — vérifié INSEE</span>";
+      resultEl.innerHTML = "<strong>" + r.raisonSociale + "</strong>" + (r.naf ? " — NAF " + r.naf : "") + "<br><span style='font-size:0.65rem;font-weight:700;'>✓ SIRET actif</span>";
     }
     if (entEl && !entEl.value) entEl.value = r.raisonSociale;
   } else {
     if (iconEl) iconEl.textContent = "❌";
     if (input)  input.style.borderColor = "#DC2626";
-    if (resultEl) {
-      resultEl.style.display = "block";
-      resultEl.style.background = "#FEE2E2";
-      resultEl.style.color = "#DC2626";
-      resultEl.innerHTML = "⚠️ Établissement radié ou fermé.";
-    }
+    if (resultEl) { resultEl.style.display = "block"; resultEl.style.background = "#FEE2E2"; resultEl.style.color = "#DC2626"; resultEl.innerHTML = "⚠️ Établissement radié ou fermé."; }
   }
 }
 
-/* --- Soumission → Supabase --- */
+/* --- Soumission finale → Supabase --- */
 async function saisieSubmit(e) {
   e.preventDefault();
-
-  var btn      = document.getElementById("s-submit-btn");
-  var iconEl   = document.getElementById("s-submit-icon");
-  var labelEl  = document.getElementById("s-submit-label");
-  var form     = document.getElementById("saisie-form");
-  var success  = document.getElementById("s-success");
+  var btn     = document.getElementById("s-submit-btn");
+  var iconEl  = document.getElementById("s-submit-icon");
+  var labelEl = document.getElementById("s-submit-label");
+  var errEl   = document.getElementById("s-error-2");
+  var form1   = document.getElementById("s-etape-1");
+  var form2   = document.getElementById("s-etape-2");
+  var success = document.getElementById("s-success");
 
   var adresse      = (document.getElementById("s-adresse").value || "").trim();
   var type         = (document.getElementById("s-type").value || "").trim();
-  var description  = (document.getElementById("s-description").value || "").trim();
   var date         = (document.getElementById("s-date").value || "").trim();
   var montant      = parseFloat(document.getElementById("s-montant").value) || null;
   var artisanNom   = (document.getElementById("s-artisan-nom").value || "").trim();
@@ -4865,298 +4639,94 @@ async function saisieSubmit(e) {
   var siret        = (document.getElementById("s-siret").value || "").replace(/\s/g, "");
   var artisanEmail = (document.getElementById("s-artisan-email").value || "").trim();
 
-  /* Validation */
-  document.getElementById("s-error").style.display = "none";
-  if (!adresse)      { saisieShowError("Veuillez renseigner l'adresse du bien."); return; }
-  if (!type)         { saisieShowError("Veuillez sélectionner un type de travaux."); return; }
-  if (!date)         { saisieShowError("Veuillez indiquer la date des travaux."); return; }
-  if (!artisanNom)   { saisieShowError("Veuillez renseigner le nom de l'artisan."); return; }
-  if (!artisanEmail) { saisieShowError("Veuillez renseigner l'email de l'artisan."); return; }
+  errEl.style.display = "none";
+  if (!artisanNom) { errEl.textContent = "Veuillez renseigner le nom de l'artisan."; errEl.style.display = "block"; return; }
 
-  /* Loader */
-  btn.disabled = true;
-  btn.style.opacity = "0.7";
-  iconEl.textContent = "⏳";
-  labelEl.textContent = "Enregistrement…";
+  btn.disabled = true; btn.style.opacity = "0.7";
+  iconEl.textContent = "⏳"; labelEl.textContent = "Enregistrement…";
 
   try {
-    /* ---- 1. Lookup ou création automatique du bien ---- */
+    /* 1. Lookup ou création du bien */
     var bienId = null;
     try {
-      /* Chercher un bien existant avec cette adresse (insensible à la casse) */
-      var resBien = await sb
-        .from("biens")
-        .select("id, adresse")
-        .ilike("adresse", adresse.slice(0, 20) + "%")
-        .limit(1)
-        .single();
-
+      var resBien = await sb.from("biens").select("id").ilike("adresse", adresse.slice(0, 20) + "%").limit(1).single();
       if (resBien.data) {
-        /* Bien existant trouvé */
         bienId = resBien.data.id;
-        console.log("[Saisie] Bien existant trouvé:", bienId);
       } else {
-        /* Créer une fiche bien minimale */
-        var resCree = await sb
-          .from("biens")
-          .insert({ adresse: adresse })
-          .select("id")
-          .single();
-        if (resCree.data) {
-          bienId = resCree.data.id;
-          console.log("[Saisie] Nouveau bien créé:", bienId);
-        }
+        var resCree = await sb.from("biens").insert({ adresse: adresse }).select("id").single();
+        if (resCree.data) bienId = resCree.data.id;
       }
-    } catch(bienErr) {
-      console.warn("[Saisie] Bien lookup/create:", bienErr.message);
-    }
+    } catch(bienErr) { console.warn("[Saisie] Bien:", bienErr.message); }
 
-    /* ---- 2. Insérer l'intervention liée au bien ---- */
+    /* 2. Insérer l'intervention */
     var payload = {
-      adresse_bien:       adresse,
-      type_travaux:       type,
-      description:        description || null,
-      date_intervention:  date,
-      montant_ttc:        montant,
-      artisan_nom:        artisanNom,
-      artisan_entreprise: artisanEnt || null,
-      artisan_siret:      siret || null,
-      artisan_contact:    artisanEmail,
-      statut:             "en_attente",
-      bien_id:            bienId || null
+      adresse_bien: adresse, type_travaux: type, date_intervention: date,
+      montant_ttc: montant, artisan_nom: artisanNom,
+      artisan_entreprise: artisanEnt || null, artisan_siret: siret || null,
+      artisan_contact: artisanEmail || null, statut: "en_attente",
+      bien_id: bienId || null
     };
-
     var res = await sb.from("interventions").insert(payload).select().single();
     if (res.error) throw new Error(res.error.message);
-
     var interventionId = res.data && res.data.id;
-    console.log("[Saisie] Intervention créée, id:", interventionId);
-    var emailSent = false;
-    try {
-      var emailRes = await fetch("/api/send-validation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ interventionId: interventionId })
-      });
-      var emailData = await emailRes.json();
-      if (emailRes.ok && emailData.success) { emailSent = true; }
-      else console.warn("[Saisie] Email:", emailData.error);
-    } catch(emailErr) { console.warn("[Saisie] Email err:", emailErr.message); }
 
-    form.style.display = "none";
+    /* 3. Envoyer l'email si email fourni */
+    var emailSent = false;
+    if (artisanEmail && interventionId) {
+      try {
+        var emailRes = await fetch("/api/send-validation", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ interventionId: interventionId })
+        });
+        var emailData = await emailRes.json();
+        if (emailRes.ok && emailData.success) emailSent = true;
+      } catch(emailErr) { console.warn("[Saisie] Email:", emailErr.message); }
+    }
+
+    /* 4. Afficher le succès */
+    form2.style.display = "none";
     success.style.display = "block";
     var msgEl = document.getElementById("s-success-email-msg");
     if (msgEl) {
       msgEl.textContent = emailSent
-        ? "Un email de confirmation a été envoyé à " + artisanEmail + "."
-        : "Intervention enregistrée. L'email sera envoyé prochainement.";
+        ? "Email de validation envoyé à " + artisanEmail + "."
+        : artisanEmail
+          ? "Intervention enregistrée. L'email sera envoyé prochainement."
+          : "Intervention enregistrée. Vous pourrez notifier l'artisan ultérieurement.";
     }
-    /* Stocker le bien_id en session + préparer le bouton "Voir la fiche" */
     if (bienId) {
       sessionStorage.setItem("historim_bien_id", bienId);
       var ficheBtn = document.getElementById("s-btn-fiche");
-      if (ficheBtn) {
-        ficheBtn.style.display = "inline-flex";
-        ficheBtn.onclick = function() { navGo("histor"); };
-      }
+      if (ficheBtn) ficheBtn.style.display = "inline-flex";
     }
     window.scrollTo(0, 0);
 
   } catch(err) {
-    console.error("[Saisie] Erreur:", err.message);
-    saisieShowError("Erreur lors de l'enregistrement. Vérifiez votre connexion et réessayez.");
-    btn.disabled = false;
-    btn.style.opacity = "1";
-    iconEl.textContent = "📋";
-    labelEl.textContent = "Enregistrer l'intervention";
+    errEl.textContent = "Erreur lors de l'enregistrement. Vérifiez votre connexion.";
+    errEl.style.display = "block";
+    btn.disabled = false; btn.style.opacity = "1";
+    iconEl.textContent = "📋"; labelEl.textContent = "Enregistrer l'intervention";
   }
-}
-
-function saisieShowError(msg) {
-  var el = document.getElementById("s-error");
-  if (el) { el.textContent = msg; el.style.display = "block"; el.scrollIntoView({behavior:"smooth", block:"nearest"}); }
 }
 
 function saisieReset() {
-  var form    = document.getElementById("saisie-form");
-  var success = document.getElementById("s-success");
-  var btn     = document.getElementById("s-submit-btn");
-  var iconEl  = document.getElementById("s-submit-icon");
+  document.getElementById("s-form-1").reset();
+  document.getElementById("s-form-2").reset();
+  document.getElementById("s-etape-1").style.display = "block";
+  document.getElementById("s-etape-2").style.display = "none";
+  document.getElementById("s-success").style.display = "none";
+  document.getElementById("s-error-1").style.display = "none";
+  document.getElementById("s-error-2").style.display = "none";
+  var btn = document.getElementById("s-submit-btn");
+  var iconEl = document.getElementById("s-submit-icon");
   var labelEl = document.getElementById("s-submit-label");
-
-  if (form)    { form.reset(); form.style.display = "block"; }
-  if (success) success.style.display = "none";
-  if (btn)     { btn.disabled = false; btn.style.opacity = "1"; }
-  if (iconEl)  iconEl.textContent = "📋";
+  if (btn) { btn.disabled = false; btn.style.opacity = "1"; }
+  if (iconEl) iconEl.textContent = "📋";
   if (labelEl) labelEl.textContent = "Enregistrer l'intervention";
-
-  saisieAdresseSelected = null;
-  var dd = document.getElementById("s-adresse-dd");
-  if (dd) dd.style.display = "none";
+  saisieRetourEtape1();
   var siretResult = document.getElementById("s-siret-result");
   if (siretResult) siretResult.style.display = "none";
-}
-
-
-/* ============================================================
-   CONFIRMATION ARTISAN — page #confirmer?token=XXX
-   ============================================================ */
-
-var cp2Token = null;
-
-async function cp2Init(token, action) {
-  cp2Token = token;
-
-  function showState(id) {
-    ["cp2-loading","cp2-pending","cp2-confirmed","cp2-refused","cp2-error"].forEach(function(s) {
-      var el = document.getElementById(s);
-      if (el) el.style.display = s === id ? "block" : "none";
-    });
-  }
-
-  if (!token) {
-    showState("cp2-error");
-    var errEl = document.getElementById("cp2-error-msg");
-    if (errEl) errEl.textContent = "Lien invalide — token manquant.";
-    return;
-  }
-
-  showState("cp2-loading");
-
-  // Si action=refuser dans l'URL, confirmer directement le refus
-  if (action === "refuser") {
-    await cp2Refuse();
-    return;
-  }
-
-  // Charger les details de l'intervention depuis Supabase via le token
-  try {
-    var res = await sb
-      .from("interventions")
-      .select("adresse_bien, type_travaux, description, date_intervention, montant_ttc, artisan_nom, statut, token_expires_at")
-      .eq("validation_token", token)
-      .single();
-
-    if (res.error || !res.data) {
-      showState("cp2-error");
-      var errEl = document.getElementById("cp2-error-msg");
-      if (errEl) errEl.textContent = "Lien invalide ou deja utilise.";
-      return;
-    }
-
-    var i = res.data;
-
-    // Deja certifiee ?
-    if (i.statut === "certifie") {
-      showState("cp2-confirmed");
-      return;
-    }
-
-    // Token expire ?
-    if (i.token_expires_at && new Date(i.token_expires_at) < new Date()) {
-      showState("cp2-error");
-      var errEl = document.getElementById("cp2-error-msg");
-      if (errEl) errEl.textContent = "Ce lien a expire (valable 7 jours).";
-      return;
-    }
-
-    // Afficher les details
-    var date = i.date_intervention
-      ? new Date(i.date_intervention + "T00:00:00").toLocaleDateString("fr-FR", {day:"numeric", month:"long", year:"numeric"})
-      : "—";
-    var montant = i.montant_ttc
-      ? Number(i.montant_ttc).toLocaleString("fr-FR") + " €"
-      : "Non renseigne";
-
-    var detailsEl = document.getElementById("cp2-details");
-    if (detailsEl) {
-      detailsEl.innerHTML =
-        "<div style='font-size:0.65rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;'>Details de l'intervention</div>" +
-        "<div style='display:flex;flex-direction:column;gap:7px;'>" +
-        cp2Row("Bien", i.adresse_bien) +
-        cp2Row("Type de travaux", i.type_travaux) +
-        (i.description ? cp2Row("Description", i.description) : "") +
-        cp2Row("Date", date) +
-        cp2Row("Montant TTC", montant) +
-        "</div>";
-    }
-
-    showState("cp2-pending");
-
-  } catch(err) {
-    showState("cp2-error");
-    var errEl = document.getElementById("cp2-error-msg");
-    if (errEl) errEl.textContent = "Erreur de chargement. Reessayez.";
-    console.error("[cp2Init]", err.message);
-  }
-}
-
-function cp2Row(label, value) {
-  return "<div style='display:flex;justify-content:space-between;gap:12px;font-size:0.78rem;padding:4px 0;border-bottom:1px solid rgba(26,43,74,0.05);'>" +
-    "<span style='color:var(--gray);flex-shrink:0;'>" + label + "</span>" +
-    "<span style='font-weight:700;color:var(--navy);text-align:right;'>" + (value || "—") + "</span>" +
-    "</div>";
-}
-
-async function cp2Confirm() {
-  await cp2SendAction("confirmer");
-}
-
-async function cp2Refuse() {
-  await cp2SendAction("refuser");
-}
-
-async function cp2SendAction(action) {
-  var btn = document.getElementById("cp2-btn-confirm");
-  if (btn) { btn.disabled = true; btn.textContent = "⏳ En cours…"; }
-
-  function showState(id) {
-    ["cp2-loading","cp2-pending","cp2-confirmed","cp2-refused","cp2-error"].forEach(function(s) {
-      var el = document.getElementById(s);
-      if (el) el.style.display = s === id ? "block" : "none";
-    });
-  }
-
-  try {
-    var res = await fetch("/api/confirmer", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: cp2Token, action: action === "refuser" ? "refuser" : "confirmer" })
-    });
-    var data = await res.json();
-
-    if (res.ok && data.success) {
-      var finalState = action === "refuser" ? "cp2-refused" : "cp2-confirmed";
-      showState(finalState);
-
-      /* Enrichir la page de succès si confirmation */
-      if (finalState === "cp2-confirmed" && data.intervention) {
-        var interv = data.intervention;
-        var dateEl = document.getElementById("cp2-confirmed-date");
-        if (dateEl) dateEl.textContent = new Date().toLocaleDateString("fr-FR", {day:"numeric", month:"long", year:"numeric"});
-
-        var recapEl = document.getElementById("cp2-confirmed-recap");
-        if (recapEl) {
-          recapEl.innerHTML =
-            "<div style=\"font-size:0.65rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;\">Intervention certifiée</div>" +
-            cp2Row("Bien", interv.adresse) +
-            cp2Row("Type", interv.type) +
-            cp2Row("Artisan", interv.artisan);
-        }
-
-        /* Lien vers la fiche Histor avec l'adresse pré-remplie */
-        /* lien géré par navGo dans le onclick */
-      }
-    } else {
-      showState("cp2-error");
-      var errEl = document.getElementById("cp2-error-msg");
-      if (errEl) errEl.textContent = data.error || "Une erreur est survenue.";
-    }
-  } catch(err) {
-    showState("cp2-error");
-    var errEl = document.getElementById("cp2-error-msg");
-    if (errEl) errEl.textContent = "Erreur reseau. Reessayez.";
-  }
+  saisieAdresseSelected = null;
 }
 
 /* ============================================================
@@ -5311,7 +4881,12 @@ async function cp2SendAction(action) {
 <div id="saisie-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
 
   <nav class="inner-nav">
-    <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
+    <a href="#" onclick="navGo('')" class="inner-nav-logo">
+      <span class="logo-with-baseline">
+        <span class="logo-historim logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);">Histor<em style="color:var(--orange);font-style:italic;font-weight:900;">im</em></span>
+        <span class="logo-baseline">Traçabilité certifiée</span>
+      </span>
+    </a>
     <div class="inner-nav-links">
       <span class="inner-nav-dropdown-wrap">
         <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
@@ -5328,51 +4903,51 @@ async function cp2SendAction(action) {
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <div style="max-width:640px; margin:0 auto; padding:48px 24px 80px;">
+  <div style="max-width:520px; margin:0 auto; padding:48px 24px 80px;">
 
     <!-- En-tête -->
-    <div style="margin-bottom:36px;">
-      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:10px;">Nouvelle intervention</div>
-      <h1 style="font-size:1.9rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:8px;">Enregistrer une intervention</h1>
-      <p style="font-size:0.88rem; color:var(--gray); line-height:1.6;">Renseignez les informations de l'intervention. Elle sera enregistrée avec le statut <strong>En attente</strong> jusqu'à validation par l'artisan.</p>
+    <div style="margin-bottom:32px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Nouvelle intervention</div>
+      <h1 style="font-size:1.8rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:6px;">Enregistrer une intervention</h1>
+      <p style="font-size:0.85rem; color:var(--gray); line-height:1.6;">2 étapes · moins de 2 minutes</p>
     </div>
 
-    <!-- Formulaire -->
-    <form id="saisie-form" onsubmit="saisieSubmit(event)" novalidate>
+    <!-- Indicateur d'étapes -->
+    <div style="display:flex; align-items:center; gap:0; margin-bottom:28px;">
+      <div id="s-step-ind-1" style="display:flex; align-items:center; gap:8px;">
+        <div style="width:28px; height:28px; border-radius:50%; background:var(--orange); color:white; font-size:0.78rem; font-weight:800; display:flex; align-items:center; justify-content:center;">1</div>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--navy);">L'intervention</span>
+      </div>
+      <div style="flex:1; height:2px; background:var(--blue-light); margin:0 12px;"></div>
+      <div id="s-step-ind-2" style="display:flex; align-items:center; gap:8px; opacity:0.4;">
+        <div style="width:28px; height:28px; border-radius:50%; background:var(--blue-mid); color:var(--navy); font-size:0.78rem; font-weight:800; display:flex; align-items:center; justify-content:center;">2</div>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--navy);">L'artisan</span>
+      </div>
+    </div>
 
-      <!-- Bien concerné -->
-      <div style="background:white; border-radius:14px; padding:24px; border:1.5px solid var(--blue-light); margin-bottom:16px;">
-        <div style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-          <span style="width:22px; height:22px; background:var(--navy); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:900; flex-shrink:0;">1</span>
-          Le bien
-        </div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
+    <!-- ÉTAPE 1 -->
+    <div id="s-etape-1">
+      <form id="s-form-1" onsubmit="saisieEtape1(event)" novalidate>
+
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:20px;">
+
           <div>
             <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Adresse du bien <span style="color:var(--orange);">*</span></label>
             <div style="position:relative;">
               <input id="s-adresse" type="text" placeholder="Ex : 15 rue de la Paix, 75001 Paris"
                 autocomplete="off" required
-                style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box; transition:border-color 0.2s;"
                 onfocus="this.style.borderColor='var(--orange)'"
                 onblur="this.style.borderColor='var(--blue-light)'; setTimeout(function(){var d=document.getElementById('s-adresse-dd');if(d)d.style.display='none';},250)"
                 oninput="saisieAdresseSearch(this.value)">
               <div id="s-adresse-dd" style="display:none; position:absolute; top:calc(100% + 4px); left:0; right:0; background:white; border-radius:10px; box-shadow:0 8px 32px rgba(26,43,74,0.15); border:1px solid var(--blue-light); z-index:100; overflow:hidden;"></div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Intervention -->
-      <div style="background:white; border-radius:14px; padding:24px; border:1.5px solid var(--blue-light); margin-bottom:16px;">
-        <div style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-          <span style="width:22px; height:22px; background:var(--navy); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:900; flex-shrink:0;">2</span>
-          L'intervention
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div style="grid-column:1/-1;">
+          <div>
             <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Type de travaux <span style="color:var(--orange);">*</span></label>
             <select id="s-type" required
-              style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; background:white; box-sizing:border-box; appearance:none; background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22><path fill=%22%236B7A8D%22 d=%22M6 8L1 3h10z%22/></svg>'); background-repeat:no-repeat; background-position:right 14px center;">
+              style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; background:white; box-sizing:border-box;">
               <option value="">Sélectionner…</option>
               <option>Plomberie</option>
               <option>Électricité</option>
@@ -5387,56 +4962,72 @@ async function cp2SendAction(action) {
               <option>Autre</option>
             </select>
           </div>
-          <div style="grid-column:1/-1;">
-            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Description</label>
-            <input id="s-description" type="text" placeholder="Ex : Remplacement chaudière à condensation"
-              style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box;"
-              onfocus="this.style.borderColor='var(--orange)'"
-              onblur="this.style.borderColor='var(--blue-light)'">
-          </div>
-          <div>
-            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Date des travaux <span style="color:var(--orange);">*</span></label>
-            <input id="s-date" type="date" required
-              style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box;"
-              onfocus="this.style.borderColor='var(--orange)'"
-              onblur="this.style.borderColor='var(--blue-light)'">
-          </div>
-          <div>
-            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Montant TTC (€)</label>
-            <input id="s-montant" type="number" min="0" step="1" placeholder="Ex : 1850"
-              style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box;"
-              onfocus="this.style.borderColor='var(--orange)'"
-              onblur="this.style.borderColor='var(--blue-light)'">
-          </div>
-        </div>
-      </div>
 
-      <!-- Artisan -->
-      <div style="background:white; border-radius:14px; padding:24px; border:1.5px solid var(--blue-light); margin-bottom:24px;">
-        <div style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-          <span style="width:22px; height:22px; background:var(--navy); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:900; flex-shrink:0;">3</span>
-          L'artisan
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Date <span style="color:var(--orange);">*</span></label>
+              <input id="s-date" type="date" required
+                style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box;"
+                onfocus="this.style.borderColor='var(--orange)'"
+                onblur="this.style.borderColor='var(--blue-light)'">
+            </div>
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Montant TTC (€)</label>
+              <input id="s-montant" type="number" min="0" step="1" placeholder="Ex : 1850"
+                style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box;"
+                onfocus="this.style.borderColor='var(--orange)'"
+                onblur="this.style.borderColor='var(--blue-light)'">
+            </div>
+          </div>
+
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div style="grid-column:1/-1;">
-            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Nom de l'artisan <span style="color:var(--orange);">*</span></label>
-            <input id="s-artisan-nom" type="text" placeholder="Ex : Jean Dupont" required
-              style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box;"
+
+        <div id="s-error-1" style="display:none; background:#FEE2E2; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#DC2626; margin-bottom:14px; font-weight:600;"></div>
+
+        <button type="submit"
+          style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:14px; font-family:'Satoshi',sans-serif; font-size:0.92rem; font-weight:800; cursor:pointer;">
+          Continuer →
+        </button>
+      </form>
+    </div>
+
+    <!-- ÉTAPE 2 -->
+    <div id="s-etape-2" style="display:none;">
+      <form id="s-form-2" onsubmit="saisieSubmit(event)" novalidate>
+
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:20px;">
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Nom de l'artisan <span style="color:var(--orange);">*</span></label>
+              <input id="s-artisan-nom" type="text" placeholder="Ex : Jean Dupont" required
+                style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box;"
+                onfocus="this.style.borderColor='var(--orange)'"
+                onblur="this.style.borderColor='var(--blue-light)'">
+            </div>
+            <div>
+              <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Entreprise</label>
+              <input id="s-artisan-ent" type="text" placeholder="Ex : Plomberie Dupont"
+                style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box;"
+                onfocus="this.style.borderColor='var(--orange)'"
+                onblur="this.style.borderColor='var(--blue-light)'">
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Email artisan</label>
+            <input id="s-artisan-email" type="email" placeholder="jean@exemple.fr"
+              style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box;"
               onfocus="this.style.borderColor='var(--orange)'"
               onblur="this.style.borderColor='var(--blue-light)'">
+            <div style="font-size:0.7rem; color:var(--gray); margin-top:5px;">Facultatif — permet d'envoyer une demande de validation automatique.</div>
           </div>
-          <div style="grid-column:1/-1;">
-            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Entreprise</label>
-            <input id="s-artisan-ent" type="text" placeholder="Ex : Plomberie Parisienne"
-              style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box;"
-              onfocus="this.style.borderColor='var(--orange)'"
-              onblur="this.style.borderColor='var(--blue-light)'">
-          </div>
+
           <div>
             <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">SIRET</label>
             <div style="position:relative;">
               <input id="s-siret" type="text" placeholder="14 chiffres" maxlength="14"
-                style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box; padding-right:36px;"
+                style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box; padding-right:36px;"
                 onfocus="this.style.borderColor='var(--orange)'"
                 onblur="this.style.borderColor='var(--blue-light)'"
                 oninput="saisieCheckSiret(this.value)">
@@ -5444,52 +5035,46 @@ async function cp2SendAction(action) {
             </div>
             <div id="s-siret-result" style="display:none; margin-top:6px; border-radius:7px; padding:8px 12px; font-size:0.72rem; line-height:1.5;"></div>
           </div>
-          <div>
-            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Email artisan <span style="color:var(--orange);">*</span></label>
-            <input id="s-artisan-email" type="email" placeholder="jean@exemple.fr" required
-              style="width:100%; padding:11px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem; color:var(--navy); outline:none; box-sizing:border-box;"
-              onfocus="this.style.borderColor='var(--orange)'"
-              onblur="this.style.borderColor='var(--blue-light)'">
-          </div>
+
         </div>
-      </div>
 
-      <!-- Erreur globale -->
-      <div id="s-error" style="display:none; background:#FEE2E2; border-radius:8px; padding:12px 16px; font-size:0.8rem; color:#DC2626; margin-bottom:16px; font-weight:600;"></div>
+        <div id="s-error-2" style="display:none; background:#FEE2E2; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#DC2626; margin-bottom:14px; font-weight:600;"></div>
 
-      <!-- Bouton submit -->
-      <button type="submit" id="s-submit-btn"
-        style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:15px; font-family:'Satoshi',sans-serif; font-size:0.92rem; font-weight:800; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:10px;">
-        <span id="s-submit-icon">📋</span>
-        <span id="s-submit-label">Enregistrer l'intervention</span>
-      </button>
-      <p style="text-align:center; font-size:0.7rem; color:var(--gray); margin-top:10px; line-height:1.5;">
-        L'intervention sera enregistrée avec le statut <strong>En attente</strong>.<br>L'artisan recevra une demande de validation par email.
-      </p>
-    </form>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button type="submit" id="s-submit-btn"
+            style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:14px; font-family:'Satoshi',sans-serif; font-size:0.92rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <span id="s-submit-icon">📋</span>
+            <span id="s-submit-label">Enregistrer l'intervention</span>
+          </button>
+          <button type="button" onclick="saisieRetourEtape1()"
+            style="width:100%; background:transparent; color:var(--gray); border:1.5px solid var(--blue-light); border-radius:10px; padding:12px; font-family:'Satoshi',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer;">
+            ← Retour
+          </button>
+        </div>
+
+      </form>
+    </div>
 
     <!-- Succès -->
-    <div id="s-success" style="display:none; background:white; border-radius:16px; padding:32px; text-align:center; border:1.5px solid var(--green-cert); box-shadow:0 8px 32px rgba(42,125,95,0.1);">
+    <div id="s-success" style="display:none; background:white; border-radius:16px; padding:32px; text-align:center; border:1.5px solid var(--green-cert); box-shadow:0 8px 32px rgba(6,214,160,0.1);">
       <div style="font-size:3rem; margin-bottom:12px;">✅</div>
       <h2 style="font-size:1.3rem; font-weight:800; color:var(--navy); margin-bottom:8px;">Intervention enregistrée !</h2>
-      <p style="font-size:0.85rem; color:var(--gray); line-height:1.6; margin-bottom:6px;">
-        L'intervention a été ajoutée avec le statut <strong style="color:var(--amber);">En attente</strong>.
-      </p>
-      <p style="font-size:0.82rem; color:var(--gray); line-height:1.6; margin-bottom:24px;" id="s-success-email-msg"></p>
-      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <p style="font-size:0.85rem; color:var(--gray); line-height:1.6; margin-bottom:6px;" id="s-success-email-msg"></p>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
         <button onclick="saisieReset()"
           style="background:var(--orange); color:white; border:none; border-radius:8px; padding:11px 24px; font-family:'Satoshi',sans-serif; font-size:0.85rem; font-weight:700; cursor:pointer;">
           + Nouvelle intervention
         </button>
-        <button onclick="navGo('histor')"
-          style="background:white; color:var(--navy); border:1.5px solid var(--blue-mid); border-radius:8px; padding:11px 24px; font-family:'Satoshi',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer;">
-          Voir la fiche →
+        <button id="s-btn-fiche" onclick="navGo('histor')"
+          style="display:none; background:var(--navy); color:white; border:none; border-radius:8px; padding:11px 24px; font-family:'Satoshi',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; align-items:center; gap:6px;">
+          📋 Voir la fiche du bien
         </button>
       </div>
     </div>
 
   </div>
 </div>
+
 
 <div id="confirmer-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
   <div style="max-width:480px; margin:0 auto; padding:60px 24px;">
