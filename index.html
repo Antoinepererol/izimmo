@@ -1265,7 +1265,7 @@ select.form-input { cursor: pointer; }
 let dbProTab = 'artisan';
 let dbProData = [];
 
-async function dbProLoad() {
+async async function dbProLoad() {
   try {
     const res = await sb.from('artisans').select('*').order('score', { ascending: false });
     if (res.error) throw new Error(res.error.message);
@@ -1959,6 +1959,66 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
   .mobile-menu-btn { display: block; }
 }
 
+
+/* ===== INNER NAV — Dropdown + Logo baseline ===== */
+.inner-nav-logo { display: inline-flex; align-items: center; }
+.logo-with-baseline { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-baseline { font-size: 0.55rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 1.3px; margin-top: 2px; }
+.logo-historim { font-weight: 900; }
+.logo-historim em { font-style: italic; color: var(--orange); }
+
+.inner-nav-links { display: flex; gap: 6px; align-items: center; flex-wrap: nowrap; }
+.inner-nav-dropdown-wrap { position: relative; }
+.inner-nav-dropdown-trigger { cursor: pointer; }
+.inner-nav-dropdown {
+  position: absolute; top: calc(100% + 10px); left: 0;
+  background: white; border-radius: 12px; padding: 8px;
+  box-shadow: 0 16px 48px rgba(15,28,50,0.16);
+  border: 1px solid rgba(15,28,50,0.06);
+  min-width: 280px; opacity: 0; visibility: hidden;
+  transform: translateY(-8px); transition: all 0.18s ease; z-index: 250;
+}
+.inner-nav-dropdown-wrap:hover .inner-nav-dropdown,
+.inner-nav-dropdown-wrap.open .inner-nav-dropdown {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.inner-nav-dropdown .nav-dd-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background 0.15s;
+}
+.inner-nav-dropdown .nav-dd-item:hover { background: var(--beige); }
+.inner-nav-dropdown .nav-dd-icon {
+  font-size: 1.05rem; flex-shrink: 0; width: 30px; height: 30px;
+  background: var(--beige); border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.inner-nav-dropdown .nav-dd-item div { display: flex; flex-direction: column; }
+.inner-nav-dropdown .nav-dd-item strong { font-size: 0.82rem; font-weight: 700; color: var(--navy); }
+.inner-nav-dropdown .nav-dd-item span:not(.nav-dd-icon) { font-size: 0.7rem; color: var(--gray); margin-top: 1px; }
+
+.inner-nav-burger {
+  display: none; flex-direction: column; gap: 4px;
+  background: none; border: none; cursor: pointer; padding: 6px;
+}
+.inner-nav-burger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; }
+
+@media (max-width: 900px) {
+  .inner-nav-links {
+    position: fixed; top: 68px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 4px;
+    background: white; padding: 16px 20px;
+    box-shadow: 0 16px 48px rgba(15,28,50,0.16); display: none;
+  }
+  .inner-nav-links.open { display: flex; }
+  .inner-nav-dropdown { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; padding: 4px 0 4px 16px; min-width: 0; }
+  .inner-nav-burger { display: flex; }
+}
+
+
+/* ===== SIMULATEUR APP ARTISAN ===== */
+.sa-screen { display: none; }
+.sa-screen.active { display: block; animation: saFade 0.3s ease; }
+@keyframes saFade { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
 </style>
 </head>
 <body>
@@ -2381,7 +2441,7 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
           <div style="font-size:1.8rem; margin-bottom:10px;">✅</div>
           <div style="font-size:0.9rem; font-weight:800; color:white; margin-bottom:8px;">2. L'artisan confirme</div>
           <div style="font-size:0.78rem; color:rgba(255,255,255,0.5); line-height:1.6;">Il reçoit une notification et valide en 15 secondes. L'intervention passe de "en attente" à "certifiée".</div>
-          <a href="#confirmation-proprio" style="display:inline-block; margin-top:12px; font-size:0.72rem; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none;">Voir la page de confirmation →</a>
+          <a href="#histor" style="display:inline-block; margin-top:12px; font-size:0.72rem; font-weight:700; color:rgba(255,255,255,0.5); text-decoration:none;">Voir la page de confirmation →</a>
         </div>
         <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:24px; border-top:3px solid var(--green-cert);">
           <div style="font-size:1.8rem; margin-bottom:10px;">🏠</div>
@@ -2542,7 +2602,7 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
     <div style="display:flex; gap:12px; justify-content:center; margin-top:48px; flex-wrap:wrap;">
       <a href="#verifiz" class="btn-primary" style="font-size:0.88rem; padding:13px 26px;">Rejoindre Vérif →</a>
       <a href="#saisie-artisan" style="display:inline-flex; align-items:center; gap:8px; background:var(--navy); color:white; padding:13px 26px; border-radius:8px; font-weight:700; font-size:0.88rem; text-decoration:none;">📱 Voir l'interface artisan →</a>
-      <a href="#confirmation-proprio" style="display:inline-flex; align-items:center; gap:8px; background:white; color:var(--navy); border:1.5px solid var(--blue-mid); padding:13px 26px; border-radius:8px; font-weight:600; font-size:0.88rem; text-decoration:none;">Voir la confirmation propriétaire →</a>
+      <a href="#histor" style="display:inline-flex; align-items:center; gap:8px; background:white; color:var(--navy); border:1.5px solid var(--blue-mid); padding:13px 26px; border-radius:8px; font-weight:600; font-size:0.88rem; text-decoration:none;">Voir la confirmation propriétaire →</a>
     </div>
   </section>
 </div>
@@ -2730,9 +2790,7 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 </div>
 
 
-<div id="dashboard-page" style="display:none; min-height:100vh; background:var(--gray-light); font-family:'Sora',sans-serif;">
-
-  <!-- Header -->
+<div id="dashboard-page" style="display:none; min-height:100vh; background:var(--navy-deep); font-family:'Satoshi',sans-serif;">
   <nav class="inner-nav">
     <a href="/" class="inner-nav-logo">Iz'<span>Immo</span></a>
     <div class="inner-nav-links">
@@ -2750,108 +2808,41 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
     </div>
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
+  
 
-  <!-- Sélecteur de bien -->
-  <div class="db-bien-selector">
-    <div class="db-bien-selector-inner">
-      <div class="db-bien-label">Mon bien suivi</div>
-      <div class="db-bien-input-row">
-        <input class="db-bien-input" id="db-adresse-input" type="text" placeholder="Ex: 15 rue de la Paix, Paris" value="15 rue de la Paix, Paris 1er">
-        <button class="db-bien-btn" onclick="dbLoad()">Afficher</button>
-      </div>
-    </div>
-  </div>
+  <div style="max-width:1100px; margin:0 auto; padding:48px 40px 80px;">
 
-  <!-- Score hero -->
-  <div class="db-score-hero">
-    <div class="db-score-hero-inner">
-      <div class="db-score-block">
-        <div class="db-score-circle">
-          <svg width="130" height="130"><circle cx="65" cy="65" r="54" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="9"/><circle id="db-score-arc" cx="65" cy="65" r="54" fill="none" stroke="var(--orange)" stroke-width="9" stroke-linecap="round" stroke-dasharray="339" stroke-dashoffset="75" transform="rotate(-90 65 65)" style="transition:stroke-dashoffset 1s ease"/></svg>
-          <div class="db-score-inner"><div class="db-score-num" id="db-score-num">—</div><div class="db-score-lbl">/ 100</div></div>
-        </div>
-        <div class="db-score-text">
-          <div class="db-score-title">Score de transparence</div>
-          <div class="db-score-addr" id="db-score-addr">—</div>
-          <div class="db-score-gauge-wrap">
-            <div class="db-score-gauge-track">
-              <div class="db-score-gauge-fill" id="db-score-gauge-fill"></div>
-            </div>
-            <div class="db-score-gauge-labels">
-              <span>0</span><span>Incomplet</span><span>Bon</span><span>Excellent</span>
-            </div>
-          </div>
-          <div class="db-score-hint" id="db-score-hint"></div>
-        </div>
-      </div>
-      <div class="db-hero-kpis">
-        <div class="db-hero-kpi"><div class="db-hero-kpi-num" id="dbk-total">—</div><div class="db-hero-kpi-lbl">Interventions</div></div>
-        <div class="db-hero-kpi"><div class="db-hero-kpi-num" id="dbk-cert">—</div><div class="db-hero-kpi-lbl">Certifiées</div></div>
-        <div class="db-hero-kpi"><div class="db-hero-kpi-num" id="dbk-montant">—</div><div class="db-hero-kpi-lbl">Travaux tracés</div></div>
-        <div class="db-hero-kpi"><div class="db-hero-kpi-num" id="dbk-artisans">—</div><div class="db-hero-kpi-lbl">Artisans vérifiés</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Body -->
-  <div class="db-body">
-
-    <!-- Alertes -->
-    <div id="db-alerts"></div>
-
-    <!-- Progression score -->
-    <div class="db-card">
-      <div class="db-card-title">Composition du score</div>
-      <div class="db-prog-bars" id="db-prog-bars">
-        <div class="db-prog"><div class="db-prog-top"><span>Interventions certifiées</span><span id="db-p-cert" class="db-prog-val">—</span></div><div class="db-prog-track"><div class="db-prog-fill" id="db-pf-cert" style="width:0%"></div></div></div>
-        <div class="db-prog"><div class="db-prog-top"><span>Artisans avec SIRET vérifié</span><span id="db-p-siret" class="db-prog-val">—</span></div><div class="db-prog-track"><div class="db-prog-fill" id="db-pf-siret" style="width:0%"></div></div></div>
-        <div class="db-prog"><div class="db-prog-top"><span>Volume d'interventions tracées</span><span id="db-p-vol" class="db-prog-val">—</span></div><div class="db-prog-track"><div class="db-prog-fill" id="db-pf-vol" style="width:0%"></div></div></div>
-      </div>
+    <!-- En-tête -->
+    <div style="margin-bottom:32px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Tableau de bord</div>
+      <h1 style="font-size:1.9rem; font-weight:900; color:white; letter-spacing:-0.8px;">Espace professionnel</h1>
+      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); margin-top:6px;">Consultez les profils certifiés Historim et leurs statistiques.</p>
     </div>
 
-    <!-- Historique interventions -->
-    <div class="db-card">
-      <div class="db-card-header-row">
-        <div class="db-card-title">Historique des interventions</div>
-        <div class="db-filter-row">
-          <button class="db-filter active" onclick="dbFilterStatus(this,'all')">Tous</button>
-          <button class="db-filter" onclick="dbFilterStatus(this,'certifie')">✓ Certifiés</button>
-          <button class="db-filter" onclick="dbFilterStatus(this,'en_attente')">⏳ En attente</button>
-        </div>
-      </div>
-      <div id="db-interv-list">
-        <div class="db-loading"><div class="db-spinner"></div>Chargement…</div>
-      </div>
+    <!-- Onglets artisan / agent -->
+    <div style="display:flex; gap:8px; margin-bottom:24px;">
+      <button id="db-tab-artisan" onclick="dbSwitchTab('artisan')"
+        style="background:var(--orange); color:white; border:none; border-radius:8px; padding:10px 20px; font-family:'Satoshi',sans-serif; font-size:0.82rem; font-weight:700; cursor:pointer;">
+        🔧 Artisans
+      </button>
+      <button id="db-tab-agent" onclick="dbSwitchTab('agent')"
+        style="background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.6); border:1.5px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px 20px; font-family:'Satoshi',sans-serif; font-size:0.82rem; font-weight:600; cursor:pointer;">
+        🏢 Agents immobiliers
+      </button>
     </div>
 
-    <!-- Actions rapides -->
-    <div class="db-actions-grid">
-      <div class="db-action-card" onclick="document.getElementById('dashboard-page').style.display='none';document.getElementById('site-main').classList.remove('hidden');setTimeout(()=>document.getElementById('saisie').scrollIntoView({behavior:'smooth'}),100)">
-        <div class="db-action-icon">📄</div>
-        <div class="db-action-title">Ajouter une intervention</div>
-        <div class="db-action-sub">Uploadez une facture et lancez la certification</div>
-      </div>
-      <div class="db-action-card" onclick="openPDFModal()">
-        <div class="db-action-icon">📊</div>
-        <div class="db-action-title">Générer le rapport PDF</div>
-        <div class="db-action-sub">Document certifié à partager lors d'une transaction</div>
-      </div>
-      <div class="db-action-card" onclick="document.getElementById('dashboard-page').style.display='none';document.getElementById('site-main').classList.remove('hidden');setTimeout(()=>document.getElementById('verifiz').scrollIntoView({behavior:'smooth'}),100)">
-        <div class="db-action-icon">🔧</div>
-        <div class="db-action-title">Trouver un artisan</div>
-        <div class="db-action-sub">Cherchez dans le répertoire Vérif certifié</div>
-      </div>
-      <div class="db-action-card db-action-share" id="db-share-btn" onclick="dbShareLink()">
-        <div class="db-action-icon">🔗</div>
-        <div class="db-action-title">Partager la fiche</div>
-        <div class="db-action-sub">Accès temporaire sécurisé pour votre agent ou acquéreur</div>
-      </div>
+    <!-- Grille de profils -->
+    <div id="db-profiles-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:14px;">
+      <div style="color:rgba(255,255,255,0.3);font-size:0.82rem;padding:20px;">Chargement…</div>
     </div>
 
-    <div class="db-footer-note">
-      <a href="/" class="db-footer-logo">Iz'<span>Immo</span></a>
-      <span>Tableau de bord Histor · Données certifiées en temps réel</span>
+    <!-- CTA bas -->
+    <div style="margin-top:40px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px; text-align:center;">
+      <h3 style="font-size:1.05rem; font-weight:800; color:white; margin-bottom:8px;">Vous êtes artisan ou agent ?</h3>
+      <p style="font-size:0.82rem; color:rgba(255,255,255,0.5); margin-bottom:18px; line-height:1.6;">Rejoignez le répertoire Vérif et construisez votre réputation certifiée.</p>
+      <button onclick="navGo('saisie-artisan')" style="background:var(--orange); color:white; border:none; border-radius:8px; padding:12px 26px; font-family:'Satoshi',sans-serif; font-size:0.85rem; font-weight:700; cursor:pointer;">Certifier une intervention →</button>
     </div>
+
   </div>
 </div>
 
@@ -4341,6 +4332,27 @@ function apFormatDate(d) {
   return new Date(d + 'T00:00:00').toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
 }
 
+async function apInitToken(token, action) {
+  apShowState('loading');
+  if (!token) { apShowState('notfound'); return; }
+  try {
+    const { data, error } = await sb.from('interventions').select('*')
+      .eq('validation_token', token).single();
+    if (error || !data) { apShowState('notfound'); return; }
+    /* Vérifier expiration */
+    if (data.token_expires_at && new Date(data.token_expires_at) < new Date()) {
+      apShowState('notfound'); return;
+    }
+    if (data.statut === 'certifie') { apShowSuccessAlready(); return; }
+    if (data.statut === 'refuse')   { apShowState('refused'); return; }
+    apCurrentData = data;
+    apPopulate(data);
+    apShowState('main');
+    /* Si action=refuser dans l'URL, ouvrir directement le refus */
+    if (action === 'refuser' && typeof apOpenRefuse === 'function') apOpenRefuse();
+  } catch(e) { console.error('[apInitToken]', e); apShowState('notfound'); }
+}
+
 async function apInit(id) {
   apShowState('loading');
   if (!id) {
@@ -4400,16 +4412,25 @@ function apShowSuccessAlready() {
 
 async function apConfirm() {
   const btn = document.getElementById('ap-btn-confirm');
-  btn.classList.add('ap-btn-loading');
+  if (btn) btn.classList.add('ap-btn-loading');
   if (apCurrentData?.id) {
     try {
-      await sb.from('interventions').update({
-        statut: 'certifie', score_apres: 82,
-        date_certification: new Date().toISOString()
-      }).eq('id', apCurrentData.id);
-    } catch(e) { console.error(e); }
+      /* Utiliser l'API serverless si on a un token, sinon update direct */
+      if (apCurrentData.validation_token) {
+        await fetch('/api/confirmer', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: apCurrentData.validation_token, action: 'confirmer' })
+        });
+      } else {
+        await sb.from('interventions').update({
+          statut: 'certifie',
+          date_certification: new Date().toISOString(),
+          validation_token: null, token_expires_at: null
+        }).eq('id', apCurrentData.id);
+      }
+    } catch(e) { console.error('[apConfirm]', e); }
   }
-  await new Promise(r => setTimeout(r, 800));
+  await new Promise(r => setTimeout(r, 600));
   apShowState('success');
 }
 
@@ -4520,9 +4541,6 @@ function doRoute() {
   } else if (route === 'saisie-artisan') {
     show('saisie-artisan-page');
     if (typeof saInit === 'function') saInit();
-  } else if (route === 'confirmation-proprio') {
-    show('confirmation-proprio-page');
-    if (typeof cpInit === 'function') cpInit();
   } else if (route === 'histor') {
     show('histor-page');
     if (typeof iztLoad === 'function') iztLoad();
@@ -4541,7 +4559,7 @@ function doRoute() {
     if (typeof pbInit === 'function') pbInit(proboard);
   } else if (confirmer) {
     show('confirmer-page');
-    if (typeof cp2Init === 'function') cp2Init(p.get('token'), p.get('action'));
+    if (typeof apInitToken === 'function') apInitToken(p.get('token'), p.get('action'));
   } else if (artisanId) {
     show('artisan-page');
     if (typeof apInit === 'function') apInit(artisanId);
