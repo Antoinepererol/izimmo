@@ -4619,39 +4619,9 @@ function saisiePreRemplir(ex) {
 
 var saisieExtractMeta = {};
 
-/* --- Étape 1 → Étape 2 --- */
-function saisieEtape1(e) {
-  e.preventDefault();
-  var adresse = (document.getElementById("s-adresse").value || "").trim();
-  var type    = (document.getElementById("s-type").value || "").trim();
-  var date    = (document.getElementById("s-date").value || "").trim();
-  var errEl   = document.getElementById("s-error-1");
-  errEl.style.display = "none";
 
-  if (!adresse) { errEl.textContent = "Veuillez renseigner l'adresse du bien."; errEl.style.display = "block"; return; }
-  if (!type)    { errEl.textContent = "Veuillez sélectionner un type de travaux."; errEl.style.display = "block"; return; }
-  if (!date)    { errEl.textContent = "Veuillez indiquer la date des travaux."; errEl.style.display = "block"; return; }
 
-  /* Passer à l'étape 2 */
-  document.getElementById("s-etape-1").style.display = "none";
-  document.getElementById("s-etape-2").style.display = "block";
 
-  /* Mettre à jour l'indicateur */
-  var ind1 = document.getElementById("s-step-ind-1");
-  var ind2 = document.getElementById("s-step-ind-2");
-  if (ind1) { ind1.querySelector("div").style.background = "var(--green-cert)"; ind1.querySelector("div").textContent = "✓"; }
-  if (ind2) { ind2.style.opacity = "1"; ind2.querySelector("div").style.background = "var(--orange)"; ind2.querySelector("div").style.color = "white"; }
-}
-
-function saisieRetourEtape1() {
-  document.getElementById("s-etape-2").style.display = "none";
-  document.getElementById("s-etape-1").style.display = "block";
-
-  var ind1 = document.getElementById("s-step-ind-1");
-  var ind2 = document.getElementById("s-step-ind-2");
-  if (ind1) { ind1.querySelector("div").style.background = "var(--orange)"; ind1.querySelector("div").textContent = "1"; }
-  if (ind2) { ind2.style.opacity = "0.4"; ind2.querySelector("div").style.background = "var(--blue-mid)"; ind2.querySelector("div").style.color = "var(--navy)"; }
-}
 
 /* --- Autocomplétion adresse --- */
 function saisieAdresseSearch(query) {
@@ -4743,9 +4713,8 @@ async function saisieSubmit(e) {
   var btn     = document.getElementById("s-submit-btn");
   var iconEl  = document.getElementById("s-submit-icon");
   var labelEl = document.getElementById("s-submit-label");
-  var errEl   = document.getElementById("s-error-2");
-  var form1   = document.getElementById("s-etape-1");
-  var form2   = document.getElementById("s-etape-2");
+  var errEl   = document.getElementById("s-error");
+  var formEl  = document.getElementById("s-form");
   var success = document.getElementById("s-success");
 
   var adresse      = (document.getElementById("s-adresse").value || "").trim();
@@ -4758,6 +4727,10 @@ async function saisieSubmit(e) {
   var artisanEmail = (document.getElementById("s-artisan-email").value || "").trim();
 
   errEl.style.display = "none";
+  /* Validation des champs obligatoires */
+  if (!adresse)    { errEl.textContent = "Veuillez renseigner l'adresse du bien."; errEl.style.display = "block"; window.scrollTo(0,0); return; }
+  if (!type)       { errEl.textContent = "Veuillez sélectionner un type de travaux."; errEl.style.display = "block"; window.scrollTo(0,0); return; }
+  if (!date)       { errEl.textContent = "Veuillez indiquer la date des travaux."; errEl.style.display = "block"; window.scrollTo(0,0); return; }
   if (!artisanNom) { errEl.textContent = "Veuillez renseigner le nom de l'artisan."; errEl.style.display = "block"; return; }
 
   btn.disabled = true; btn.style.opacity = "0.7";
@@ -4806,7 +4779,7 @@ async function saisieSubmit(e) {
     }
 
     /* 4. Afficher le succès */
-    form2.style.display = "none";
+    if (formEl) formEl.style.display = "none";
     success.style.display = "block";
     var msgEl = document.getElementById("s-success-email-msg");
     if (msgEl) {
@@ -4832,22 +4805,21 @@ async function saisieSubmit(e) {
 }
 
 function saisieReset() {
-  document.getElementById("s-form-1").reset();
-  document.getElementById("s-form-2").reset();
-  document.getElementById("s-etape-1").style.display = "block";
-  document.getElementById("s-etape-2").style.display = "none";
+  var formEl = document.getElementById("s-form");
+  if (formEl) { formEl.reset(); formEl.style.display = "block"; }
   document.getElementById("s-success").style.display = "none";
-  document.getElementById("s-error-1").style.display = "none";
-  document.getElementById("s-error-2").style.display = "none";
+  var errEl = document.getElementById("s-error");
+  if (errEl) errEl.style.display = "none";
   var btn = document.getElementById("s-submit-btn");
   var iconEl = document.getElementById("s-submit-icon");
   var labelEl = document.getElementById("s-submit-label");
   if (btn) { btn.disabled = false; btn.style.opacity = "1"; }
   if (iconEl) iconEl.textContent = "📋";
   if (labelEl) labelEl.textContent = "Enregistrer l'intervention";
-  saisieRetourEtape1();
   var siretResult = document.getElementById("s-siret-result");
   if (siretResult) siretResult.style.display = "none";
+  var siretIcon = document.getElementById("s-siret-icon");
+  if (siretIcon) siretIcon.textContent = "";
   saisieAdresseSelected = null;
   /* Reset document */
   saisieDocFile = null; saisieDocUrl = null; saisieExtractMeta = {};
@@ -4859,6 +4831,7 @@ function saisieReset() {
   if (er) er.style.display = "none";
   var fi = document.getElementById("s-file-input");
   if (fi) fi.value = "";
+  window.scrollTo(0, 0);
 }
 
 /* ============================================================
@@ -5045,17 +5018,7 @@ function saisieReset() {
     </div>
 
     <!-- Indicateur d'étapes -->
-    <div style="display:flex; align-items:center; gap:0; margin-bottom:28px;">
-      <div id="s-step-ind-1" style="display:flex; align-items:center; gap:8px;">
-        <div style="width:28px; height:28px; border-radius:50%; background:var(--orange); color:white; font-size:0.78rem; font-weight:800; display:flex; align-items:center; justify-content:center;">1</div>
-        <span style="font-size:0.78rem; font-weight:700; color:var(--navy);">L'intervention</span>
-      </div>
-      <div style="flex:1; height:2px; background:var(--blue-light); margin:0 12px;"></div>
-      <div id="s-step-ind-2" style="display:flex; align-items:center; gap:8px; opacity:0.4;">
-        <div style="width:28px; height:28px; border-radius:50%; background:var(--blue-mid); color:var(--navy); font-size:0.78rem; font-weight:800; display:flex; align-items:center; justify-content:center;">2</div>
-        <span style="font-size:0.78rem; font-weight:700; color:var(--navy);">L'artisan</span>
-      </div>
-    </div>
+    
 
     <!-- ZONE UPLOAD DOCUMENT (pré-remplissage IA) -->
     <div id="s-upload-zone" style="margin-bottom:24px;">
@@ -5092,11 +5055,17 @@ function saisieReset() {
       </div>
     </div>
 
-    <!-- ÉTAPE 1 -->
-    <div id="s-etape-1">
-      <form id="s-form-1" onsubmit="saisieEtape1(event)" novalidate>
+    <!-- FORMULAIRE UNIQUE -->
+    <form id="s-form" onsubmit="saisieSubmit(event)" novalidate>
 
-        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:20px;">
+      <!-- Section 1 : l'intervention -->
+      <div style="background:white; border-radius:14px; padding:22px; border:1px solid var(--blue-light); margin-bottom:16px;">
+        <div style="font-size:0.78rem; font-weight:800; color:var(--navy); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+          <span style="width:22px; height:22px; border-radius:50%; background:var(--orange); color:white; font-size:0.7rem; font-weight:800; display:flex; align-items:center; justify-content:center;">1</span>
+          L'intervention
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px;">
 
           <div>
             <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Adresse du bien <span style="color:var(--orange);">*</span></label>
@@ -5148,21 +5117,16 @@ function saisieReset() {
           </div>
 
         </div>
+      </div>
 
-        <div id="s-error-1" style="display:none; background:#FEE2E2; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#DC2626; margin-bottom:14px; font-weight:600;"></div>
+      <!-- Section 2 : l'artisan -->
+      <div style="background:white; border-radius:14px; padding:22px; border:1px solid var(--blue-light); margin-bottom:16px;">
+        <div style="font-size:0.78rem; font-weight:800; color:var(--navy); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+          <span style="width:22px; height:22px; border-radius:50%; background:var(--orange); color:white; font-size:0.7rem; font-weight:800; display:flex; align-items:center; justify-content:center;">2</span>
+          L'artisan
+        </div>
 
-        <button type="submit"
-          style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:14px; font-family:'Satoshi',sans-serif; font-size:0.92rem; font-weight:800; cursor:pointer;">
-          Continuer →
-        </button>
-      </form>
-    </div>
-
-    <!-- ÉTAPE 2 -->
-    <div id="s-etape-2" style="display:none;">
-      <form id="s-form-2" onsubmit="saisieSubmit(event)" novalidate>
-
-        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:20px;">
+        <div style="display:flex; flex-direction:column; gap:14px;">
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
             <div>
@@ -5204,23 +5168,17 @@ function saisieReset() {
           </div>
 
         </div>
+      </div>
 
-        <div id="s-error-2" style="display:none; background:#FEE2E2; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#DC2626; margin-bottom:14px; font-weight:600;"></div>
+      <div id="s-error" style="display:none; background:#FEE2E2; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#DC2626; margin-bottom:14px; font-weight:600;"></div>
 
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <button type="submit" id="s-submit-btn"
-            style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:14px; font-family:'Satoshi',sans-serif; font-size:0.92rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
-            <span id="s-submit-icon">📋</span>
-            <span id="s-submit-label">Enregistrer l'intervention</span>
-          </button>
-          <button type="button" onclick="saisieRetourEtape1()"
-            style="width:100%; background:transparent; color:var(--gray); border:1.5px solid var(--blue-light); border-radius:10px; padding:12px; font-family:'Satoshi',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer;">
-            ← Retour
-          </button>
-        </div>
+      <button type="submit" id="s-submit-btn"
+        style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:15px; font-family:'Satoshi',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+        <span id="s-submit-icon">📋</span>
+        <span id="s-submit-label">Enregistrer l'intervention</span>
+      </button>
 
-      </form>
-    </div>
+    </form>
 
     <!-- Succès -->
     <div id="s-success" style="display:none; background:white; border-radius:16px; padding:32px; text-align:center; border:1.5px solid var(--green-cert); box-shadow:0 8px 32px rgba(6,214,160,0.1);">
