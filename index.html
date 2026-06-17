@@ -2015,6 +2015,12 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 .sa-screen.active { display: block; animation: saFade 0.3s ease; }
 @keyframes saFade { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 
+
+/* ===== FORMULAIRE SAISIE — grille 2 colonnes ===== */
+@media (max-width: 720px) {
+  .s-form-grid { grid-template-columns: 1fr !important; }
+}
+
 </style>
 </head>
 <body>
@@ -5008,7 +5014,7 @@ function saisieReset() {
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <div style="max-width:520px; margin:0 auto; padding:48px 24px 80px;">
+  <div style="max-width:920px; margin:0 auto; padding:48px 24px 80px;">
 
     <!-- En-tête -->
     <div style="margin-bottom:32px;">
@@ -5058,8 +5064,10 @@ function saisieReset() {
     <!-- FORMULAIRE UNIQUE -->
     <form id="s-form" onsubmit="saisieSubmit(event)" novalidate>
 
+      <div class="s-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+
       <!-- Section 1 : l'intervention -->
-      <div style="background:white; border-radius:14px; padding:22px; border:1px solid var(--blue-light); margin-bottom:16px;">
+      <div style="background:white; border-radius:14px; padding:22px; border:1px solid var(--blue-light);">
         <div style="font-size:0.78rem; font-weight:800; color:var(--navy); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
           <span style="width:22px; height:22px; border-radius:50%; background:var(--orange); color:white; font-size:0.7rem; font-weight:800; display:flex; align-items:center; justify-content:center;">1</span>
           L'intervention
@@ -5120,7 +5128,7 @@ function saisieReset() {
       </div>
 
       <!-- Section 2 : l'artisan -->
-      <div style="background:white; border-radius:14px; padding:22px; border:1px solid var(--blue-light); margin-bottom:16px;">
+      <div style="background:white; border-radius:14px; padding:22px; border:1px solid var(--blue-light);">
         <div style="font-size:0.78rem; font-weight:800; color:var(--navy); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
           <span style="width:22px; height:22px; border-radius:50%; background:var(--orange); color:white; font-size:0.7rem; font-weight:800; display:flex; align-items:center; justify-content:center;">2</span>
           L'artisan
@@ -5170,10 +5178,12 @@ function saisieReset() {
         </div>
       </div>
 
-      <div id="s-error" style="display:none; background:#FEE2E2; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#DC2626; margin-bottom:14px; font-weight:600;"></div>
+      </div><!-- fin grille -->
+
+      <div id="s-error" style="display:none; background:#FEE2E2; border-radius:8px; padding:10px 14px; font-size:0.8rem; color:#DC2626; margin-bottom:14px; font-weight:600; max-width:420px; margin-left:auto; margin-right:auto;"></div>
 
       <button type="submit" id="s-submit-btn"
-        style="width:100%; background:var(--orange); color:white; border:none; border-radius:10px; padding:15px; font-family:'Satoshi',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+        style="width:100%; max-width:420px; margin:0 auto; background:var(--orange); color:white; border:none; border-radius:10px; padding:15px; font-family:'Satoshi',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
         <span id="s-submit-icon">📋</span>
         <span id="s-submit-label">Enregistrer l'intervention</span>
       </button>
