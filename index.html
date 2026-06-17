@@ -4616,6 +4616,135 @@ var saisieAdresseSelected = null;
 var saisieSiretTimer = null;
 var saisieSiretCache = {};
 
+/* --- Upload + analyse IA du document --- */
+var saisieDocFile = null;
+var saisieDocUrl = null;
+
+async function saisieAnalyseDocument(input) {
+  var file = input.files && input.files[0];
+  if (!file) return;
+
+  /* Vérifs basiques */
+  var maxSize = 10 * 1024 * 1024; // 10 Mo
+  if (file.size > maxSize) {
+    alert("Le fichier est trop volumineux (max 10 Mo).");
+    return;
+  }
+  saisieDocFile = file;
+
+  var dropzone   = document.getElementById("s-dropzone");
+  var analyseEl  = document.getElementById("s-analyse-state");
+  var resultEl   = document.getElementById("s-extract-result");
+
+  /* Afficher l'état analyse */
+  if (dropzone)  dropzone.style.display = "none";
+  if (resultEl)  resultEl.style.display = "none";
+  if (analyseEl) analyseEl.style.display = "block";
+
+  try {
+    /* 1. Lire le fichier en base64 */
+    var base64 = await saisieFileToBase64(file);
+
+    /* 2. Uploader dans Supabase Storage (en parallèle de l'analyse) */
+    var uploadPromise = saisieUploadDocument(file);
+
+    /* 3. Appeler /api/extract */
+    var res = await fetch("/api/extract", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fileBase64: base64, mediaType: file.type })
+    });
+    var data = await res.json();
+
+    /* Attendre la fin de l'upload */
+    try { saisieDocUrl = await uploadPromise; } catch(e) { console.warn("[Upload]", e.message); saisieDocUrl = null; }
+
+    if (analyseEl) analyseEl.style.display = "none";
+
+    if (data.success && data.extraction) {
+      saisiePreRemplir(data.extraction);
+      if (resultEl) {
+        resultEl.style.display = "block";
+        var docMsg = document.getElementById("s-extract-doc");
+        var ex = data.extraction;
+        if (docMsg) {
+          var conf = ex.confidence === "high" ? "Fiabilité élevée" : ex.confidence === "low" ? "⚠️ Vérifiez bien, document peu lisible" : "Fiabilité moyenne";
+          docMsg.textContent = (ex.document_type || "document") + " · " + conf;
+        }
+      }
+    } else {
+      /* Échec extraction — on garde le formulaire vide mais le doc est uploadé */
+      if (dropzone) dropzone.style.display = "block";
+      alert("Le document n'a pas pu être analysé automatiquement. Vous pouvez saisir les informations manuellement — le document reste attaché.");
+    }
+
+  } catch(err) {
+    console.error("[Analyse]", err.message);
+    if (analyseEl) analyseEl.style.display = "none";
+    if (dropzone)  dropzone.style.display = "block";
+    alert("Erreur lors de l'analyse. Réessayez ou saisissez manuellement.");
+  }
+}
+
+function saisieFileToBase64(file) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var b64 = reader.result.split(",")[1]; // retirer le préfixe data:...;base64,
+      resolve(b64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function saisieUploadDocument(file) {
+  var ext = (file.name.split(".").pop() || "bin").toLowerCase();
+  var path = "interventions/" + Date.now() + "-" + Math.random().toString(36).slice(2, 8) + "." + ext;
+  var up = await sb.storage.from("documents").upload(path, file, { upsert: false });
+  if (up.error) throw new Error(up.error.message);
+  var pub = sb.storage.from("documents").getPublicUrl(path);
+  return pub.data.publicUrl;
+}
+
+function saisiePreRemplir(ex) {
+  var c = ex.common || {};
+  function setVal(id, val) { var el = document.getElementById(id); if (el && val != null && val !== "") el.value = val; }
+
+  setVal("s-adresse", c.adresse_bien);
+  setVal("s-date", c.date);
+  setVal("s-montant", c.montant_ttc);
+  setVal("s-artisan-nom", c.artisan_nom);
+  setVal("s-artisan-ent", c.artisan_entreprise);
+  setVal("s-artisan-siret", c.artisan_siret);
+
+  /* Type de travaux → mapper sur la liste du select */
+  if (ex.category) {
+    var sel = document.getElementById("s-type");
+    if (sel) {
+      for (var i = 0; i < sel.options.length; i++) {
+        if (sel.options[i].value === ex.category || sel.options[i].text === ex.category) {
+          sel.selectedIndex = i; break;
+        }
+      }
+    }
+  }
+
+  /* Stocker les métadonnées d'événement pour l'insert */
+  saisieExtractMeta = {
+    document_type: ex.document_type || null,
+    histor_event_type: ex.histor_event_type || null,
+    extraction_confidence: ex.confidence || null,
+    description: ex.description || null
+  };
+
+  /* Pré-remplir la description si champ présent */
+  var descEl = document.getElementById("s-description");
+  if (descEl && ex.description) descEl.value = ex.description;
+}
+
+var saisieExtractMeta = {};
+
 /* --- Étape 1 → Étape 2 --- */
 function saisieEtape1(e) {
   e.preventDefault();
@@ -4779,7 +4908,11 @@ async function saisieSubmit(e) {
       montant_ttc: montant, artisan_nom: artisanNom,
       artisan_entreprise: artisanEnt || null, artisan_siret: siret || null,
       artisan_contact: artisanEmail || null, statut: "en_attente",
-      bien_id: bienId || null
+      bien_id: bienId || null,
+      document_url: saisieDocUrl || null,
+      document_type: (saisieExtractMeta && saisieExtractMeta.document_type) || null,
+      histor_event_type: (saisieExtractMeta && saisieExtractMeta.histor_event_type) || null,
+      extraction_confidence: (saisieExtractMeta && saisieExtractMeta.extraction_confidence) || null
     };
     var res = await sb.from("interventions").insert(payload).select().single();
     if (res.error) throw new Error(res.error.message);
@@ -4842,6 +4975,16 @@ function saisieReset() {
   var siretResult = document.getElementById("s-siret-result");
   if (siretResult) siretResult.style.display = "none";
   saisieAdresseSelected = null;
+  /* Reset document */
+  saisieDocFile = null; saisieDocUrl = null; saisieExtractMeta = {};
+  var dz = document.getElementById("s-dropzone");
+  var ar = document.getElementById("s-analyse-state");
+  var er = document.getElementById("s-extract-result");
+  if (dz) dz.style.display = "block";
+  if (ar) ar.style.display = "none";
+  if (er) er.style.display = "none";
+  var fi = document.getElementById("s-file-input");
+  if (fi) fi.value = "";
 }
 
 /* ============================================================
@@ -5037,6 +5180,41 @@ function saisieReset() {
       <div id="s-step-ind-2" style="display:flex; align-items:center; gap:8px; opacity:0.4;">
         <div style="width:28px; height:28px; border-radius:50%; background:var(--blue-mid); color:var(--navy); font-size:0.78rem; font-weight:800; display:flex; align-items:center; justify-content:center;">2</div>
         <span style="font-size:0.78rem; font-weight:700; color:var(--navy);">L'artisan</span>
+      </div>
+    </div>
+
+    <!-- ZONE UPLOAD DOCUMENT (pré-remplissage IA) -->
+    <div id="s-upload-zone" style="margin-bottom:24px;">
+      <div id="s-dropzone" onclick="document.getElementById('s-file-input').click()"
+        style="border:2px dashed var(--blue-mid); border-radius:14px; padding:28px 20px; text-align:center; cursor:pointer; background:white; transition:all 0.2s;"
+        onmouseover="this.style.borderColor='var(--orange)'; this.style.background='var(--beige)'"
+        onmouseout="this.style.borderColor='var(--blue-mid)'; this.style.background='white'">
+        <div style="font-size:2rem; margin-bottom:8px;">📄</div>
+        <div style="font-size:0.92rem; font-weight:800; color:var(--navy); margin-bottom:4px;">Déposez une facture ou un document</div>
+        <div style="font-size:0.78rem; color:var(--gray); line-height:1.5;">Historim le lit et pré-remplit le formulaire automatiquement.<br>PDF ou photo · L'IA fait le travail, vous validez.</div>
+        <input type="file" id="s-file-input" accept="image/*,application/pdf" style="display:none" onchange="saisieAnalyseDocument(this)">
+      </div>
+
+      <!-- État analyse -->
+      <div id="s-analyse-state" style="display:none; background:var(--navy-deep); border-radius:14px; padding:20px; text-align:center; margin-top:0;">
+        <div id="s-analyse-spinner" style="font-size:1.6rem; margin-bottom:8px;">⏳</div>
+        <div id="s-analyse-msg" style="font-size:0.88rem; font-weight:700; color:white;">Analyse du document…</div>
+        <div style="font-size:0.72rem; color:rgba(255,255,255,0.5); margin-top:4px;">Quelques secondes</div>
+      </div>
+
+      <!-- Résultat extraction -->
+      <div id="s-extract-result" style="display:none; background:var(--green-bg); border:1px solid var(--green-cert); border-radius:12px; padding:14px 16px; margin-top:12px;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:0.82rem; font-weight:700; color:var(--green-cert);">
+          <span>✅</span><span id="s-extract-msg">Document analysé — vérifiez les champs pré-remplis</span>
+        </div>
+        <div id="s-extract-doc" style="font-size:0.72rem; color:var(--gray); margin-top:6px;"></div>
+      </div>
+
+      <!-- Séparateur -->
+      <div style="display:flex; align-items:center; gap:12px; margin:20px 0 4px;">
+        <div style="flex:1; height:1px; background:var(--blue-light);"></div>
+        <span style="font-size:0.72rem; color:var(--gray); font-weight:600;">ou saisissez manuellement</span>
+        <div style="flex:1; height:1px; background:var(--blue-light);"></div>
       </div>
     </div>
 
