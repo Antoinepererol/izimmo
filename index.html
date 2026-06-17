@@ -1344,7 +1344,7 @@ function dbRenderProfiles() {
 }
 .ap-logo { font-size: 1.25rem; font-weight: 800; color: white; }
 .ap-logo span { color: var(--orange); }
-.ap-secure { display: flex; align-items: center; gap: 5px; font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.4); }
+.ap-secure { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 700; color: var(--green-cert); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
 .ap-secure-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-cert); }
 
 .ap-wrap { width: 100%; max-width: 480px; padding: 28px 20px 0; display: flex; flex-direction: column; gap: 16px; margin: 0 auto; }
@@ -1353,11 +1353,11 @@ function dbRenderProfiles() {
 .ap-state.active { display: flex; }
 
 /* Loading */
-.ap-loading-card { background: rgba(255,255,255,0.05); border-radius: 18px; padding: 48px 24px; text-align: center; }
+.ap-loading-card { background: var(--white); box-shadow: 0 8px 32px rgba(15,28,50,0.06); border-radius: 18px; padding: 48px 24px; text-align: center; }
 .ap-spinner { width: 52px; height: 52px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--orange); margin: 0 auto 18px; animation: ap-spin 0.9s linear infinite; }
 @keyframes ap-spin { to { transform: rotate(360deg); } }
-.ap-loading-text { font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.7); }
-.ap-loading-sub { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 6px; }
+.ap-loading-text { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+.ap-loading-sub { font-size: 0.72rem; color: var(--gray); margin-top: 6px; }
 
 /* Intervention card */
 .ap-interv-card { background: var(--white); border-radius: 18px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
@@ -1391,7 +1391,7 @@ function dbRenderProfiles() {
 
 .ap-info-card { background: rgba(232,104,58,0.08); border: 1px solid rgba(232,104,58,0.2); border-radius: 14px; padding: 16px 18px; }
 .ap-info-title { font-size: 0.72rem; font-weight: 700; color: var(--orange); margin-bottom: 6px; }
-.ap-info-text { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.ap-info-text { font-size: 0.74rem; color: var(--navy); opacity: 0.75; line-height: 1.6; }
 
 /* Success */
 .ap-success-card { background: var(--white); border-radius: 18px; padding: 44px 28px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
@@ -1414,10 +1414,10 @@ function dbRenderProfiles() {
 .ap-refused-sub { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
 
 /* Not found */
-.ap-notfound-card { background: rgba(255,255,255,0.06); border-radius: 18px; padding: 44px 24px; text-align: center; }
+.ap-notfound-card { background: var(--white); box-shadow: 0 8px 32px rgba(15,28,50,0.06); border-radius: 18px; padding: 44px 24px; text-align: center; }
 .ap-notfound-icon { font-size: 2.8rem; margin-bottom: 16px; }
-.ap-notfound-title { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 8px; }
-.ap-notfound-sub { font-size: 0.76rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.ap-notfound-title { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.ap-notfound-sub { font-size: 0.76rem; color: var(--gray); line-height: 1.6; }
 
 /* Refuse bottom sheet */
 .ap-refuse-overlay { display: none; position: fixed; inset: 0; background: rgba(15,28,50,0.9); z-index: 500; align-items: flex-end; justify-content: center; backdrop-filter: blur(4px); }
@@ -5246,7 +5246,7 @@ function saisieReset() {
 <div id="confirmer-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Satoshi',sans-serif;">
   <div style="max-width:480px; margin:0 auto; padding:60px 24px;">
     <div style="text-align:center; margin-bottom:32px;">
-      <div style="font-size:1.4rem; font-weight:900; color:var(--navy);">Historim</span></div>
+      <div style="font-size:1.5rem; font-weight:900; color:var(--navy); letter-spacing:-0.5px;">Histor<span style="color:var(--orange); font-style:italic;">im</span></div>
       <div class="ap-secure"><div class="ap-secure-dot"></div>Lien sécurisé</div>
     </div>
     <div class="ap-wrap">
@@ -5333,6 +5333,10 @@ function saisieReset() {
         <div style="margin-top:6px">Ce lien est personnel et à usage unique</div>
       </div>
     </div>
+
+      <div style="text-align:center; margin-top:28px; padding-top:20px; border-top:1px solid var(--blue-light);">
+        <div style="font-size:0.68rem; color:var(--gray); line-height:1.6;">Propulsé par <strong style="color:var(--navy);">Histor<span style="color:var(--orange);font-style:italic;">im</span></strong> · Traçabilité certifiée de l'habitat</div>
+      </div>
   </div>
 
   <!-- Bottom sheet refus -->
