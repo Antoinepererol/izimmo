@@ -2021,6 +2021,16 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
   .s-form-grid { grid-template-columns: 1fr !important; }
 }
 
+
+/* ===== FICHE HISTOR — effets hover ===== */
+.izt-bien-chip:hover { border-color: var(--orange) !important; box-shadow: 0 4px 16px rgba(232,104,58,0.12); transform: translateY(-1px); }
+.izt-interv-card { transition: all 0.18s ease; }
+.izt-interv-card:hover { box-shadow: 0 6px 24px rgba(15,28,50,0.1); transform: translateY(-2px); }
+.izt-kpi-card { transition: all 0.18s ease; }
+.izt-kpi-card:hover { box-shadow: 0 6px 20px rgba(15,28,50,0.08); transform: translateY(-2px); }
+.izt-panel-header { transition: background 0.15s ease; cursor: pointer; }
+.izt-panel-header:hover { background: var(--beige); }
+
 </style>
 </head>
 <body>
@@ -5543,7 +5553,7 @@ function iztAfficherInterventions(interventions) {
     var poids = iztPoidsType(r.type_travaux);
     var poidsLabel = poids_labels[poids] || '🟢 Courant';
 
-    return '<div style="border-left:3px solid ' + (isCert ? 'var(--green-cert)' : 'var(--amber)') + '; background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">' +
+    return '<div class="izt-interv-card" style="border-left:3px solid ' + (isCert ? 'var(--green-cert)' : 'var(--amber)') + '; background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">' +
       '<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">' +
         '<div style="flex:1;">' +
           '<div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">' +
@@ -5569,6 +5579,7 @@ function iztAfficherInterventions(interventions) {
 
 /* Chargement principal de la fiche */
 async function iztLoad() {
+ try {
   var el = function(id) { return document.getElementById(id); };
   var params = new URLSearchParams(window.location.hash.replace(/^#[^?]*\??/, ''));
   var bienIdParam = params.get('bien_id');
@@ -5608,6 +5619,10 @@ async function iztLoad() {
   /* Afficher la fiche du bien actif */
   var interventions = toutesInterventions.filter(function(i) { return i.bien_id === bienActif.id; });
   iztAfficherFiche(bienActif, interventions);
+ } catch(globalErr) {
+   console.error('[Histor] Erreur globale, fiche démo en secours:', globalErr.message);
+   try { iztAfficherDemo(); } catch(e2) {}
+ }
 }
 
 function iztAfficherDemo() {
@@ -5642,26 +5657,29 @@ function iztAfficherListeBiens(biens, bienActif, toutesInterventions) {
   if (!container) return;
   container.style.display = 'flex';
   var isDemoActif = (bienActif && bienActif._demo);
-  container.innerHTML = biens.map(function(b) {
+  var html = biens.map(function(b) {
     var nbInterv = toutesInterventions.filter(function(i) { return i.bien_id === b.id; }).length;
     var nbCert = toutesInterventions.filter(function(i) { return i.bien_id === b.id && i.statut === 'certifie'; }).length;
     var isActif = !isDemoActif && b.id === bienActif.id;
-    return '<div onclick="iztSwitchBien('' + b.id + '')" style="' +
-      'padding:10px 16px; border-radius:8px; cursor:pointer; flex-shrink:0;' +
-      'border:1.5px solid ' + (isActif ? 'var(--orange)' : 'var(--blue-light)') + ';' +
-      'background:' + (isActif ? 'rgba(232,104,58,0.08)' : 'white') + ';">' +
+    var borderC = isActif ? 'var(--orange)' : 'var(--blue-light)';
+    var bgC = isActif ? 'rgba(232,104,58,0.08)' : 'white';
+    return '<div class="izt-bien-chip" onclick="iztSwitchBien(\'' + b.id + '\')" ' +
+      'style="padding:10px 16px; border-radius:8px; cursor:pointer; flex-shrink:0; ' +
+      'border:1.5px solid ' + borderC + '; background:' + bgC + '; transition:all 0.18s;">' +
       '<div style="font-size:0.78rem;font-weight:700;color:var(--navy);">' + b.adresse + '</div>' +
       '<div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">' + nbInterv + ' intervention' + (nbInterv > 1 ? 's' : '') + ' · ' + nbCert + ' certifiée' + (nbCert > 1 ? 's' : '') + '</div>' +
       '</div>';
-  }).join('') +
-  /* Bouton démo toujours visible */
-  '<div onclick="iztSwitchDemo()" style="' +
-    'padding:10px 16px; border-radius:8px; cursor:pointer; flex-shrink:0;' +
-    'border:1.5px dashed ' + (isDemoActif ? 'var(--orange)' : 'var(--blue-light)') + ';' +
-    'background:' + (isDemoActif ? 'rgba(232,104,58,0.08)' : 'rgba(255,255,255,0.6)') + ';">' +
-    '<div style="font-size:0.78rem;font-weight:700;color:var(--gray);">⭐ Fiche démo</div>' +
-    '<div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Exemple complet certifié</div>' +
-  '</div>';
+  }).join('');
+
+  /* Bouton fiche démo */
+  html += '<div class="izt-bien-chip" onclick="iztAfficherDemo()" ' +
+    'style="padding:10px 16px; border-radius:8px; cursor:pointer; flex-shrink:0; ' +
+    'border:1.5px dashed var(--blue-mid); background:var(--beige); transition:all 0.18s;">' +
+    '<div style="font-size:0.78rem;font-weight:700;color:var(--gray);">✨ Voir une fiche exemple</div>' +
+    '<div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Démonstration complète</div>' +
+    '</div>';
+
+  container.innerHTML = html;
 }
 
 var iztAllBiens = [];
@@ -5673,7 +5691,7 @@ function iztSwitchDemo() {
   iztAfficherDemo();
 }
 
-async function iztSwitchBien(bienId) {
+async async function iztSwitchBien(bienId) {
   /* Charger depuis le cache si déjà là, sinon recharger */
   var bien = iztAllBiens.find(function(b) { return b.id === bienId; });
   if (!bien) { await iztLoad(); return; }
@@ -5684,16 +5702,17 @@ async function iztSwitchBien(bienId) {
 
 function iztAfficherFiche(bien, interventions) {
   var el = function(id) { return document.getElementById(id); };
+  interventions = interventions || [];
 
-  /* Adresse + meta */
-  if (el('izt-adresse')) el('izt-adresse').textContent = bien.adresse;
+  /* Adresse + meta (avec valeurs par défaut élégantes si champs vides) */
+  if (el('izt-adresse')) el('izt-adresse').textContent = bien.adresse || 'Adresse non renseignée';
   var meta = [
     bien.type_bien ? (bien.type_bien.charAt(0).toUpperCase() + bien.type_bien.slice(1)) : null,
     bien.surface ? bien.surface + ' m²' : null,
     bien.nb_pieces ? bien.nb_pieces + ' pièces' : null,
     bien.annee_construction ? 'Construit en ' + bien.annee_construction : null
   ].filter(Boolean).join(' · ');
-  if (el('izt-meta')) el('izt-meta').textContent = meta;
+  if (el('izt-meta')) el('izt-meta').textContent = meta || 'Caractéristiques à compléter';
   if (el('izt-dpe')) el('izt-dpe').textContent = bien.dpe || '—';
   if (el('izt-ges')) el('izt-ges').textContent = bien.ges || '—';
 
@@ -5704,20 +5723,14 @@ function iztAfficherFiche(bien, interventions) {
   if (el('izt-cert-count')) el('izt-cert-count').textContent = certifiees + ' certifiée' + (certifiees > 1 ? 's' : '');
   if (el('izt-montant')) el('izt-montant').textContent = montantTotal.toLocaleString('fr-FR') + ' €';
 
-  /* Score */
-  var score = iztCalculerScore(bien, interventions);
-  setTimeout(function() { iztAfficherScore(score); }, 300);
+  /* Chaque sous-fonction est protégée : si l'une échoue, les autres s'affichent quand même */
+  try { var score = iztCalculerScore(bien, interventions); setTimeout(function() { iztAfficherScore(score); }, 300); } catch(e) { console.warn('[Histor] score:', e.message); }
+  try { iztAfficherInterventions(interventions); } catch(e) { console.warn('[Histor] interventions:', e.message); }
+  try { iztFillIdentite(bien); } catch(e) { console.warn('[Histor] identite:', e.message); }
+  try { iztFillDO(bien); } catch(e) { console.warn('[Histor] DO:', e.message); }
+  try { iztFillDecennales(interventions); } catch(e) { console.warn('[Histor] decennales:', e.message); }
+  try { iztFillCompletion(bien, interventions); } catch(e) { console.warn('[Histor] completion:', e.message); }
 
-  /* Interventions */
-  iztAfficherInterventions(interventions);
-
-  /* Panneau notaire */
-  iztFillIdentite(bien);
-  iztFillDO(bien);
-  iztFillDecennales(interventions);
-  iztFillCompletion(bien, interventions);
-
-  /* Stocker pour iztSwitchBien */
   if (bien.id) sessionStorage.setItem('historim_bien_id', bien.id);
 }
 
