@@ -2993,132 +2993,160 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <div style="max-width:1100px; margin:0 auto; padding:32px 24px 80px;">
-    <!-- Liste des biens (visible si plusieurs biens) -->
-    <div id="izt-biens-list" style="display:none; gap:10px; margin-bottom:20px; flex-wrap:wrap; overflow-x:auto; padding-bottom:4px;"></div>
+  <div style="max-width:980px; margin:0 auto; padding:40px 24px 80px;">
 
-    <!-- Header fiche -->
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap; gap:14px;">
-      <div>
-        <div style="font-size:0.68rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px;">Fiche Histor</div>
-        <h1 id="izt-adresse" style="font-size:1.4rem; font-weight:900; color:var(--navy); letter-spacing:-0.5px; margin-bottom:4px;">Chargement…</h1>
-        <div id="izt-meta" style="font-size:0.78rem; color:var(--gray);"></div>
-      </div>
-      <div id="izt-score-box" style="background:var(--navy); border-radius:12px; padding:16px 22px; text-align:center; cursor:pointer; position:relative;" onclick="iztToggleScoreDetail()">
-        <div id="izt-score-num" style="font-size:2rem; font-weight:900; color:var(--orange); line-height:1;">—</div>
-        <div style="font-size:0.62rem; color:rgba(255,255,255,0.5); font-weight:600; text-transform:uppercase; letter-spacing:0.8px; margin-top:3px;">Score de transparence</div>
-        <div id="izt-score-badge" style="margin-top:6px;"></div>
-        <!-- Popup score détail -->
-        <div id="izt-score-detail" style="display:none; position:absolute; right:0; top:calc(100% + 8px); background:white; border-radius:12px; padding:18px; width:260px; box-shadow:0 12px 40px rgba(26,43,74,0.2); z-index:50; text-align:left; cursor:default;" onclick="event.stopPropagation()">
-          <div style="font-size:0.72rem; font-weight:700; color:var(--navy); margin-bottom:12px;">Détail du score</div>
-          <div style="display:flex; flex-direction:column; gap:8px;">
-            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🏠 Complétude fiche</span><span id="izt-p1-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/25</span></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar1" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"><span id="izt-bar1-val" style="display:none;"></span><span id="izt-p1-bar" style="display:none;"></span></div></div></div>
-            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🌱 DPE / GES</span><span id="izt-p2-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/20</span></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar2" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"><span id="izt-bar2-val" style="display:none;"></span><span id="izt-p2-bar" style="display:none;"></span></div></div></div>
-            <div><div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span style="font-size:0.7rem; color:var(--navy);">🔧 Interventions</span><span id="izt-p3-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—/55</span></div><div id="izt-ratio-certif" style="font-size:0.62rem; color:var(--orange); font-weight:600; margin-bottom:2px;"></div><div style="height:5px; background:var(--blue-light); border-radius:3px;"><div id="izt-bar3" style="height:100%; border-radius:3px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.6s;"><span id="izt-bar3-val" style="display:none;"></span><span id="izt-p3-bar" style="display:none;"></span></div></div></div>
-          </div>
-        </div>
-      </div>
+    <!-- Intro -->
+    <div style="margin-bottom:28px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Fiche Histor</div>
+      <h1 style="font-size:1.9rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:6px;">L'historique certifié d'un logement</h1>
+      <p style="font-size:0.88rem; color:var(--gray); line-height:1.6; max-width:560px;">Voici un exemple de fiche : toutes les interventions, certifiées par les artisans, consultables en un coup d'œil lors d'une transaction.</p>
     </div>
 
-    <!-- DPE row -->
-    <div id="izt-dpe-row" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:90px;">
-        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">DPE</div>
-        <div id="izt-dpe" style="font-size:1.6rem; font-weight:900; color:var(--orange);">—</div>
-      </div>
-      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:90px;">
-        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">GES</div>
-        <div id="izt-ges" style="font-size:1.6rem; font-weight:900; color:var(--navy);">—</div>
-      </div>
-      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:90px;">
-        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">Interventions</div>
-        <div id="izt-nb-interv" style="font-size:1.6rem; font-weight:900; color:var(--navy);">—</div>
-        <div id="izt-cert-count" style="font-size:0.65rem; color:var(--green-cert); font-weight:700; margin-top:2px;"></div>
-      </div>
-      <div style="background:white; border-radius:10px; padding:12px 16px; border:1.5px solid var(--blue-light); text-align:center; min-width:110px;">
-        <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:3px;">Montant total</div>
-        <div id="izt-montant" style="font-size:1.1rem; font-weight:900; color:var(--navy);">—</div>
-      </div>
-    </div>
-    <div id="izt-cert-badge" style="display:none;"></div>
+    <!-- Carte fiche -->
+    <div style="background:white; border-radius:16px; box-shadow:0 16px 48px rgba(15,28,50,0.08); overflow:hidden;">
 
-    <!-- Layout 2 colonnes -->
-    <div style="display:grid; grid-template-columns:1fr 340px; gap:20px; align-items:start;">
-
-      <!-- Colonne gauche : interventions -->
-      <div style="background:white; border-radius:12px; padding:20px 24px; border:1.5px solid var(--blue-light);">
-        <div style="font-size:0.68rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px;">Historique des interventions</div>
-        <div id="izt-interv-list"><div style="text-align:center; padding:20px; color:var(--gray); font-size:0.8rem;">Chargement…</div></div>
-      </div>
-
-      <!-- Colonne droite : panneau notaire -->
-      <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:16px;">
-
-        <!-- Barre de complétion -->
-        <div id="izt-completion-bar" style="background:white; border-radius:12px; padding:16px 18px; border:1.5px solid var(--blue-light);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <div style="font-size:0.72rem; font-weight:700; color:var(--navy);">Complétion de la fiche</div>
-            <div id="izt-completion-pct" style="font-size:0.82rem; font-weight:900; color:var(--orange);">—%</div>
-          </div>
-          <div style="height:7px; background:var(--blue-light); border-radius:4px; margin-bottom:10px;">
-            <div id="izt-completion-fill" style="height:100%; border-radius:4px; background:linear-gradient(90deg,var(--navy),var(--orange)); width:0%; transition:width 0.8s;"></div>
-          </div>
-          <div id="izt-completion-msg" style="font-size:0.7rem; color:var(--gray); line-height:1.5;"></div>
-          <div id="izt-missing-list" style="margin-top:8px; display:flex; flex-direction:column; gap:5px;"></div>
+      <!-- Header -->
+      <div style="background:var(--navy); padding:22px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+        <div>
+          <div style="font-size:1.1rem; font-weight:900; color:white;">15 rue de la Paix, 75001 Paris</div>
+          <div style="font-size:0.74rem; color:rgba(255,255,255,0.55); margin-top:4px;">Appartement · 65 m² · 3 pièces · Construit en 1985</div>
         </div>
+        <div class="izt-kpi-card" style="background:rgba(255,255,255,0.08); border-radius:12px; padding:14px 22px; text-align:center;">
+          <div style="font-size:2rem; font-weight:900; color:var(--orange); line-height:1;">82</div>
+          <div style="font-size:0.6rem; color:rgba(255,255,255,0.45); font-weight:600; text-transform:uppercase; letter-spacing:0.8px; margin-top:3px;">Score de transparence</div>
+          <div style="margin-top:7px; background:rgba(6,214,160,0.2); border-radius:4px; padding:2px 8px; font-size:0.62rem; font-weight:700; color:var(--green-cert);">⭐ Très transparent</div>
+        </div>
+      </div>
 
-        <!-- Identité du bien -->
-        <div style="background:white; border-radius:12px; border:1.5px solid var(--blue-light); overflow:hidden;">
-          <div style="background:var(--navy-deep); padding:12px 18px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="iztTogglePanel('panel-identite', this)">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:1rem;">🏛️</span>
-              <div><div style="font-size:0.78rem; font-weight:800; color:white;">Identité du bien</div><div style="font-size:0.62rem; color:rgba(255,255,255,0.4);">Données juridiques et cadastrales</div></div>
+      <!-- KPIs -->
+      <div style="display:flex; gap:0; border-bottom:1px solid var(--beige); flex-wrap:wrap;">
+        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center; border-right:1px solid var(--beige);">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">DPE</div>
+          <div style="font-size:1.5rem; font-weight:900;"><span style="background:#E8A020;color:white;padding:2px 11px;border-radius:5px;">D</span></div>
+        </div>
+        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center; border-right:1px solid var(--beige);">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">GES</div>
+          <div style="font-size:1.5rem; font-weight:900;"><span style="background:#C0392B;color:white;padding:2px 11px;border-radius:5px;">E</span></div>
+        </div>
+        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center; border-right:1px solid var(--beige);">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">Interventions</div>
+          <div style="font-size:1.5rem; font-weight:900; color:var(--navy);">4</div>
+          <div style="font-size:0.62rem; color:var(--green-cert); font-weight:600;">3 certifiées</div>
+        </div>
+        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center;">
+          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">Montant total</div>
+          <div style="font-size:1.5rem; font-weight:900; color:var(--navy);">8 580 €</div>
+        </div>
+      </div>
+
+      <!-- Corps : interventions + panneaux -->
+      <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:0;">
+
+        <!-- Interventions -->
+        <div style="padding:22px 28px; border-right:1px solid var(--beige);">
+          <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; gap:6px;"><span style="width:3px;height:10px;background:var(--orange);border-radius:2px;display:inline-block;"></span>Historique des interventions</div>
+
+          <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Plomberie</div>
+                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réparation fuite évier cuisine</div>
+                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Jean Dupont · Plomberie Parisienne <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span></div>
+                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 15 janvier 2025</div>
+              </div>
+              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">180 €</div>
             </div>
-            <span id="panel-identite-chevron" style="color:rgba(255,255,255,0.5); font-size:0.9rem;">▼</span>
           </div>
-          <div id="panel-identite" style="padding:14px 18px;"><div id="izt-identity-fields" style="display:flex; flex-direction:column; gap:8px;"></div></div>
+
+          <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Rénovation énergétique</div>
+                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Installation chaudière à condensation</div>
+                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Thermique IDF <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span> <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">RGE</span></div>
+                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 12 juin 2024</div>
+              </div>
+              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">3 800 €</div>
+            </div>
+          </div>
+
+          <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Électricité</div>
+                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Mise aux normes tableau électrique</div>
+                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Karim Benali · Élec Pro Paris <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span></div>
+                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 8 mars 2024</div>
+              </div>
+              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 200 €</div>
+            </div>
+          </div>
+
+          <div class="izt-interv-card" style="border-left:3px solid var(--amber); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; opacity:0.85;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Toiture</div>
+                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réfection partielle toiture</div>
+                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Couverture Martin <span style="background:var(--amber-bg);color:var(--orange);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">⏳ En attente de validation</span></div>
+                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 3 novembre 2024</div>
+              </div>
+              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 400 €</div>
+            </div>
+          </div>
         </div>
 
-        <!-- Assurance DO -->
-        <div style="background:white; border-radius:12px; border:1.5px solid var(--blue-light); overflow:hidden;">
-          <div style="background:var(--navy-deep); padding:12px 18px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="iztTogglePanel('panel-do', this)">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:1rem;">🛡️</span>
-              <div><div style="font-size:0.78rem; font-weight:800; color:white;">Assurance dommage ouvrage</div><div style="font-size:0.62rem; color:rgba(255,255,255,0.4);">Protection 10 ans post-construction</div></div>
+        <!-- Panneaux latéraux -->
+        <div style="padding:22px 24px;">
+          <!-- Complétion -->
+          <div style="background:var(--beige); border-radius:12px; padding:16px; margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:0.72rem; font-weight:700; color:var(--navy);">Complétion de la fiche</span>
+              <span style="font-size:0.78rem; font-weight:800; color:var(--orange);">78%</span>
             </div>
-            <span id="panel-do-chevron" style="color:rgba(255,255,255,0.5); font-size:0.9rem;">▼</span>
+            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;">
+              <div style="height:100%; width:78%; background:linear-gradient(90deg, var(--navy), var(--orange)); border-radius:4px;"></div>
+            </div>
           </div>
-          <div id="panel-do" style="padding:14px 18px;"><div id="izt-do-fields" style="display:flex; flex-direction:column; gap:8px;"></div></div>
-        </div>
 
-        <!-- Décennales -->
-        <div style="background:white; border-radius:12px; border:1.5px solid var(--blue-light); overflow:hidden;">
-          <div style="background:var(--navy-deep); padding:12px 18px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="iztTogglePanel('panel-decennale', this)">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:1rem;">📋</span>
-              <div><div style="font-size:0.78rem; font-weight:800; color:white;">Assurances décennales</div><div style="font-size:0.62rem; color:rgba(255,255,255,0.4);">Par intervention certifiée</div></div>
+          <!-- Panneau identité -->
+          <div class="izt-panel-header" style="background:var(--navy); border-radius:10px; padding:13px 16px; margin-bottom:10px; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.1rem;">🏛️</span>
+            <div style="flex:1;">
+              <div style="font-size:0.78rem; font-weight:700; color:white;">Identité du bien</div>
+              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5);">Données juridiques et cadastrales</div>
             </div>
-            <span id="panel-decennale-chevron" style="color:rgba(255,255,255,0.5); font-size:0.9rem;">▼</span>
           </div>
-          <div id="panel-decennale" style="padding:14px 18px;"><div id="izt-decennale-list" style="display:flex; flex-direction:column; gap:8px;"></div></div>
+
+          <!-- Panneau DO -->
+          <div class="izt-panel-header" style="background:var(--navy); border-radius:10px; padding:13px 16px; margin-bottom:10px; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.1rem;">🛡️</span>
+            <div style="flex:1;">
+              <div style="font-size:0.78rem; font-weight:700; color:white;">Assurance dommage ouvrage</div>
+              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5);">Protection 10 ans post-construction</div>
+            </div>
+          </div>
+
+          <!-- Panneau décennales -->
+          <div class="izt-panel-header" style="background:var(--navy); border-radius:10px; padding:13px 16px; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.1rem;">📋</span>
+            <div style="flex:1;">
+              <div style="font-size:0.78rem; font-weight:700; color:white;">Assurances décennales</div>
+              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5);">Par intervention certifiée</div>
+            </div>
+          </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Sélecteur scénarios -->
-    <div style="background:var(--navy-deep); border-radius:12px; padding:14px 20px; margin-top:20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-      <span style="font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Scénario démo :</span>
-      <button onclick="window.location.hash='histor?scenario=1'; iztLoad();" style="background:rgba(232,104,58,0.2);border:1.5px solid var(--orange);color:var(--orange);padding:5px 14px;border-radius:6px;font-family:'Satoshi',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;">⭐ Fiche complète</button>
-      <button onclick="window.location.hash='histor?scenario=2'; iztLoad();" style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);padding:5px 14px;border-radius:6px;font-family:'Satoshi',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;">📄 Fiche partielle</button>
-      <button onclick="window.location.hash='histor?scenario=3'; iztLoad();" style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);padding:5px 14px;border-radius:6px;font-family:'Satoshi',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;">🔴 Fiche vide</button>
+    <!-- CTA -->
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
+      <button onclick="navGo('saisie')" style="background:var(--orange); color:white; border:none; border-radius:10px; padding:14px 28px; font-family:'Satoshi',sans-serif; font-size:0.9rem; font-weight:800; cursor:pointer;">+ Enregistrer une intervention</button>
+      <button onclick="navGo('dashboard')" style="background:white; color:var(--navy); border:1.5px solid var(--blue-light); border-radius:10px; padding:14px 28px; font-family:'Satoshi',sans-serif; font-size:0.9rem; font-weight:600; cursor:pointer;">🏠 Mon tableau de bord</button>
     </div>
 
-    <!-- CTA bas -->
-    <div style="margin-top:14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-      <button onclick="navGo('saisie')" style="background:var(--orange); color:white; border:none; border-radius:8px; padding:12px 28px; font-weight:700; font-size:0.85rem; font-family:'Satoshi',sans-serif; cursor:pointer;">+ Ajouter une intervention</button>
-      <button onclick="navGo('dashboard')" style="background:white; color:var(--navy); border:1.5px solid var(--blue-mid); border-radius:8px; padding:12px 28px; font-weight:600; font-size:0.85rem; font-family:'Satoshi',sans-serif; cursor:pointer;">Mon tableau de bord</button>
-    </div>
+    <div style="text-align:center; margin-top:18px; font-size:0.72rem; color:var(--gray);">Ceci est une fiche de démonstration · <strong style="color:var(--navy);">Histor<span style="color:var(--orange);font-style:italic;">im</span></strong></div>
+
   </div>
 </div>
 
@@ -4436,7 +4464,7 @@ function doRoute() {
     if (typeof saInit === 'function') saInit();
   } else if (route === 'histor') {
     show('histor-page');
-    if (typeof iztLoad === 'function') iztLoad();
+    /* Fiche statique — aucun chargement nécessaire */
   } else if (verifiz) {
     show('verifiz-page');
     vzStartPlaceholder();
