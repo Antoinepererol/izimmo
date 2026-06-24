@@ -2031,6 +2031,15 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 .izt-panel-header { transition: background 0.15s ease; cursor: pointer; }
 .izt-panel-header:hover { background: var(--beige); }
 
+
+/* ===== FICHE HISTOR — hover refonte ===== */
+.izt-proof { transition: all 0.15s ease; }
+.izt-proof:hover { border-color: var(--orange) !important; background: var(--amber-bg) !important; color: var(--orange) !important; transform: translateY(-1px); }
+.izt-admin-card { transition: all 0.18s ease; }
+.izt-admin-card:hover { box-shadow: 0 12px 36px rgba(15,28,50,0.1) !important; transform: translateY(-2px); }
+.izt-score-line { transition: opacity 0.15s ease; }
+.izt-score-line:hover { opacity: 0.92; }
+
 </style>
 </head>
 <body>
@@ -2993,159 +3002,279 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <div style="max-width:980px; margin:0 auto; padding:40px 24px 80px;">
+  <div style="max-width:1040px; margin:0 auto; padding:36px 24px 80px;">
 
     <!-- Intro -->
-    <div style="margin-bottom:28px;">
-      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Fiche Histor</div>
-      <h1 style="font-size:1.9rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:6px;">L'historique certifié d'un logement</h1>
-      <p style="font-size:0.88rem; color:var(--gray); line-height:1.6; max-width:560px;">Voici un exemple de fiche : toutes les interventions, certifiées par les artisans, consultables en un coup d'œil lors d'une transaction.</p>
+    <div style="margin-bottom:24px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Fiche Histor — exemple</div>
+      <h1 style="font-size:1.85rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:6px;">15 rue de la Paix, 75001 Paris</h1>
+      <p style="font-size:0.82rem; color:var(--gray); line-height:1.6;">Appartement · 65 m² · 3 pièces · Construit en 1985 — Historique certifié par les artisans</p>
     </div>
 
-    <!-- Carte fiche -->
-    <div style="background:white; border-radius:16px; box-shadow:0 16px 48px rgba(15,28,50,0.08); overflow:hidden;">
+    <!-- ====================================================== -->
+    <!-- SECTION 1 — SCORE + NIVEAU DE CONFIANCE -->
+    <!-- ====================================================== -->
+    <div style="background:white; border-radius:16px; box-shadow:0 12px 40px rgba(15,28,50,0.07); overflow:hidden; margin-bottom:16px;">
+      <div style="display:grid; grid-template-columns:280px 1fr; gap:0;">
 
-      <!-- Header -->
-      <div style="background:var(--navy); padding:22px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
-        <div>
-          <div style="font-size:1.1rem; font-weight:900; color:white;">15 rue de la Paix, 75001 Paris</div>
-          <div style="font-size:0.74rem; color:rgba(255,255,255,0.55); margin-top:4px;">Appartement · 65 m² · 3 pièces · Construit en 1985</div>
+        <!-- Gauche : score -->
+        <div style="background:var(--navy); padding:32px 28px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+          <div style="position:relative; width:140px; height:140px; margin-bottom:16px;">
+            <svg viewBox="0 0 140 140" style="transform:rotate(-90deg);">
+              <circle cx="70" cy="70" r="62" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
+              <circle cx="70" cy="70" r="62" fill="none" stroke="var(--orange)" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.5" stroke-dashoffset="70.1"/>
+            </svg>
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+              <div style="font-size:2.6rem; font-weight:900; color:white; line-height:1;">82</div>
+              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5); font-weight:600;">/ 100</div>
+            </div>
+          </div>
+          <div style="background:rgba(6,214,160,0.2); border-radius:6px; padding:4px 12px; font-size:0.72rem; font-weight:700; color:var(--green-cert); margin-bottom:8px;">⭐ Très transparent</div>
+          <div style="font-size:0.68rem; color:rgba(255,255,255,0.55); line-height:1.5;">Score de transparence Historim — basé uniquement sur des données certifiées</div>
         </div>
-        <div class="izt-kpi-card" style="background:rgba(255,255,255,0.08); border-radius:12px; padding:14px 22px; text-align:center;">
-          <div style="font-size:2rem; font-weight:900; color:var(--orange); line-height:1;">82</div>
-          <div style="font-size:0.6rem; color:rgba(255,255,255,0.45); font-weight:600; text-transform:uppercase; letter-spacing:0.8px; margin-top:3px;">Score de transparence</div>
-          <div style="margin-top:7px; background:rgba(6,214,160,0.2); border-radius:4px; padding:2px 8px; font-size:0.62rem; font-weight:700; color:var(--green-cert);">⭐ Très transparent</div>
+
+        <!-- Droite : décomposition + amélioration -->
+        <div style="padding:28px;">
+          <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px;">Comment ce score est calculé</div>
+
+          <!-- Composant 1 -->
+          <div class="izt-score-line" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">✓ Interventions certifiées par l'artisan</span>
+              <span style="font-size:0.74rem; font-weight:800; color:var(--green-cert);">36 / 40 pts</span>
+            </div>
+            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:90%; background:var(--green-cert); border-radius:4px;"></div></div>
+            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">3 interventions sur 4 validées par le professionnel</div>
+          </div>
+
+          <!-- Composant 2 -->
+          <div class="izt-score-line" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">📄 Documents justificatifs fournis</span>
+              <span style="font-size:0.74rem; font-weight:800; color:var(--orange);">18 / 25 pts</span>
+            </div>
+            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:72%; background:var(--orange); border-radius:4px;"></div></div>
+            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">9 documents attachés (factures, attestations)</div>
+          </div>
+
+          <!-- Composant 3 -->
+          <div class="izt-score-line" style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">🛡️ Couverture décennale active</span>
+              <span style="font-size:0.74rem; font-weight:800; color:var(--green-cert);">20 / 20 pts</span>
+            </div>
+            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:100%; background:var(--green-cert); border-radius:4px;"></div></div>
+            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">Toutes les interventions éligibles sont couvertes</div>
+          </div>
+
+          <!-- Composant 4 -->
+          <div class="izt-score-line" style="margin-bottom:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">🏛️ Complétude administrative</span>
+              <span style="font-size:0.74rem; font-weight:800; color:var(--orange);">8 / 15 pts</span>
+            </div>
+            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:53%; background:var(--orange); border-radius:4px;"></div></div>
+            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">Identité du bien et assurance DO renseignées</div>
+          </div>
+
+          <!-- Comment améliorer -->
+          <div style="background:var(--amber-bg); border:1px solid rgba(232,104,58,0.2); border-radius:10px; padding:12px 14px;">
+            <div style="font-size:0.7rem; font-weight:700; color:var(--orange); margin-bottom:6px;">💡 Comment améliorer ce score</div>
+            <div style="font-size:0.72rem; color:var(--navy); line-height:1.6;">
+              <strong>+8 pts</strong> — faire valider l'intervention « Toiture » par l'artisan<br>
+              <strong>+7 pts</strong> — ajouter les factures manquantes<br>
+              <strong>+7 pts</strong> — compléter les références cadastrales
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================== -->
+    <!-- SECTION 2 — RÉSUMÉ HISTORIM -->
+    <!-- ====================================================== -->
+    <div style="background:linear-gradient(135deg, var(--navy), var(--navy-deep)); border-radius:16px; padding:26px 28px; margin-bottom:16px; position:relative; overflow:hidden;">
+      <div style="position:absolute; top:-60px; right:-60px; width:220px; height:220px; background:radial-gradient(circle, rgba(232,104,58,0.12), transparent 70%); border-radius:50%;"></div>
+      <div style="position:relative;">
+        <div style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">📊 Résumé Historim — généré automatiquement</div>
+
+        <!-- Chiffres clés -->
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-bottom:20px;">
+          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">4</div>
+            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">interventions</div>
+          </div>
+          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">8 580 €</div>
+            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">investis sur le bien</div>
+          </div>
+          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">3</div>
+            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">entreprises certifiées</div>
+          </div>
+          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">5 mois</div>
+            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">depuis le dernier chantier</div>
+          </div>
+        </div>
+
+        <!-- Points forts + alertes -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="background:rgba(6,214,160,0.1); border:1px solid rgba(6,214,160,0.25); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:0.7rem; font-weight:700; color:var(--green-cert); margin-bottom:8px;">✓ Points forts</div>
+            <div style="font-size:0.74rem; color:rgba(255,255,255,0.8); line-height:1.7;">
+              • Chaudière à condensation récente (2024)<br>
+              • Électricité aux normes (2024)<br>
+              • 3 entreprises RGE/Qualibat
+            </div>
+          </div>
+          <div style="background:rgba(232,104,58,0.1); border:1px solid rgba(232,104,58,0.25); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:0.7rem; font-weight:700; color:var(--orange); margin-bottom:8px;">⚠ Points de vigilance</div>
+            <div style="font-size:0.74rem; color:rgba(255,255,255,0.8); line-height:1.7;">
+              • 1 intervention en attente de validation<br>
+              • DPE classe D — amélioration possible<br>
+              • Références cadastrales à compléter
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================== -->
+    <!-- SECTION 3 — TIMELINE DES ÉVÉNEMENTS (avec preuves) -->
+    <!-- ====================================================== -->
+    <div style="background:white; border-radius:16px; box-shadow:0 12px 40px rgba(15,28,50,0.07); padding:24px 28px; margin-bottom:16px;">
+      <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; display:flex; align-items:center; gap:6px;"><span style="width:3px;height:10px;background:var(--orange);border-radius:2px;display:inline-block;"></span>Timeline des événements</div>
+      <p style="font-size:0.72rem; color:var(--gray); margin-bottom:18px;">Chaque intervention est documentée. Cliquez sur une preuve pour la consulter.</p>
+
+      <!-- Intervention 1 -->
+      <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:200px;">
+            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Plomberie · 15 janvier 2025</div>
+            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réparation fuite évier cuisine</div>
+            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Jean Dupont · Plomberie Parisienne <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée par l'artisan</span></div>
+            <!-- PREUVES -->
+            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📷 2 photos</span>
+            </div>
+          </div>
+          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">180 €</div>
         </div>
       </div>
 
-      <!-- KPIs -->
-      <div style="display:flex; gap:0; border-bottom:1px solid var(--beige); flex-wrap:wrap;">
-        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center; border-right:1px solid var(--beige);">
-          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">DPE</div>
-          <div style="font-size:1.5rem; font-weight:900;"><span style="background:#E8A020;color:white;padding:2px 11px;border-radius:5px;">D</span></div>
-        </div>
-        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center; border-right:1px solid var(--beige);">
-          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">GES</div>
-          <div style="font-size:1.5rem; font-weight:900;"><span style="background:#C0392B;color:white;padding:2px 11px;border-radius:5px;">E</span></div>
-        </div>
-        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center; border-right:1px solid var(--beige);">
-          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">Interventions</div>
-          <div style="font-size:1.5rem; font-weight:900; color:var(--navy);">4</div>
-          <div style="font-size:0.62rem; color:var(--green-cert); font-weight:600;">3 certifiées</div>
-        </div>
-        <div class="izt-kpi-card" style="flex:1; min-width:120px; padding:16px 20px; text-align:center;">
-          <div style="font-size:0.6rem; color:var(--gray); font-weight:600; text-transform:uppercase; margin-bottom:4px;">Montant total</div>
-          <div style="font-size:1.5rem; font-weight:900; color:var(--navy);">8 580 €</div>
+      <!-- Intervention 2 -->
+      <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:200px;">
+            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Rénovation énergétique · 12 juin 2024</div>
+            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Installation chaudière à condensation</div>
+            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Thermique IDF <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée par l'artisan</span> <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">RGE</span></div>
+            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">🛡️ Décennale (valide → 2034)</span>
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Attestation RGE</span>
+            </div>
+          </div>
+          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">3 800 €</div>
         </div>
       </div>
 
-      <!-- Corps : interventions + panneaux -->
-      <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:0;">
-
-        <!-- Interventions -->
-        <div style="padding:22px 28px; border-right:1px solid var(--beige);">
-          <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; gap:6px;"><span style="width:3px;height:10px;background:var(--orange);border-radius:2px;display:inline-block;"></span>Historique des interventions</div>
-
-          <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Plomberie</div>
-                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réparation fuite évier cuisine</div>
-                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Jean Dupont · Plomberie Parisienne <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span></div>
-                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 15 janvier 2025</div>
-              </div>
-              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">180 €</div>
+      <!-- Intervention 3 -->
+      <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:200px;">
+            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Électricité · 8 mars 2024</div>
+            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Mise aux normes tableau électrique</div>
+            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Karim Benali · Élec Pro Paris <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée par l'artisan</span></div>
+            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Attestation Consuel</span>
             </div>
           </div>
+          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 200 €</div>
+        </div>
+      </div>
 
-          <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Rénovation énergétique</div>
-                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Installation chaudière à condensation</div>
-                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Thermique IDF <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span> <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">RGE</span></div>
-                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 12 juin 2024</div>
-              </div>
-              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">3 800 €</div>
+      <!-- Intervention 4 — en attente -->
+      <div class="izt-interv-card" style="border-left:3px solid var(--amber); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; opacity:0.9;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:200px;">
+            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Toiture · 3 novembre 2024</div>
+            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réfection partielle toiture</div>
+            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Couverture Martin <span style="background:var(--amber-bg);color:var(--orange);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">⏳ En attente de validation</span></div>
+            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
+              <span style="display:inline-flex; align-items:center; gap:5px; background:transparent; border:1px dashed var(--amber); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--orange);">⏳ Validation artisan en attente</span>
             </div>
           </div>
+          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 400 €</div>
+        </div>
+      </div>
+    </div>
 
-          <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; margin-bottom:10px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Électricité</div>
-                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Mise aux normes tableau électrique</div>
-                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Karim Benali · Élec Pro Paris <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée</span></div>
-                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 8 mars 2024</div>
-              </div>
-              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 200 €</div>
-            </div>
+    <!-- ====================================================== -->
+    <!-- SECTION 4 — INFORMATIONS ADMINISTRATIVES (actives) -->
+    <!-- ====================================================== -->
+    <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; display:flex; align-items:center; gap:6px;"><span style="width:3px;height:10px;background:var(--orange);border-radius:2px;display:inline-block;"></span>Informations administratives</div>
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-bottom:32px;">
+
+      <!-- Identité du bien -->
+      <div class="izt-admin-card" style="background:white; border-radius:14px; box-shadow:0 8px 28px rgba(15,28,50,0.06); padding:20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+          <span style="font-size:1.1rem;">🏛️</span>
+          <div style="font-size:0.8rem; font-weight:800; color:var(--navy);">Identité du bien</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Type</span><span style="color:var(--navy); font-weight:600;">Appartement</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Surface</span><span style="color:var(--navy); font-weight:600;">65 m²</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Année</span><span style="color:var(--navy); font-weight:600;">1985</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Cadastre</span><span style="color:var(--navy); font-weight:600;">AB 0124</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Permis</span><span style="color:var(--navy); font-weight:600;">PC75001-1983</span></div>
+        </div>
+      </div>
+
+      <!-- Assurance DO -->
+      <div class="izt-admin-card" style="background:white; border-radius:14px; box-shadow:0 8px 28px rgba(15,28,50,0.06); padding:20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+          <span style="font-size:1.1rem;">🛡️</span>
+          <div style="font-size:0.8rem; font-weight:800; color:var(--navy);">Assurance dommage ouvrage</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Assureur</span><span style="color:var(--navy); font-weight:600;">AXA France</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Police</span><span style="color:var(--navy); font-weight:600;">DO-75-1985</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Statut</span><span style="color:var(--green-cert); font-weight:700;">✓ Active</span></div>
+        </div>
+        <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--beige); font-size:0.66rem; color:var(--gray); line-height:1.5;">Protège l'acquéreur contre les vices de construction pendant 10 ans.</div>
+      </div>
+
+      <!-- Décennales -->
+      <div class="izt-admin-card" style="background:white; border-radius:14px; box-shadow:0 8px 28px rgba(15,28,50,0.06); padding:20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+          <span style="font-size:1.1rem;">📋</span>
+          <div style="font-size:0.8rem; font-weight:800; color:var(--navy);">Assurances décennales</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="background:var(--beige); border-radius:8px; padding:9px 11px;">
+            <div style="font-size:0.7rem; font-weight:700; color:var(--navy);">Thermique IDF</div>
+            <div style="font-size:0.64rem; color:var(--gray); margin-top:2px;">Allianz · valide → juin 2034</div>
           </div>
-
-          <div class="izt-interv-card" style="border-left:3px solid var(--amber); background:var(--beige); border-radius:0 8px 8px 0; padding:14px 16px; opacity:0.85;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <div style="font-size:0.64rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Toiture</div>
-                <div style="font-size:0.86rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réfection partielle toiture</div>
-                <div style="font-size:0.72rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Couverture Martin <span style="background:var(--amber-bg);color:var(--orange);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">⏳ En attente de validation</span></div>
-                <div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 3 novembre 2024</div>
-              </div>
-              <div style="font-size:0.95rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 400 €</div>
-            </div>
+          <div style="background:var(--beige); border-radius:8px; padding:9px 11px;">
+            <div style="font-size:0.7rem; font-weight:700; color:var(--navy);">Plomberie Parisienne</div>
+            <div style="font-size:0.64rem; color:var(--gray); margin-top:2px;">MAAF Pro · valide → janv. 2035</div>
           </div>
         </div>
-
-        <!-- Panneaux latéraux -->
-        <div style="padding:22px 24px;">
-          <!-- Complétion -->
-          <div style="background:var(--beige); border-radius:12px; padding:16px; margin-bottom:14px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-              <span style="font-size:0.72rem; font-weight:700; color:var(--navy);">Complétion de la fiche</span>
-              <span style="font-size:0.78rem; font-weight:800; color:var(--orange);">78%</span>
-            </div>
-            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;">
-              <div style="height:100%; width:78%; background:linear-gradient(90deg, var(--navy), var(--orange)); border-radius:4px;"></div>
-            </div>
-          </div>
-
-          <!-- Panneau identité -->
-          <div class="izt-panel-header" style="background:var(--navy); border-radius:10px; padding:13px 16px; margin-bottom:10px; display:flex; align-items:center; gap:10px;">
-            <span style="font-size:1.1rem;">🏛️</span>
-            <div style="flex:1;">
-              <div style="font-size:0.78rem; font-weight:700; color:white;">Identité du bien</div>
-              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5);">Données juridiques et cadastrales</div>
-            </div>
-          </div>
-
-          <!-- Panneau DO -->
-          <div class="izt-panel-header" style="background:var(--navy); border-radius:10px; padding:13px 16px; margin-bottom:10px; display:flex; align-items:center; gap:10px;">
-            <span style="font-size:1.1rem;">🛡️</span>
-            <div style="flex:1;">
-              <div style="font-size:0.78rem; font-weight:700; color:white;">Assurance dommage ouvrage</div>
-              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5);">Protection 10 ans post-construction</div>
-            </div>
-          </div>
-
-          <!-- Panneau décennales -->
-          <div class="izt-panel-header" style="background:var(--navy); border-radius:10px; padding:13px 16px; display:flex; align-items:center; gap:10px;">
-            <span style="font-size:1.1rem;">📋</span>
-            <div style="flex:1;">
-              <div style="font-size:0.78rem; font-weight:700; color:white;">Assurances décennales</div>
-              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5);">Par intervention certifiée</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
     <!-- CTA -->
-    <div style="display:flex; gap:12px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
       <button onclick="navGo('saisie')" style="background:var(--orange); color:white; border:none; border-radius:10px; padding:14px 28px; font-family:'Satoshi',sans-serif; font-size:0.9rem; font-weight:800; cursor:pointer;">+ Enregistrer une intervention</button>
       <button onclick="navGo('dashboard')" style="background:white; color:var(--navy); border:1.5px solid var(--blue-light); border-radius:10px; padding:14px 28px; font-family:'Satoshi',sans-serif; font-size:0.9rem; font-weight:600; cursor:pointer;">🏠 Mon tableau de bord</button>
     </div>
 
-    <div style="text-align:center; margin-top:18px; font-size:0.72rem; color:var(--gray);">Ceci est une fiche de démonstration · <strong style="color:var(--navy);">Histor<span style="color:var(--orange);font-style:italic;">im</span></strong></div>
+    <div style="text-align:center; margin-top:18px; font-size:0.72rem; color:var(--gray);">Fiche de démonstration · <strong style="color:var(--navy);">Histor<span style="color:var(--orange);font-style:italic;">im</span></strong> — la vraie valeur d'un bien réside dans son histoire</div>
 
   </div>
 </div>
