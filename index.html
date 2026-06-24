@@ -5579,17 +5579,28 @@ function iztAfficherInterventions(interventions) {
 
 /* Chargement principal de la fiche */
 async function iztLoad() {
+ /* Helper : course entre la requête et un timeout */
+ function withTimeout(promise, ms) {
+   return Promise.race([
+     promise,
+     new Promise(function(_, reject) { setTimeout(function() { reject(new Error('timeout')); }, ms); })
+   ]);
+ }
  try {
   var el = function(id) { return document.getElementById(id); };
   var params = new URLSearchParams(window.location.hash.replace(/^#[^?]*\??/, ''));
   var bienIdParam = params.get('bien_id');
 
-  /* Charger tous les biens depuis Supabase */
+  /* Charger tous les biens depuis Supabase (avec timeout 5s) */
   var biens = [];
   try {
-    var resBiens = await sb.from('biens').select('*').order('created_at', { ascending: false });
+    var resBiens = await withTimeout(sb.from('biens').select('*').order('created_at', { ascending: false }), 5000);
     if (resBiens.data) biens = resBiens.data;
-  } catch(e) { console.warn('[Histor] Biens non chargés:', e.message); }
+  } catch(e) {
+    console.warn('[Histor] Biens non chargés (' + e.message + ') → fiche démo');
+    iztAfficherDemo();
+    return;
+  }
 
   /* Si aucun bien en base → fiche démo */
   if (!biens.length) {
@@ -5602,21 +5613,18 @@ async function iztLoad() {
     ? biens.find(function(b) { return b.id === bienIdParam; }) || biens[0]
     : biens[0];
 
-  /* Charger les interventions de tous les biens */
+  /* Charger les interventions (avec timeout) */
   var toutesInterventions = [];
   try {
-    var resInterv = await sb.from('interventions').select('*').order('date_intervention', { ascending: false });
+    var resInterv = await withTimeout(sb.from('interventions').select('*').order('date_intervention', { ascending: false }), 5000);
     if (resInterv.data) toutesInterventions = resInterv.data;
   } catch(e) { console.warn('[Histor] Interventions non chargées:', e.message); }
 
-  /* Stocker pour iztSwitchBien */
   iztAllBiens = biens;
   iztAllInterventions = toutesInterventions;
 
-  /* Toujours afficher la barre avec le bouton démo */
   iztAfficherListeBiens(biens, bienActif, toutesInterventions);
 
-  /* Afficher la fiche du bien actif */
   var interventions = toutesInterventions.filter(function(i) { return i.bien_id === bienActif.id; });
   iztAfficherFiche(bienActif, interventions);
  } catch(globalErr) {
