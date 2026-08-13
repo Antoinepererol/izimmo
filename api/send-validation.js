@@ -1,19 +1,19 @@
 // api/send-validation.js
 // Sollicitation d'un artisan pour valider une intervention déclarée.
+// Version Resend (plus simple que Brevo pour le pilote).
 //
 // Déroulé :
 //   1. Relit l'intervention en base (source de vérité pour le contenu du mail)
 //   2. Vérifie la liste d'exclusion : si l'artisan s'est opposé, on s'arrête là
 //   3. Crée le profil artisan en statut 'sollicite' (invisible tant qu'il n'a pas agi)
 //   4. Génère un jeton de validation valable 7 jours
-//   5. Envoie l'email via Brevo
+//   5. Envoie l'email via Resend
 //
 // Variables d'environnement requises sur Vercel :
 //   SUPABASE_URL, SUPABASE_SERVICE_KEY
 //   HISTORIM_EMAIL_HASH_SALT   (identique à celui de confirmer.js)
-//   BREVO_API_KEY
-//   BREVO_SENDER_EMAIL         (adresse vérifiée chez Brevo)
-//   SITE_URL                   (ex: https://historim.com — sans slash final)
+//   RESEND_API_KEY
+//   SITE_URL                   (ex: https://izimmo-one.vercel.app)
 
 const { createClient } = require('@supabase/supabase-js');
 const { createHash, randomUUID } = require('crypto');
@@ -22,8 +22,7 @@ const NAVY = '#28385F';
 const ORANGE = '#E8683A';
 const SKY = '#CAE4ED';
 
-// Doit rester rigoureusement identique à la fonction de confirmer.js,
-// sinon la liste d'exclusion ne matcherait jamais.
+// Doit rester rigoureusement identique à la fonction de confirmer.js
 function hashEmail(email) {
   const salt = process.env.HISTORIM_EMAIL_HASH_SALT;
   if (!salt || salt.length < 16) {
@@ -34,7 +33,7 @@ function hashEmail(email) {
     .digest('hex');
 }
 
-// Neutralise le HTML dans les données saisies par le propriétaire.
+// Neutralise le HTML dans les données saisies par le propriétaire
 function esc(v) {
   return String(v == null ? '' : v)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -55,7 +54,7 @@ function formatMontant(m) {
   return n.toLocaleString('fr-FR') + ' € TTC';
 }
 
-// Une ligne du tableau récapitulatif — omise si la donnée est absente.
+// Une ligne du tableau récapitulatif — omise si la donnée est absente
 function ligne(label, valeur) {
   if (!valeur) return '';
   return `<tr>
@@ -198,45 +197,6 @@ function buildEmail(iv, links) {
 </body></html>`;
 }
 
-// Version texte, pour les clients qui n'affichent pas le HTML et pour l'anti-spam.
-function buildTexte(iv, links) {
-  const l = [];
-  l.push('Bonjour,');
-  l.push('');
-  l.push(`Le propriétaire du bien situé au ${iv.adresse_bien || 'un bien'} a déclaré une intervention réalisée par votre entreprise et vous demande de la confirmer.`);
-  l.push('');
-  l.push("L'INTERVENTION DÉCLARÉE");
-  if (iv.type_travaux) l.push('Nature : ' + iv.type_travaux);
-  if (iv.description) l.push('Détail : ' + iv.description);
-  if (formatDate(iv.date_intervention)) l.push('Date : ' + formatDate(iv.date_intervention));
-  if (iv.adresse_bien) l.push('Adresse : ' + iv.adresse_bien);
-  if (formatMontant(iv.montant_ttc)) l.push('Montant : ' + formatMontant(iv.montant_ttc));
-  l.push('');
-  l.push("VOUS N'APPARAISSEZ NULLE PART POUR L'INSTANT");
-  l.push("Tant que vous n'avez pas répondu, votre entreprise n'est visible par personne :");
-  l.push("ni dans l'annuaire Historim, ni dans l'historique de ce bien.");
-  l.push('');
-  l.push('Oui, je confirme : ' + links.confirmer);
-  l.push("Non, c'est inexact : " + links.refuser);
-  l.push('');
-  l.push('Vous ne souhaitez pas figurer dans Historim ? Différent d\'un refus :');
-  l.push('vos coordonnées sont supprimées et vous ne serez plus jamais sollicité.');
-  l.push('Me retirer définitivement : ' + links.opposer);
-  l.push('');
-  l.push('Ces liens sont valables 7 jours.');
-  l.push('');
-  l.push('---');
-  l.push('INFORMATIONS SUR VOS DONNÉES (article 14 RGPD)');
-  l.push('Responsable de traitement : Antoine Pererol, 22 Grande Rue, 92420 Vaucresson, contact@historim.com');
-  l.push('Finalité : vous permettre de confirmer ou contester une intervention déclarée vous concernant.');
-  l.push('Base légale : intérêt légitime.');
-  l.push('Origine des données : SIRET et raison sociale issus de la base publique SIRENE de l\'INSEE ;');
-  l.push('email professionnel transmis par le propriétaire déclarant.');
-  l.push('Vos droits : accès, rectification, opposition, effacement — contact@historim.com');
-  l.push('Politique de confidentialité : ' + links.confidentialite);
-  return l.join('\n');
-}
-
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -249,10 +209,10 @@ module.exports = async function handler(req, res) {
   if (!artisanEmail)   return res.status(400).json({ error: 'artisanEmail requis' });
 
   const sb = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
-  const siteUrl = (process.env.SITE_URL || 'https://historim.com').replace(/\/+$/, '');
+  const siteUrl = (process.env.SITE_URL || 'https://izimmo-one.vercel.app').replace(/\/+$/, '');
 
   try {
-    // 1. Relire l'intervention : le contenu du mail vient de la base, pas du navigateur.
+    // 1. Relire l'intervention : le contenu du mail vient de la base, pas du navigateur
     const { data: iv, error: ivErr } = await sb
       .from('interventions')
       .select('id, adresse_bien, type_travaux, description, date_intervention, montant_ttc, artisan_id')
@@ -260,7 +220,7 @@ module.exports = async function handler(req, res) {
       .single();
     if (ivErr || !iv) return res.status(404).json({ error: 'Intervention introuvable' });
 
-    // 2. Liste d'exclusion : un artisan opposé n'est jamais re-sollicité.
+    // 2. Liste d'exclusion : un artisan opposé n'est jamais re-sollicité
     const emailHash = hashEmail(artisanEmail);
     const { data: exclu } = await sb
       .from('artisans_opposition')
@@ -269,11 +229,10 @@ module.exports = async function handler(req, res) {
       .maybeSingle();
 
     if (exclu) {
-      // L'intervention reste en attente, sans profil artisan rattaché.
       return res.status(200).json({ success: true, emailSent: false, reason: 'opposition' });
     }
 
-    // 3. Profil artisan en statut 'sollicite' : invisible tant qu'il n'a pas agi.
+    // 3. Profil artisan en statut 'sollicite'
     let artisanId = iv.artisan_id;
     if (!artisanId) {
       const { data: art, error: artErr } = await sb
@@ -291,7 +250,7 @@ module.exports = async function handler(req, res) {
       artisanId = art.id;
     }
 
-    // 4. Jeton de validation, valable 7 jours.
+    // 4. Jeton de validation, valable 7 jours
     const token = randomUUID();
     const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
     const { error: updErr } = await sb
@@ -300,7 +259,7 @@ module.exports = async function handler(req, res) {
       .eq('id', interventionId);
     if (updErr) throw new Error('Mise à jour intervention : ' + updErr.message);
 
-    // 5. Envoi via Brevo.
+    // 5. Envoi via Resend
     const base = `${siteUrl}/#confirmer?token=${encodeURIComponent(token)}`;
     const links = {
       confirmer: `${base}&action=confirmer`,
@@ -309,35 +268,30 @@ module.exports = async function handler(req, res) {
       confidentialite: `${siteUrl}/#confidentialite`
     };
 
-    const apiKey = process.env.BREVO_API_KEY;
-    const sender = process.env.BREVO_SENDER_EMAIL;
-    if (!apiKey || !sender) {
-      // Le jeton existe déjà : l'intervention est exploitable même sans email.
-      console.error('[send-validation] BREVO_API_KEY ou BREVO_SENDER_EMAIL manquant');
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('[send-validation] RESEND_API_KEY manquant');
       return res.status(200).json({ success: true, emailSent: false, reason: 'config' });
     }
 
-    const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+    const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'accept': 'application/json',
-        'api-key': apiKey,
-        'content-type': 'application/json'
+        'Authorization': 'Bearer ' + apiKey,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: 'Historim', email: sender },
-        to: [{ email: artisanEmail, name: artisanNom || undefined }],
-        replyTo: { email: 'contact@historim.com', name: 'Historim' },
+        from: 'onboarding@resend.dev',
+        to: artisanEmail,
         subject: 'Une intervention vous est attribuée — confirmation demandée',
-        htmlContent: buildEmail(iv, links),
-        textContent: buildTexte(iv, links)
+        html: buildEmail(iv, links)
       })
     });
 
-    if (!brevoRes.ok) {
-      const detail = await brevoRes.text();
-      console.error('[send-validation] Brevo', brevoRes.status, detail);
-      return res.status(200).json({ success: true, emailSent: false, reason: 'brevo' });
+    if (!resendRes.ok) {
+      const detail = await resendRes.text();
+      console.error('[send-validation] Resend', resendRes.status, detail);
+      return res.status(200).json({ success: true, emailSent: false, reason: 'resend' });
     }
 
     return res.status(200).json({ success: true, emailSent: true });
