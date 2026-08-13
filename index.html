@@ -1263,7 +1263,7 @@ select.form-input { cursor: pointer; }
 let dbProTab = 'artisan';
 let dbProData = [];
 
-async async function dbProLoad() {
+async function dbProLoad() {
   try {
     const res = await sb.from('artisans').select('*').order('score', { ascending: false });
     if (res.error) throw new Error(res.error.message);
@@ -2039,6 +2039,11 @@ nav .logo-historim, .inner-nav .logo-historim { font-size: 1.35rem; }
 .izt-admin-card:hover { box-shadow: 0 12px 36px rgba(15,28,50,0.1) !important; transform: translateY(-2px); }
 .izt-score-line { transition: opacity 0.15s ease; }
 .izt-score-line:hover { opacity: 0.92; }
+
+
+/* Bouton opposition RGPD (page confirmer) — discret, distinct du refus */
+.ap-btn-oppose { width:100%; background:transparent; border:none; color:var(--gray); font-family:'Satoshi',sans-serif; font-size:0.72rem; font-weight:600; text-decoration:underline; cursor:pointer; margin-top:12px; padding:6px; line-height:1.4; }
+.ap-btn-oppose:hover { color:#C0392B; }
 
 </style>
 </head>
@@ -4385,21 +4390,21 @@ function apFormatDate(d) {
 async function apInitToken(token, action) {
   apShowState('loading');
   if (!token) { apShowState('notfound'); return; }
+  apCurrentToken = token;
   try {
-    const { data, error } = await sb.from('interventions').select('*')
-      .eq('validation_token', token).single();
-    if (error || !data) { apShowState('notfound'); return; }
-    /* Vérifier expiration */
-    if (data.token_expires_at && new Date(data.token_expires_at) < new Date()) {
-      apShowState('notfound'); return;
-    }
-    if (data.statut === 'certifie') { apShowSuccessAlready(); return; }
-    if (data.statut === 'refuse')   { apShowState('refused'); return; }
-    apCurrentData = data;
+    const resp = await fetch('/api/confirmer', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, action: 'info' })
+    });
+    if (resp.status === 410) { apShowState('notfound'); return; }
+    const data = await resp.json();
+    if (!resp.ok || !data.success) { apShowState('notfound'); return; }
+    if (data.already) { apShowSuccessAlready(); return; }
     apPopulate(data);
     apShowState('main');
-    /* Si action=refuser dans l'URL, ouvrir directement le refus */
+    /* Actions directes depuis un lien email */
     if (action === 'refuser' && typeof apOpenRefuse === 'function') apOpenRefuse();
+    if (action === 'opposer' && typeof apOppose === 'function') apOppose();
   } catch(e) { console.error('[apInitToken]', e); apShowState('notfound'); }
 }
 
@@ -4426,17 +4431,20 @@ async function apInit(id) {
   } catch { apShowState('notfound'); }
 }
 
-function apPopulate(d) {
-  document.getElementById('ap-icon').textContent = apTypeIcons[d.type_travaux] || '🔧';
-  document.getElementById('ap-title').textContent = d.description || '—';
-  document.getElementById('ap-adresse').textContent = d.adresse_bien || '—';
-  document.getElementById('ap-type').textContent = d.type_travaux || '—';
-  document.getElementById('ap-date').textContent = apFormatDate(d.date_intervention);
-  document.getElementById('ap-duree').textContent = d.duree_estimee || 'Non précisée';
-  document.getElementById('ap-montant').textContent = d.montant_ttc ? d.montant_ttc.toLocaleString('fr-FR') + ' €' : '—';
-  document.getElementById('ap-artisan-nom').textContent = d.artisan_nom || '—';
-  document.getElementById('ap-artisan-ent').textContent = d.artisan_entreprise || '';
-  document.getElementById('ap-artisan-siret').textContent = d.artisan_siret ? 'SIRET · ' + d.artisan_siret : '';
+function apPopulate(payload) {
+  var iv = payload.intervention || {};
+  var art = payload.artisan || {};
+  var g = function(id) { return document.getElementById(id); };
+  if (g('ap-icon')) g('ap-icon').textContent = apTypeIcons[iv.type] || '🔧';
+  if (g('ap-title')) g('ap-title').textContent = iv.description || iv.type || '—';
+  if (g('ap-adresse')) g('ap-adresse').textContent = iv.adresse || '—';
+  if (g('ap-type')) g('ap-type').textContent = iv.type || '—';
+  if (g('ap-date')) g('ap-date').textContent = iv.date || '—';
+  if (g('ap-duree')) g('ap-duree').textContent = 'Non précisée';
+  if (g('ap-montant')) g('ap-montant').textContent = iv.montant ? Number(iv.montant).toLocaleString('fr-FR') + ' €' : '—';
+  if (g('ap-artisan-nom')) g('ap-artisan-nom').textContent = art.nom || 'Vous';
+  if (g('ap-artisan-ent')) g('ap-artisan-ent').textContent = art.entreprise || '';
+  if (g('ap-artisan-siret')) g('ap-artisan-siret').textContent = '';
 }
 
 function apPopulateDemo() {
@@ -4463,24 +4471,13 @@ function apShowSuccessAlready() {
 async function apConfirm() {
   const btn = document.getElementById('ap-btn-confirm');
   if (btn) btn.classList.add('ap-btn-loading');
-  if (apCurrentData?.id) {
-    try {
-      /* Utiliser l'API serverless si on a un token, sinon update direct */
-      if (apCurrentData.validation_token) {
-        await fetch('/api/confirmer', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: apCurrentData.validation_token, action: 'confirmer' })
-        });
-      } else {
-        await sb.from('interventions').update({
-          statut: 'certifie',
-          date_certification: new Date().toISOString(),
-          validation_token: null, token_expires_at: null
-        }).eq('id', apCurrentData.id);
-      }
-    } catch(e) { console.error('[apConfirm]', e); }
-  }
-  await new Promise(r => setTimeout(r, 600));
+  try {
+    await fetch('/api/confirmer', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: apCurrentToken, action: 'confirmer' })
+    });
+  } catch(e) { console.error('[apConfirm]', e); }
+  await new Promise(r => setTimeout(r, 500));
   apShowState('success');
 }
 
@@ -4499,19 +4496,40 @@ function apSelectReason(btn, reason) {
   document.getElementById('ap-btn-refuse-confirm').disabled = false;
 }
 async function apDoRefuse() {
-  const comment = document.getElementById('ap-refuse-comment').value.trim();
   const btn = document.getElementById('ap-btn-refuse-confirm');
-  btn.textContent = 'Enregistrement…'; btn.disabled = true;
-  if (apCurrentData?.id) {
-    try {
-      await sb.from('interventions').update({
-        statut: 'refuse',
-        motif_refus: apSelectedReason + (comment ? ' — ' + comment : '')
-      }).eq('id', apCurrentData.id);
-    } catch(e) { console.error(e); }
-  }
+  if (btn) { btn.textContent = 'Enregistrement…'; btn.disabled = true; }
+  try {
+    await fetch('/api/confirmer', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: apCurrentToken, action: 'refuser' })
+    });
+  } catch(e) { console.error('[apDoRefuse]', e); }
+  await new Promise(r => setTimeout(r, 400));
+  if (typeof apCloseRefuse === 'function') apCloseRefuse();
+  apShowState('refused');
+}
+
+/* Opposition au traitement RGPD : suppression du profil + exclusion */
+async function apOppose() {
+  var ok = window.confirm(
+    "Vous demandez à ne plus figurer dans Historim.\n\n" +
+    "Votre profil et vos données seront supprimés, et votre adresse email ajoutée à une liste d'exclusion pour ne plus jamais être sollicité.\n\n" +
+    "Confirmer cette demande ?"
+  );
+  if (!ok) return;
+  apShowState('loading');
+  try {
+    await fetch('/api/confirmer', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: apCurrentToken, action: 'opposer' })
+    });
+  } catch(e) { console.error('[apOppose]', e); }
   await new Promise(r => setTimeout(r, 500));
-  if (document.getElementById("ap-refuse-modal")) apCloseRefuse();
+  /* Réutilise l'écran "refused" avec un message adapté */
+  var t = document.getElementById('ap-refused-title');
+  var s = document.getElementById('ap-refused-sub');
+  if (t) t.textContent = 'Demande enregistrée';
+  if (s) s.textContent = "Vos données ont été supprimées et vous ne serez plus sollicité. Aucune information vous concernant n'est conservée, hormis ce qui est strictement nécessaire pour respecter votre opposition.";
   apShowState('refused');
 }
 
@@ -4923,12 +4941,13 @@ async function saisieSubmit(e) {
     } catch(bienErr) { console.warn("[Saisie] Bien:", bienErr.message); }
 
     /* 2. Insérer l'intervention */
+    /* L'identité de l'artisan n'est PLUS écrite sur l'intervention.
+       Elle est créée côté serveur (statut sollicite) via /api/send-validation. */
     var payload = {
       adresse_bien: adresse, type_travaux: type, date_intervention: date,
-      montant_ttc: montant, artisan_nom: artisanNom,
-      artisan_entreprise: artisanEnt || null, artisan_siret: siret || null,
-      artisan_contact: artisanEmail || null, statut: "en_attente",
+      montant_ttc: montant, statut: "en_attente",
       bien_id: bienId || null,
+      declarant_id: null,
       document_url: saisieDocUrl || null,
       document_type: (saisieExtractMeta && saisieExtractMeta.document_type) || null,
       histor_event_type: (saisieExtractMeta && saisieExtractMeta.histor_event_type) || null,
@@ -4938,17 +4957,24 @@ async function saisieSubmit(e) {
     if (res.error) throw new Error(res.error.message);
     var interventionId = res.data && res.data.id;
 
-    /* 3. Envoyer l'email si email fourni */
+    /* 3. Sollicitation artisan : la fonction serveur crée le profil 'sollicite',
+          le relie, vérifie la liste d'exclusion, puis envoie l'email. */
     var emailSent = false;
     if (artisanEmail && interventionId) {
       try {
         var emailRes = await fetch("/api/send-validation", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ interventionId: interventionId })
+          body: JSON.stringify({
+            interventionId: interventionId,
+            artisanNom: artisanNom,
+            artisanEntreprise: artisanEnt || null,
+            artisanSiret: siret || null,
+            artisanEmail: artisanEmail
+          })
         });
         var emailData = await emailRes.json();
-        if (emailRes.ok && emailData.success) emailSent = true;
-      } catch(emailErr) { console.warn("[Saisie] Email:", emailErr.message); }
+        if (emailRes.ok && emailData.success && emailData.emailSent) emailSent = true;
+      } catch(emailErr) { console.warn("[Saisie] Sollicitation:", emailErr.message); }
     }
 
     /* 4. Afficher le succès */
@@ -5424,7 +5450,8 @@ function saisieReset() {
           <div class="ap-action-title">Cette intervention est-elle exacte ?</div>
           <div class="ap-action-sub">En confirmant, vous certifiez avoir réalisé ces travaux. Cette certification est liée à votre SIRET et visible sur la fiche Histor du bien.</div>
           <button class="ap-btn-confirm" id="ap-btn-confirm" onclick="apConfirm()">✓ Oui, je confirme cette intervention</button>
-          <button class="ap-btn-refuse" onclick="apOpenRefuse()">✗ Non, je ne reconnais pas cette intervention</button>
+          <button class="ap-btn-refuse" onclick="apOpenRefuse()">✗ Non, cette intervention est inexacte</button>
+          <button class="ap-btn-oppose" id="ap-btn-oppose" onclick="apOppose()">Je ne souhaite pas figurer dans Historim et demande la suppression de mes données</button>
         </div>
 
         <div class="ap-info-card">
@@ -5450,8 +5477,8 @@ function saisieReset() {
       <div class="ap-state" id="ap-state-refused">
         <div class="ap-refused-card">
           <div class="ap-refused-icon">🚩</div>
-          <div class="ap-refused-title">Refus enregistré</div>
-          <div class="ap-refused-sub">Votre refus a été transmis à Historim et au propriétaire. Cette intervention sera marquée comme contestée.<br><br>Merci pour votre honnêteté — c'est ce qui rend le système fiable.</div>
+          <div class="ap-refused-title" id="ap-refused-title">Refus enregistré</div>
+          <div class="ap-refused-sub" id="ap-refused-sub">Votre refus a été transmis à Historim et au propriétaire. Cette intervention sera marquée comme contestée.<br><br>Merci pour votre honnêteté — c'est ce qui rend le système fiable.</div>
         </div>
       </div>
 
@@ -5856,7 +5883,7 @@ function iztSwitchDemo() {
   iztAfficherDemo();
 }
 
-async async function iztSwitchBien(bienId) {
+async function iztSwitchBien(bienId) {
   /* Charger depuis le cache si déjà là, sinon recharger */
   var bien = iztAllBiens.find(function(b) { return b.id === bienId; });
   if (!bien) { await iztLoad(); return; }
