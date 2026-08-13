@@ -8,7 +8,14 @@ const { createClient } = require('@supabase/supabase-js');
 const { createHash } = require('crypto');
 
 function hashEmail(email) {
-  return createHash('sha256').update(String(email || '').trim().toLowerCase()).digest('hex');
+  // RGPD : Salt aléatoire unique à Historim, rend force brute non viable
+  // Le sel DOIT être en env var sécurisée, jamais en code ni en base
+  const salt = process.env.HISTORIM_EMAIL_HASH_SALT;
+  if (!salt || salt.length < 16) {
+    throw new Error('HISTORIM_EMAIL_HASH_SALT non configuré ou trop court (min 16 caractères)');
+  }
+  const emailNorm = String(email || '').trim().toLowerCase();
+  return createHash('sha256').update(emailNorm + salt).digest('hex');
 }
 
 module.exports = async function handler(req, res) {
