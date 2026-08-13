@@ -4226,9 +4226,9 @@ function dbComputeAndRender(adresse) {
   const total     = dbAllData.length;
   const certified = dbAllData.filter(r => r.statut === 'certifie').length;
   const pending   = dbAllData.filter(r => r.statut === 'en_attente').length;
-  const withSiret = dbAllData.filter(r => r.artisan_siret && r.artisan_siret.length === 14).length;
+  const withSiret = dbAllData.filter(r => r.snapshot_artisan_siret && r.snapshot_artisan_siret.length === 14).length;
   const montantTotal = dbAllData.reduce((s,r) => s + (r.montant_ttc || 0), 0);
-  const artisansUniques = new Set(dbAllData.map(r => r.artisan_nom).filter(Boolean)).size;
+  const artisansUniques = new Set(dbAllData.map(r => r.snapshot_artisan_raison_sociale).filter(Boolean)).size;
 
   const score = total === 0 ? 0 : Math.min(100, Math.round(
     (certified / Math.max(total, 1)) * 55 +
@@ -4334,9 +4334,9 @@ function dbRenderList() {
           <div class="db-interv-type">${r.type_travaux || '—'}</div>
           <div class="db-interv-title">${r.description || '—'}</div>
           <div class="db-interv-meta">
-            <span>👤 ${r.artisan_nom || '—'}${r.artisan_entreprise ? ' · ' + r.artisan_entreprise : ''}</span>
+            <span>👤 ${r.snapshot_artisan_raison_sociale || 'Professionnel'}</span>
             <span>📅 ${date}</span>
-            ${r.artisan_siret?.length===14 ? '<span class="db-interv-badge db-badge-cert" style="font-size:0.58rem">SIRET ✓</span>' : ''}
+            ${r.snapshot_artisan_siret?.length===14 ? '<span class="db-interv-badge db-badge-cert" style="font-size:0.58rem">SIRET ✓</span>' : ''}
           </div>
         </div>
         <div class="db-interv-right">
@@ -5746,7 +5746,7 @@ function iztAfficherInterventions(interventions) {
           '</div>' +
           '<div style="font-size:0.85rem; font-weight:700; color:var(--navy); margin-bottom:4px;">' + (r.description || '—') + '</div>' +
           '<div style="font-size:0.7rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">' +
-            '<span>👤 ' + (r.artisan_nom || '—') + (r.artisan_entreprise ? ' · ' + r.artisan_entreprise : '') + '</span>' +
+            '<span>👤 ' + (r.snapshot_artisan_raison_sociale || 'Professionnel') + '</span>' +
             '<span style="background:' + (isCert ? 'var(--green-bg)' : 'var(--amber-bg)') + '; color:' + (isCert ? 'var(--green-cert)' : 'var(--amber)') + '; font-size:0.6rem; font-weight:700; padding:2px 7px; border-radius:4px;">' +
               (isCert ? '✓ Certifié' : '⏳ En attente') +
             '</span>' +
@@ -6095,7 +6095,7 @@ function iztFillDecennales(interventions) {
       '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">' +
         '<div style="flex:1;">' +
           '<div style="font-size:0.72rem;font-weight:700;color:var(--orange);text-transform:uppercase;">' + (i.type_travaux || 'Travaux') + '</div>' +
-          '<div style="font-size:0.8rem;font-weight:700;color:var(--navy);">' + (i.artisan_nom || '—') + '</div>' +
+          '<div style="font-size:0.8rem;font-weight:700;color:var(--navy);">' + (i.snapshot_artisan_raison_sociale || 'Professionnel') + '</div>' +
           decHtml +
         '</div>' +
         '<div style="font-size:0.65rem;color:var(--gray);white-space:nowrap;">' + dateStr + '</div>' +
