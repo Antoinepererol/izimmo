@@ -1,32 +1,32 @@
 // api/send-validation.js
 // Sollicitation d'un artisan pour valider une intervention déclarée.
-// Version Resend (plus simple que Brevo pour le pilote).
+// Version Brevo.
 //
 // Déroulé :
 //   1. Relit l'intervention en base (source de vérité pour le contenu du mail)
 //   2. Vérifie la liste d'exclusion : si l'artisan s'est opposé, on s'arrête là
 //   3. Crée le profil artisan en statut 'sollicite' (invisible tant qu'il n'a pas agi)
 //   4. Génère un jeton de validation valable 7 jours
-//   5. Envoie l'email via Resend
+//   5. Envoie l'email via Brevo
 //
 // Variables d'environnement requises sur Vercel :
 //   SUPABASE_URL, SUPABASE_SERVICE_KEY
-//   HISTORIM_EMAIL_HASH_SALT   (identique à celui de confirmer.js)
-//   RESEND_API_KEY
-//   SITE_URL                   (ex: https://izimmo-one.vercel.app)
+//   FIDERO_EMAIL_HASH_SALT   (identique à celui de confirmer.js)
+//   BREVO_API_KEY
+//   SITE_URL                   (ex: https://fidero.fr)
 
 const { createClient } = require('@supabase/supabase-js');
 const { createHash, randomUUID } = require('crypto');
 
-const NAVY = '#28385F';
+const NAVY = '#1A2B4A';
 const ORANGE = '#E8683A';
-const SKY = '#CAE4ED';
+const SKY = '#D9E4F0';
 
 // Doit rester rigoureusement identique à la fonction de confirmer.js
 function hashEmail(email) {
-  const salt = process.env.HISTORIM_EMAIL_HASH_SALT;
+  const salt = process.env.FIDERO_EMAIL_HASH_SALT;
   if (!salt || salt.length < 16) {
-    throw new Error('HISTORIM_EMAIL_HASH_SALT non configuré ou trop court (min 16 caractères)');
+    throw new Error('FIDERO_EMAIL_HASH_SALT non configuré ou trop court (min 16 caractères)');
   }
   return createHash('sha256')
     .update(String(email || '').trim().toLowerCase() + salt)
@@ -84,7 +84,7 @@ function buildEmail(iv, links) {
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background-color:#ffffff;font-family:Arial,Helvetica,sans-serif;">
 
   <tr><td style="background-color:${NAVY};padding:22px 32px;">
-    <span style="font-size:22px;font-weight:bold;color:#ffffff;">Histor<span style="color:${ORANGE};font-style:italic;">im</span></span>
+    <span style="font-size:22px;font-weight:bold;color:#ffffff;"><span style="color:${ORANGE};font-style:italic;">Fide</span>ro</span>
     <div style="font-size:10px;color:${SKY};letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;">Traçabilité certifiée</div>
   </td></tr>
 
@@ -93,7 +93,7 @@ function buildEmail(iv, links) {
     <p style="margin:0 0 16px;font-size:15px;line-height:1.55;color:#1a1a1a;">Bonjour,</p>
 
     <p style="margin:0 0 20px;font-size:15px;line-height:1.55;color:#1a1a1a;">
-      Le propriétaire du bien situé au <strong>${adresse}</strong> a déclaré une intervention réalisée par votre entreprise et vous demande de la confirmer.
+      Une intervention a été déclarée pour le bien situé au <strong>${adresse}</strong> et réalisée par votre entreprise. Pouvez-vous la confirmer ?
     </p>
 
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F5F3EF;border-left:3px solid ${ORANGE};margin:0 0 24px;">
@@ -106,7 +106,7 @@ function buildEmail(iv, links) {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${SKY};margin:0 0 26px;">
       <tr><td style="padding:16px 20px;font-size:14px;line-height:1.55;color:#1B2B4A;">
         <strong>Vous n'apparaissez nulle part pour l'instant.</strong><br>
-        Tant que vous n'avez pas répondu à ce message, votre entreprise n'est visible par personne : ni dans l'annuaire Historim, ni dans l'historique de ce bien. C'est votre validation, et elle seule, qui vous rend visible.
+        Tant que vous n'avez pas répondu à ce message, votre entreprise n'est visible par personne : ni dans l'annuaire Fidero, ni dans l'historique de ce bien. C'est votre validation, et elle seule, qui vous rend visible.
       </td></tr>
     </table>
 
@@ -151,7 +151,7 @@ function buildEmail(iv, links) {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F5F3EF;">
       <tr><td style="padding:18px 20px;">
         <div style="font-size:14px;line-height:1.55;color:#1a1a1a;margin-bottom:12px;">
-          <strong>Vous ne souhaitez pas figurer dans Historim ?</strong><br>
+          <strong>Vous ne souhaitez pas figurer dans Fidero ?</strong><br>
           <span style="color:#555555;">Différent d'un refus : ici, nous supprimons définitivement vos coordonnées et vous ne serez plus jamais sollicité, pour aucune intervention.</span>
         </div>
         <table role="presentation" cellpadding="0" cellspacing="0" border="0">
@@ -171,7 +171,7 @@ function buildEmail(iv, links) {
   <tr><td style="background-color:#F0EEEA;padding:24px 32px;border-top:1px solid #E0DDD8;">
     <div style="font-size:11px;font-weight:bold;color:${NAVY};text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Informations sur vos données (article 14 RGPD)</div>
     <p style="margin:0 0 10px;font-size:12px;line-height:1.6;color:#555555;">
-      <strong style="color:#333333;">Responsable de traitement :</strong> Antoine Pererol, 22 Grande Rue, 92420 Vaucresson — contact@historim.com
+      <strong style="color:#333333;">Responsable de traitement :</strong> Antoine Pererol, 22 Grande Rue, 92420 Vaucresson — contact@fidero.fr
     </p>
     <p style="margin:0 0 10px;font-size:12px;line-height:1.6;color:#555555;">
       <strong style="color:#333333;">Pourquoi vous recevez ce message :</strong> pour vous permettre de confirmer ou de contester une intervention déclarée vous concernant. Ce traitement repose sur notre intérêt légitime à garantir la fiabilité des informations publiées.
@@ -180,7 +180,7 @@ function buildEmail(iv, links) {
       <strong style="color:#333333;">D'où viennent vos données :</strong> votre SIRET et votre raison sociale proviennent de la base publique SIRENE de l'INSEE. Votre adresse email professionnelle nous a été transmise par le propriétaire à l'origine de la déclaration.
     </p>
     <p style="margin:0 0 10px;font-size:12px;line-height:1.6;color:#555555;">
-      <strong style="color:#333333;">Vos droits :</strong> vous disposez d'un droit d'accès, de rectification, d'opposition et d'effacement de vos données. Le bouton « Me retirer définitivement » ci-dessus exerce immédiatement vos droits d'opposition et d'effacement. Pour toute autre demande, écrivez à contact@historim.com.
+      <strong style="color:#333333;">Vos droits :</strong> vous disposez d'un droit d'accès, de rectification, d'opposition et d'effacement de vos données. Le bouton « Me retirer définitivement » ci-dessus exerce immédiatement vos droits d'opposition et d'effacement. Pour toute autre demande, écrivez à contact@fidero.fr.
     </p>
     <p style="margin:0;font-size:12px;line-height:1.6;color:#555555;">
       <a href="${links.confidentialite}" style="color:${NAVY};text-decoration:underline;">Politique de confidentialité</a>
@@ -188,8 +188,8 @@ function buildEmail(iv, links) {
   </td></tr>
 
   <tr><td style="background-color:${NAVY};padding:18px 32px;text-align:center;">
-    <div style="font-size:12px;color:${SKY};">Historim — Traçabilité certifiée de l'habitat</div>
-    <div style="font-size:11px;color:#8A9BB5;margin-top:4px;">historim.com</div>
+    <div style="font-size:12px;color:${SKY};">Fidero — Traçabilité certifiée de l'habitat</div>
+    <div style="font-size:11px;color:#8A9BB5;margin-top:4px;">fidero.fr</div>
   </td></tr>
 
 </table>
@@ -268,30 +268,31 @@ module.exports = async function handler(req, res) {
       confidentialite: `${siteUrl}/#confidentialite`
     };
 
-    const apiKey = process.env.RESEND_API_KEY;
+    const apiKey = process.env.BREVO_API_KEY;
     if (!apiKey) {
-      console.error('[send-validation] RESEND_API_KEY manquant');
+      console.error('[send-validation] BREVO_API_KEY manquant');
       return res.status(200).json({ success: true, emailSent: false, reason: 'config' });
     }
 
-    const resendRes = await fetch('https://api.resend.com/emails', {
+    const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer ' + apiKey,
+        'api-key': apiKey,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'onboarding@resend.dev',
-        to: artisanEmail,
+        sender: { name: 'Fidero', email: 'contact@mail.fidero.fr' },
+        replyTo: { email: 'contact@fidero.fr' },
+        to: [{ email: artisanEmail }],
         subject: 'Une intervention vous est attribuée — confirmation demandée',
-        html: buildEmail(iv, links)
+        htmlContent: buildEmail(iv, links)
       })
     });
 
-    if (!resendRes.ok) {
-      const detail = await resendRes.text();
-      console.error('[send-validation] Resend', resendRes.status, detail);
-      return res.status(200).json({ success: true, emailSent: false, reason: 'resend' });
+    if (!brevoRes.ok) {
+      const detail = await brevoRes.text();
+      console.error('[send-validation] Brevo', brevoRes.status, detail);
+      return res.status(200).json({ success: true, emailSent: false, reason: 'brevo' });
     }
 
     return res.status(200).json({ success: true, emailSent: true });
