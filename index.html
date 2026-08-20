@@ -3012,277 +3012,193 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
 
   <div style="max-width:1040px; margin:0 auto; padding:36px 24px 80px;">
 
+    <!-- Sélecteur de bien (affiché seulement si plusieurs biens en base) -->
+    <div id="izt-biens-list" style="display:none; gap:8px; flex-wrap:wrap; margin-bottom:20px;"></div>
+
     <!-- Intro -->
     <div style="margin-bottom:24px;">
-      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Fiche (re)tracé — exemple</div>
-      <h1 style="font-size:1.85rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:6px;">15 rue de la Paix, 75001 Paris</h1>
-      <p style="font-size:0.82rem; color:var(--gray); line-height:1.6;">Appartement · 65 m² · 3 pièces · Construit en 1985 — Historique certifié par les artisans</p>
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">(re)tracé — la fiche vivante du logement</div>
+      <h1 style="font-size:1.85rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:6px;">
+        <span id="izt-adresse">Chargement…</span><span id="izt-bien-badge"></span>
+      </h1>
+      <p id="izt-meta" style="font-size:0.82rem; color:var(--gray); line-height:1.6;">—</p>
     </div>
 
     <!-- ====================================================== -->
-    <!-- SECTION 1 — SCORE + NIVEAU DE CONFIANCE -->
+    <!-- SECTION 1 — SCORE DE TRANSPARENCE -->
     <!-- ====================================================== -->
-    <div style="background:white; border-radius:16px; box-shadow:0 12px 40px rgba(15,28,50,0.07); overflow:hidden; margin-bottom:16px;">
-      <div style="display:grid; grid-template-columns:280px 1fr; gap:0;">
+    <div id="izt-score-box" style="background:var(--navy); border-radius:16px; padding:28px 32px; margin-bottom:20px;">
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:36px; align-items:center;">
 
-        <!-- Gauche : score -->
-        <div style="background:var(--navy); padding:32px 28px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
-          <div style="position:relative; width:140px; height:140px; margin-bottom:16px;">
-            <svg viewBox="0 0 140 140" style="transform:rotate(-90deg);">
-              <circle cx="70" cy="70" r="62" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
-              <circle cx="70" cy="70" r="62" fill="none" stroke="var(--orange)" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.5" stroke-dashoffset="70.1"/>
-            </svg>
-            <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-              <div style="font-size:2.6rem; font-weight:900; color:white; line-height:1;">82</div>
-              <div style="font-size:0.62rem; color:rgba(255,255,255,0.5); font-weight:600;">/ 100</div>
-            </div>
+        <!-- Gauche : le score -->
+        <div style="text-align:center; min-width:150px;">
+          <div style="font-size:0.68rem; font-weight:700; color:var(--blue-mid); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">Score de transparence</div>
+          <div style="display:flex; align-items:baseline; justify-content:center; gap:2px;">
+            <span id="izt-score-num" style="font-size:3.6rem; font-weight:900; color:var(--orange); line-height:1;">—</span>
+            <span style="font-size:1.1rem; font-weight:700; color:var(--blue-mid);">/100</span>
           </div>
-          <div style="background:rgba(6,214,160,0.2); border-radius:6px; padding:4px 12px; font-size:0.72rem; font-weight:700; color:var(--green-cert); margin-bottom:8px;">⭐ Très transparent</div>
-          <div style="font-size:0.68rem; color:rgba(255,255,255,0.55); line-height:1.5;">Score de transparence Fidero — basé uniquement sur des données certifiées</div>
+          <div onclick="iztToggleScoreDetail()" style="margin-top:10px; font-size:0.7rem; color:var(--blue-mid); cursor:pointer; text-decoration:underline;">Comment est-il calculé ?</div>
         </div>
 
-        <!-- Droite : décomposition + amélioration -->
-        <div style="padding:28px;">
-          <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px;">Comment ce score est calculé</div>
-
-          <!-- Composant 1 -->
+        <!-- Droite : décomposition -->
+        <div>
           <div class="izt-score-line" style="margin-bottom:14px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">✓ Interventions certifiées par l'artisan</span>
-              <span style="font-size:0.74rem; font-weight:800; color:var(--green-cert);">36 / 40 pts</span>
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+              <span style="font-size:0.76rem; font-weight:600; color:white;">Complétude de la fiche</span>
+              <span id="izt-bar1-val" style="font-size:0.72rem; font-weight:700; color:var(--orange);">— / 25 pts</span>
             </div>
-            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:90%; background:var(--green-cert); border-radius:4px;"></div></div>
-            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">3 interventions sur 4 validées par le professionnel</div>
+            <div style="height:7px; background:rgba(255,255,255,0.12); border-radius:4px; overflow:hidden;">
+              <div id="izt-bar1" style="height:100%; width:0%; border-radius:4px; background:linear-gradient(90deg,var(--blue-mid),var(--orange)); transition:width 0.8s ease;"></div>
+            </div>
           </div>
 
-          <!-- Composant 2 -->
           <div class="izt-score-line" style="margin-bottom:14px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">📄 Documents justificatifs fournis</span>
-              <span style="font-size:0.74rem; font-weight:800; color:var(--orange);">18 / 25 pts</span>
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+              <span style="font-size:0.76rem; font-weight:600; color:white;">Performance énergétique</span>
+              <span id="izt-bar2-val" style="font-size:0.72rem; font-weight:700; color:var(--orange);">— / 20 pts</span>
             </div>
-            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:72%; background:var(--orange); border-radius:4px;"></div></div>
-            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">9 documents attachés (factures, attestations)</div>
+            <div style="height:7px; background:rgba(255,255,255,0.12); border-radius:4px; overflow:hidden;">
+              <div id="izt-bar2" style="height:100%; width:0%; border-radius:4px; background:linear-gradient(90deg,var(--blue-mid),var(--orange)); transition:width 0.8s ease;"></div>
+            </div>
           </div>
 
-          <!-- Composant 3 -->
-          <div class="izt-score-line" style="margin-bottom:14px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">🛡️ Couverture décennale active</span>
-              <span style="font-size:0.74rem; font-weight:800; color:var(--green-cert);">20 / 20 pts</span>
+          <div class="izt-score-line">
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+              <span style="font-size:0.76rem; font-weight:600; color:white;">Interventions certifiées</span>
+              <span id="izt-bar3-val" style="font-size:0.72rem; font-weight:700; color:var(--orange);">— / 55 pts</span>
             </div>
-            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:100%; background:var(--green-cert); border-radius:4px;"></div></div>
-            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">Toutes les interventions éligibles sont couvertes</div>
+            <div style="height:7px; background:rgba(255,255,255,0.12); border-radius:4px; overflow:hidden;">
+              <div id="izt-bar3" style="height:100%; width:0%; border-radius:4px; background:linear-gradient(90deg,var(--blue-mid),var(--orange)); transition:width 0.8s ease;"></div>
+            </div>
+            <div id="izt-ratio-certif" style="font-size:0.68rem; color:var(--blue-mid); margin-top:5px;"></div>
           </div>
+        </div>
+      </div>
 
-          <!-- Composant 4 -->
-          <div class="izt-score-line" style="margin-bottom:18px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-              <span style="font-size:0.78rem; font-weight:600; color:var(--navy);">🏛️ Complétude administrative</span>
-              <span style="font-size:0.74rem; font-weight:800; color:var(--orange);">8 / 15 pts</span>
+      <!-- Détail dépliable -->
+      <div id="izt-score-detail" style="display:none; margin-top:22px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.12);">
+        <div style="font-size:0.7rem; font-weight:800; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">Le détail du calcul</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;">
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span style="font-size:0.72rem; color:white; font-weight:600;">Fiche de base et données juridiques</span>
+              <span id="izt-p1-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—</span>
             </div>
-            <div style="height:7px; background:var(--blue-light); border-radius:4px; overflow:hidden;"><div style="height:100%; width:53%; background:var(--orange); border-radius:4px;"></div></div>
-            <div style="font-size:0.66rem; color:var(--gray); margin-top:4px;">Identité du bien et assurance DO renseignées</div>
+            <div style="height:5px; background:rgba(255,255,255,0.12); border-radius:3px; overflow:hidden;">
+              <div id="izt-p1-bar" style="height:100%; width:0%; background:var(--orange); border-radius:3px; transition:width 0.8s ease;"></div>
+            </div>
+            <div style="font-size:0.66rem; color:var(--blue-mid); margin-top:5px; line-height:1.4;">Type, surface, année, pièces, cadastre, permis, assurance dommages-ouvrage.</div>
           </div>
-
-          <!-- Comment améliorer -->
-          <div style="background:var(--amber-bg); border:1px solid rgba(232,104,58,0.2); border-radius:10px; padding:12px 14px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--orange); margin-bottom:6px;">💡 Comment améliorer ce score</div>
-            <div style="font-size:0.72rem; color:var(--navy); line-height:1.6;">
-              <strong>+8 pts</strong> — faire valider l'intervention « Toiture » par l'artisan<br>
-              <strong>+7 pts</strong> — ajouter les factures manquantes<br>
-              <strong>+7 pts</strong> — compléter les références cadastrales
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span style="font-size:0.72rem; color:white; font-weight:600;">Diagnostics énergétiques</span>
+              <span id="izt-p2-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—</span>
             </div>
+            <div style="height:5px; background:rgba(255,255,255,0.12); border-radius:3px; overflow:hidden;">
+              <div id="izt-p2-bar" style="height:100%; width:0%; background:var(--orange); border-radius:3px; transition:width 0.8s ease;"></div>
+            </div>
+            <div style="font-size:0.66rem; color:var(--blue-mid); margin-top:5px; line-height:1.4;">DPE et GES renseignés.</div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span style="font-size:0.72rem; color:white; font-weight:600;">Historique des travaux</span>
+              <span id="izt-p3-val" style="font-size:0.7rem; font-weight:700; color:var(--orange);">—</span>
+            </div>
+            <div style="height:5px; background:rgba(255,255,255,0.12); border-radius:3px; overflow:hidden;">
+              <div id="izt-p3-bar" style="height:100%; width:0%; background:var(--orange); border-radius:3px; transition:width 0.8s ease;"></div>
+            </div>
+            <div style="font-size:0.66rem; color:var(--blue-mid); margin-top:5px; line-height:1.4;">Une intervention validée par l'artisan pèse plus qu'une simple déclaration. Les travaux d'immeuble ajoutent un bonus.</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- ====================================================== -->
-    <!-- SECTION 2 — RÉSUMÉ FIDERO -->
+    <!-- SECTION 2 — CHIFFRES CLÉS -->
     <!-- ====================================================== -->
-    <div style="background:linear-gradient(135deg, var(--navy), var(--navy-deep)); border-radius:16px; padding:26px 28px; margin-bottom:16px; position:relative; overflow:hidden;">
-      <div style="position:absolute; top:-60px; right:-60px; width:220px; height:220px; background:radial-gradient(circle, rgba(232,104,58,0.12), transparent 70%); border-radius:50%;"></div>
-      <div style="position:relative;">
-        <div style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">📊 Résumé Fidero — généré automatiquement</div>
-
-        <!-- Chiffres clés -->
-        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-bottom:20px;">
-          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
-            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">4</div>
-            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">interventions</div>
-          </div>
-          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
-            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">8 580 €</div>
-            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">investis sur le bien</div>
-          </div>
-          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
-            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">3</div>
-            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">entreprises certifiées</div>
-          </div>
-          <div class="izt-kpi-card" style="background:rgba(255,255,255,0.06); border-radius:10px; padding:14px 16px;">
-            <div style="font-size:1.6rem; font-weight:900; color:white; line-height:1;">5 mois</div>
-            <div style="font-size:0.64rem; color:rgba(255,255,255,0.5); margin-top:4px;">depuis le dernier chantier</div>
-          </div>
-        </div>
-
-        <!-- Points forts + alertes -->
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div style="background:rgba(6,214,160,0.1); border:1px solid rgba(6,214,160,0.25); border-radius:10px; padding:14px 16px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--green-cert); margin-bottom:8px;">✓ Points forts</div>
-            <div style="font-size:0.74rem; color:rgba(255,255,255,0.8); line-height:1.7;">
-              • Chaudière à condensation récente (2024)<br>
-              • Électricité aux normes (2024)<br>
-              • 3 entreprises RGE/Qualibat
-            </div>
-          </div>
-          <div style="background:rgba(232,104,58,0.1); border:1px solid rgba(232,104,58,0.25); border-radius:10px; padding:14px 16px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--orange); margin-bottom:8px;">⚠ Points de vigilance</div>
-            <div style="font-size:0.74rem; color:rgba(255,255,255,0.8); line-height:1.7;">
-              • 1 intervention en attente de validation<br>
-              • DPE classe D — amélioration possible<br>
-              • Références cadastrales à compléter
-            </div>
-          </div>
-        </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:20px;">
+      <div class="izt-kpi-card" style="background:white; border-radius:12px; padding:16px 18px; border:1px solid var(--blue-light);">
+        <div style="font-size:0.66rem; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.5px;">Interventions</div>
+        <div id="izt-nb-interv" style="font-size:1.7rem; font-weight:900; color:var(--navy); line-height:1.2;">—</div>
+        <div id="izt-cert-count" style="font-size:0.68rem; color:var(--green-cert); font-weight:700;">—</div>
+      </div>
+      <div class="izt-kpi-card" style="background:white; border-radius:12px; padding:16px 18px; border:1px solid var(--blue-light);">
+        <div style="font-size:0.66rem; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.5px;">Montant cumulé</div>
+        <div id="izt-montant" style="font-size:1.7rem; font-weight:900; color:var(--navy); line-height:1.2;">—</div>
+        <div style="font-size:0.68rem; color:var(--gray);">travaux déclarés</div>
+      </div>
+      <div class="izt-kpi-card" style="background:white; border-radius:12px; padding:16px 18px; border:1px solid var(--blue-light);">
+        <div style="font-size:0.66rem; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.5px;">DPE</div>
+        <div id="izt-dpe" style="font-size:1.7rem; font-weight:900; color:var(--navy); line-height:1.2;">—</div>
+        <div style="font-size:0.68rem; color:var(--gray);">performance énergétique</div>
+      </div>
+      <div class="izt-kpi-card" style="background:white; border-radius:12px; padding:16px 18px; border:1px solid var(--blue-light);">
+        <div style="font-size:0.66rem; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.5px;">GES</div>
+        <div id="izt-ges" style="font-size:1.7rem; font-weight:900; color:var(--navy); line-height:1.2;">—</div>
+        <div style="font-size:0.68rem; color:var(--gray);">émissions carbone</div>
       </div>
     </div>
 
     <!-- ====================================================== -->
-    <!-- SECTION 3 — TIMELINE DES ÉVÉNEMENTS (avec preuves) -->
+    <!-- SECTION 3 — HISTORIQUE DES INTERVENTIONS -->
     <!-- ====================================================== -->
-    <div style="background:white; border-radius:16px; box-shadow:0 12px 40px rgba(15,28,50,0.07); padding:24px 28px; margin-bottom:16px;">
-      <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; display:flex; align-items:center; gap:6px;"><span style="width:3px;height:10px;background:var(--orange);border-radius:2px;display:inline-block;"></span>Timeline des événements</div>
-      <p style="font-size:0.72rem; color:var(--gray); margin-bottom:18px;">Chaque intervention est documentée. Cliquez sur une preuve pour la consulter.</p>
-
-      <!-- Intervention 1 -->
-      <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
-          <div style="flex:1; min-width:200px;">
-            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Plomberie · 15 janvier 2025</div>
-            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réparation fuite évier cuisine</div>
-            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Jean Dupont · Plomberie Parisienne <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée par l'artisan</span></div>
-            <!-- PREUVES -->
-            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📷 2 photos</span>
-            </div>
-          </div>
-          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">180 €</div>
-        </div>
-      </div>
-
-      <!-- Intervention 2 -->
-      <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
-          <div style="flex:1; min-width:200px;">
-            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Rénovation énergétique · 12 juin 2024</div>
-            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Installation chaudière à condensation</div>
-            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Thermique IDF <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée par l'artisan</span> <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">RGE</span></div>
-            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">🛡️ Décennale (valide → 2034)</span>
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Attestation RGE</span>
-            </div>
-          </div>
-          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">3 800 €</div>
-        </div>
-      </div>
-
-      <!-- Intervention 3 -->
-      <div class="izt-interv-card" style="border-left:3px solid var(--green-cert); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
-          <div style="flex:1; min-width:200px;">
-            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Électricité · 8 mars 2024</div>
-            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Mise aux normes tableau électrique</div>
-            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Karim Benali · Élec Pro Paris <span style="background:var(--green-bg);color:var(--green-cert);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">✓ Certifiée par l'artisan</span></div>
-            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Attestation Consuel</span>
-            </div>
-          </div>
-          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 200 €</div>
-        </div>
-      </div>
-
-      <!-- Intervention 4 — en attente -->
-      <div class="izt-interv-card" style="border-left:3px solid var(--amber); background:var(--beige); border-radius:0 10px 10px 0; padding:16px 18px; opacity:0.9;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
-          <div style="flex:1; min-width:200px;">
-            <div style="font-size:0.62rem; font-weight:700; color:var(--orange); text-transform:uppercase; margin-bottom:3px;">Toiture · 3 novembre 2024</div>
-            <div style="font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px;">Réfection partielle toiture</div>
-            <div style="font-size:0.74rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">Couverture Martin <span style="background:var(--amber-bg);color:var(--orange);font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:4px;">⏳ En attente de validation</span></div>
-            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
-              <span class="izt-proof" style="display:inline-flex; align-items:center; gap:5px; background:white; border:1px solid var(--blue-light); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--navy); cursor:pointer;">📄 Facture</span>
-              <span style="display:inline-flex; align-items:center; gap:5px; background:transparent; border:1px dashed var(--amber); border-radius:6px; padding:5px 10px; font-size:0.68rem; font-weight:600; color:var(--orange);">⏳ Validation artisan en attente</span>
-            </div>
-          </div>
-          <div style="font-size:1rem; font-weight:900; color:var(--navy); flex-shrink:0;">2 400 €</div>
-        </div>
-      </div>
+    <div style="background:white; border-radius:14px; padding:22px 24px; margin-bottom:20px; border:1px solid var(--blue-light);">
+      <div style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">Historique des interventions</div>
+      <div id="izt-interv-list"></div>
     </div>
 
     <!-- ====================================================== -->
-    <!-- SECTION 4 — INFORMATIONS ADMINISTRATIVES (actives) -->
+    <!-- SECTION 4 — ÉTAT DE L'IMMEUBLE (copropriétés) -->
     <!-- ====================================================== -->
-    <div style="font-size:0.65rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; display:flex; align-items:center; gap:6px;"><span style="width:3px;height:10px;background:var(--orange);border-radius:2px;display:inline-block;"></span>Informations administratives</div>
-    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-bottom:32px;">
+    <div id="izt-immeuble-section" style="display:none; background:var(--beige-dark); border-radius:14px; padding:22px 24px; margin-bottom:20px; border:1px solid var(--blue-light);">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px;">
+        <div style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:1px;">🏢 État de l'immeuble</div>
+        <div id="izt-immeuble-meta" style="font-size:0.7rem; color:var(--gray);"></div>
+      </div>
+      <p style="font-size:0.74rem; color:var(--gray); line-height:1.5; margin-bottom:14px;">Travaux de parties communes déclarés pour cette copropriété. Ils bénéficient à tous les lots et valorisent ce logement.</p>
+      <div id="izt-immeuble-list"></div>
+    </div>
 
-      <!-- Identité du bien -->
-      <div class="izt-admin-card" style="background:white; border-radius:14px; box-shadow:0 8px 28px rgba(15,28,50,0.06); padding:20px;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-          <span style="font-size:1.1rem;">🏛️</span>
-          <div style="font-size:0.8rem; font-weight:800; color:var(--navy);">Identité du bien</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:9px;">
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Type</span><span style="color:var(--navy); font-weight:600;">Appartement</span></div>
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Surface</span><span style="color:var(--navy); font-weight:600;">65 m²</span></div>
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Année</span><span style="color:var(--navy); font-weight:600;">1985</span></div>
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Cadastre</span><span style="color:var(--navy); font-weight:600;">AB 0124</span></div>
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Permis</span><span style="color:var(--navy); font-weight:600;">PC75001-1983</span></div>
-        </div>
+    <!-- ====================================================== -->
+    <!-- SECTION 5 — IDENTITÉ, ASSURANCES, DÉCENNALES -->
+    <!-- ====================================================== -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-bottom:20px;">
+
+      <div style="background:white; border-radius:14px; padding:20px 22px; border:1px solid var(--blue-light);">
+        <div class="izt-panel-header" style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Identité du bien</div>
+        <div id="izt-identity-fields"></div>
       </div>
 
-      <!-- Assurance DO -->
-      <div class="izt-admin-card" style="background:white; border-radius:14px; box-shadow:0 8px 28px rgba(15,28,50,0.06); padding:20px;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-          <span style="font-size:1.1rem;">🛡️</span>
-          <div style="font-size:0.8rem; font-weight:800; color:var(--navy);">Assurance dommage ouvrage</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:9px;">
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Assureur</span><span style="color:var(--navy); font-weight:600;">AXA France</span></div>
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Police</span><span style="color:var(--navy); font-weight:600;">DO-75-1985</span></div>
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem;"><span style="color:var(--gray);">Statut</span><span style="color:var(--green-cert); font-weight:700;">✓ Active</span></div>
-        </div>
-        <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--beige); font-size:0.66rem; color:var(--gray); line-height:1.5;">Protège l'acquéreur contre les vices de construction pendant 10 ans.</div>
-      </div>
-
-      <!-- Décennales -->
-      <div class="izt-admin-card" style="background:white; border-radius:14px; box-shadow:0 8px 28px rgba(15,28,50,0.06); padding:20px;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-          <span style="font-size:1.1rem;">📋</span>
-          <div style="font-size:0.8rem; font-weight:800; color:var(--navy);">Assurances décennales</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <div style="background:var(--beige); border-radius:8px; padding:9px 11px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--navy);">Thermique IDF</div>
-            <div style="font-size:0.64rem; color:var(--gray); margin-top:2px;">Allianz · valide → juin 2034</div>
-          </div>
-          <div style="background:var(--beige); border-radius:8px; padding:9px 11px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--navy);">Plomberie Parisienne</div>
-            <div style="font-size:0.64rem; color:var(--gray); margin-top:2px;">MAAF Pro · valide → janv. 2035</div>
-          </div>
-        </div>
+      <div style="background:white; border-radius:14px; padding:20px 22px; border:1px solid var(--blue-light);">
+        <div class="izt-panel-header" style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Assurance dommages-ouvrage</div>
+        <div id="izt-do-fields"></div>
       </div>
     </div>
 
-    <!-- CTA -->
-    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-      <button onclick="navGo('saisie')" style="background:var(--orange); color:white; border:none; border-radius:10px; padding:14px 28px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.9rem; font-weight:800; cursor:pointer;">+ Enregistrer une intervention</button>
-      <button onclick="navGo('dashboard')" style="background:white; color:var(--navy); border:1.5px solid var(--blue-light); border-radius:10px; padding:14px 28px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.9rem; font-weight:600; cursor:pointer;">🏠 Mon tableau de bord</button>
+    <div style="background:white; border-radius:14px; padding:22px 24px; margin-bottom:20px; border:1px solid var(--blue-light);">
+      <div style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Garanties décennales</div>
+      <p style="font-size:0.74rem; color:var(--gray); line-height:1.5; margin-bottom:14px;">Travaux soumis à la garantie décennale et état de couverture à ce jour.</p>
+      <div id="izt-decennale-list"></div>
     </div>
 
-    <div style="text-align:center; margin-top:18px; font-size:0.72rem; color:var(--gray);">Fiche de démonstration · <strong style="color:var(--navy);"><span style="color:var(--orange);font-style:italic;">Fide</span>ro</strong> — la vraie valeur d'un bien réside dans son histoire</div>
+    <!-- ====================================================== -->
+    <!-- SECTION 6 — COMPLÉTUDE DE LA FICHE -->
+    <!-- ====================================================== -->
+    <div style="background:white; border-radius:14px; padding:22px 24px; margin-bottom:20px; border:1px solid var(--blue-light);">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;">
+        <div style="font-size:0.72rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:1px;">Complétude de la fiche</div>
+        <div id="izt-completion-pct" style="font-size:1.2rem; font-weight:900; color:var(--orange);">—</div>
+      </div>
+      <div style="height:9px; background:var(--gray-light); border-radius:5px; overflow:hidden; margin-bottom:12px;">
+        <div id="izt-completion-fill" style="height:100%; width:0%; border-radius:5px; transition:width 0.8s ease;"></div>
+      </div>
+      <div id="izt-completion-msg" style="font-size:0.78rem; color:var(--gray); line-height:1.5; margin-bottom:12px;"></div>
+      <div id="izt-missing-list"></div>
+    </div>
+
+    <div style="text-align:center; margin-top:18px; font-size:0.72rem; color:var(--gray);">
+      <strong style="color:var(--navy);"><span style="color:var(--orange);font-style:italic;">Fide</span>ro</strong> — la vraie valeur d'un bien réside dans son histoire
+    </div>
 
   </div>
 </div>
@@ -4902,6 +4818,75 @@ function saisieSiretRender(r) {
 }
 
 /* --- Soumission finale → Supabase --- */
+/* ===== COPROPRIÉTÉ — bascule du formulaire ===== */
+var saisieEstCopro = false;
+
+function saisieToggleCopro() {
+  saisieEstCopro = !saisieEstCopro;
+  var check  = document.getElementById('s-copro-check');
+  var bloc   = document.getElementById('s-copro-bloc');
+  var toggle = document.getElementById('s-copro-toggle');
+  var label  = document.getElementById('s-adresse-label');
+  var champ  = document.getElementById('s-adresse');
+
+  if (saisieEstCopro) {
+    check.style.background = 'var(--orange)';
+    check.style.borderColor = 'var(--orange)';
+    check.textContent = '✓';
+    toggle.style.borderColor = 'var(--orange)';
+    toggle.style.background = 'var(--orange-light)';
+    bloc.style.display = 'block';
+    label.innerHTML = "Adresse de l'immeuble <span style=\"color:var(--orange);\">*</span>";
+    if (champ) champ.placeholder = 'Ex : 12 rue de la Paix, 92100 Boulogne';
+  } else {
+    check.style.background = 'white';
+    check.style.borderColor = 'var(--slate)';
+    check.textContent = '';
+    toggle.style.borderColor = 'var(--blue-light)';
+    toggle.style.background = 'var(--beige-dark)';
+    bloc.style.display = 'none';
+    label.innerHTML = 'Adresse du bien <span style="color:var(--orange);">*</span>';
+    if (champ) champ.placeholder = 'Ex : 15 rue de la Paix, 75001 Paris';
+  }
+}
+
+/* Retrouve la copropriété par son adresse normalisée, ou la crée.
+   La normalisation reproduit exactement celle de la base, pour que
+   "12 Rue de la Paix" et "12  rue de la  PAIX" tombent sur la même ligne. */
+function fideroNormaliseAdresse(adresse) {
+  var accents = 'àâäáãåçéèêëíìîïñóòôöõúùûüýÿ';
+  var sans    = 'aaaaaaceeeeiiiinooooouuuuyy';
+  var s = String(adresse || '').toLowerCase();
+  var out = '';
+  for (var i = 0; i < s.length; i++) {
+    var p = accents.indexOf(s[i]);
+    out += (p >= 0) ? sans[p] : s[i];
+  }
+  return out.replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+async function saisieTrouverOuCreerCopro(adresse, nbLots, rnic) {
+  var norm = fideroNormaliseAdresse(adresse);
+
+  var existante = await sb.from('coproprietes')
+    .select('id, nombre_lots').eq('adresse_normalisee', norm).maybeSingle();
+  if (existante.error) throw new Error(existante.error.message);
+
+  if (existante.data) {
+    /* Le nombre de lots peut avoir été laissé vide lors d'une saisie précédente */
+    if (nbLots && !existante.data.nombre_lots) {
+      await sb.from('coproprietes').update({ nombre_lots: nbLots }).eq('id', existante.data.id);
+    }
+    return { id: existante.data.id, creee: false };
+  }
+
+  var creation = await sb.from('coproprietes')
+    .insert({ adresse: adresse, nombre_lots: nbLots || null, rnic: rnic || null })
+    .select('id').single();
+  if (creation.error) throw new Error(creation.error.message);
+  return { id: creation.data.id, creee: true };
+}
+
 async function saisieSubmit(e) {
   e.preventDefault();
   var btn     = document.getElementById("s-submit-btn");
@@ -4927,21 +4912,40 @@ async function saisieSubmit(e) {
   if (!date)       { errEl.textContent = "Veuillez indiquer la date des travaux."; errEl.style.display = "block"; window.scrollTo(0,0); return; }
   if (!artisanNom) { errEl.textContent = "Veuillez renseigner le nom de l'artisan."; errEl.style.display = "block"; return; }
 
+  /* Copropriété : le nombre de lots conditionne le compteur de lots couverts */
+  var coproLots = null, coproRnic = null;
+  if (saisieEstCopro) {
+    coproLots = parseInt(document.getElementById("s-copro-lots").value, 10);
+    coproRnic = (document.getElementById("s-copro-rnic").value || "").trim() || null;
+    if (!coproLots || coproLots < 1) {
+      errEl.textContent = "Veuillez indiquer le nombre de lots de la copropriété.";
+      errEl.style.display = "block"; window.scrollTo(0,0); return;
+    }
+  }
+
   btn.disabled = true; btn.style.opacity = "0.7";
   iconEl.textContent = "⏳"; labelEl.textContent = "Enregistrement…";
 
   try {
-    /* 1. Lookup ou création du bien */
-    var bienId = null;
-    try {
-      var resBien = await sb.from("biens").select("id").ilike("adresse", adresse.slice(0, 20) + "%").limit(1).single();
-      if (resBien.data) {
-        bienId = resBien.data.id;
-      } else {
-        var resCree = await sb.from("biens").insert({ adresse: adresse }).select("id").single();
-        if (resCree.data) bienId = resCree.data.id;
-      }
-    } catch(bienErr) { console.warn("[Saisie] Bien:", bienErr.message); }
+    /* 1. Rattachement : un immeuble OU un bien, jamais les deux.
+          Pour une intervention de parties communes on ne crée AUCUNE fiche :
+          la couverture des lots est calculée à partir du nombre de lots. */
+    var bienId = null, coproId = null;
+
+    if (saisieEstCopro) {
+      var copro = await saisieTrouverOuCreerCopro(adresse, coproLots, coproRnic);
+      coproId = copro.id;
+    } else {
+      try {
+        var resBien = await sb.from("biens").select("id").ilike("adresse", adresse.slice(0, 20) + "%").limit(1).single();
+        if (resBien.data) {
+          bienId = resBien.data.id;
+        } else {
+          var resCree = await sb.from("biens").insert({ adresse: adresse }).select("id").single();
+          if (resCree.data) bienId = resCree.data.id;
+        }
+      } catch(bienErr) { console.warn("[Saisie] Bien:", bienErr.message); }
+    }
 
     /* 2. Insérer l'intervention */
     /* L'identité de l'artisan n'est PLUS écrite sur l'intervention.
@@ -4949,7 +4953,9 @@ async function saisieSubmit(e) {
     var payload = {
       adresse_bien: adresse, type_travaux: type, date_intervention: date,
       montant_ttc: montant, statut: "en_attente",
-      bien_id: bienId || null,
+      portee: saisieEstCopro ? "parties_communes" : "privative",
+      bien_id: saisieEstCopro ? null : (bienId || null),
+      copropriete_id: saisieEstCopro ? coproId : null,
       declarant_id: null,
       document_url: saisieDocUrl || null,
       document_type: (saisieExtractMeta && saisieExtractMeta.document_type) || null,
@@ -5271,8 +5277,40 @@ function saisieReset() {
 
         <div style="display:flex; flex-direction:column; gap:14px;">
 
+          <!-- Bascule : intervention privative ou parties communes -->
+          <div id="s-copro-toggle" onclick="saisieToggleCopro()"
+            style="display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--beige-dark); border:1.5px solid var(--blue-light); border-radius:10px; cursor:pointer; transition:all 0.2s;">
+            <div id="s-copro-check"
+              style="width:20px; height:20px; border-radius:5px; border:2px solid var(--slate); background:white; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:white; font-weight:800; transition:all 0.2s;"></div>
+            <div>
+              <div style="font-size:0.86rem; font-weight:700; color:var(--navy);">Ce sont des travaux de parties communes</div>
+              <div style="font-size:0.75rem; color:var(--gray); margin-top:2px; line-height:1.45;">Ravalement, toiture, ascenseur, chaufferie… Ces travaux concernent tout l'immeuble et bénéficient à chaque lot.</div>
+            </div>
+          </div>
+
+          <!-- Bloc copropriété, masqué par défaut -->
+          <div id="s-copro-bloc" style="display:none; padding:16px; background:var(--orange-light); border-left:3px solid var(--orange); border-radius:0 10px 10px 0;">
+            <div style="font-size:0.72rem; font-weight:800; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">La copropriété</div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div>
+                <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Nombre de lots <span style="color:var(--orange);">*</span></label>
+                <input id="s-copro-lots" type="number" min="1" step="1" placeholder="Ex : 60"
+                  style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box;"
+                  onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='var(--blue-light)'">
+                <div style="font-size:0.7rem; color:var(--gray); margin-top:5px; line-height:1.4;">Ce nombre figure sur votre appel de fonds ou au registre national. Il détermine combien de logements bénéficient de cette déclaration.</div>
+              </div>
+              <div>
+                <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Numéro d'immatriculation (facultatif)</label>
+                <input id="s-copro-rnic" type="text" placeholder="Ex : AA1234567"
+                  style="width:100%; padding:12px 14px; border:1.5px solid var(--blue-light); border-radius:8px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem; color:var(--navy); outline:none; box-sizing:border-box;"
+                  onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='var(--blue-light)'">
+                <div style="font-size:0.7rem; color:var(--gray); margin-top:5px; line-height:1.4;">Numéro du registre national des copropriétés, si vous l'avez sous la main.</div>
+              </div>
+            </div>
+          </div>
+
           <div>
-            <label style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Adresse du bien <span style="color:var(--orange);">*</span></label>
+            <label id="s-adresse-label" style="font-size:0.72rem; font-weight:700; color:var(--gray); display:block; margin-bottom:5px;">Adresse du bien <span style="color:var(--orange);">*</span></label>
             <div style="position:relative;">
               <input id="s-adresse" type="text" placeholder="Ex : 15 rue de la Paix, 75001 Paris"
                 autocomplete="off" required
@@ -5637,7 +5675,7 @@ function iztPoidsType(type) {
 }
 
 /* Calcul du score (retourne { total, p1, p2, p3 }) */
-function iztCalculerScore(bien, interventions) {
+function iztCalculerScore(bien, interventions, travauxImmeuble) {
   /* Pilier 1 — Complétude fiche de base (15 pts) */
   var p1 = 0;
   if (bien) {
@@ -5682,10 +5720,75 @@ function iztCalculerScore(bien, interventions) {
   }
   p3 = Math.min(p3, 55);
 
-  var total = Math.min(p1 + p2 + p3, 100);
-  return { total: total, p1: p1, p2: p2, p3: p3,
+  /* Bonus « État de l'immeuble » — en supplément des trois piliers, plafonné à 10.
+     Volontairement additif plutôt que prélevé sur les 100 points : une maison
+     individuelle n'a pas de parties communes et ne doit pas s'en trouver pénalisée.
+     Poids réduits face au privatif — un ravalement profite à tout l'immeuble et
+     renseigne moins sur ce logement précis qu'une chaudière remplacée.
+     Un travail seulement déclaré par le syndic ne rapporte qu'un point : le
+     garde-fou reste que la validation artisan pèse trois fois plus. */
+  var bonus = 0;
+  (travauxImmeuble || []).forEach(function(t) {
+    bonus += (t.statut === 'certifie') ? 3 : 1;
+  });
+  bonus = Math.min(bonus, 10);
+
+  var total = Math.min(p1 + p2 + p3 + bonus, 100);
+  return { total: total, p1: p1, p2: p2, p3: p3, bonus: bonus,
     p1_base: Math.min(p1, 15), p1_juridique: p1b,
     ratio_certif: total_interv > 0 ? Math.round(certif_interv / total_interv * 100) : 0 };
+}
+
+/* ===== ÉTAT DE L'IMMEUBLE =====
+   Les travaux de parties communes ne sont pas stockés sur le lot : ils
+   appartiennent à la copropriété et sont lus au chargement de la fiche. */
+function iztAfficherTravauxImmeuble(travaux, copro) {
+  var section = document.getElementById('izt-immeuble-section');
+  var listEl  = document.getElementById('izt-immeuble-list');
+  var metaEl  = document.getElementById('izt-immeuble-meta');
+  if (!section || !listEl) return;
+
+  /* Maison individuelle ou lot non rattaché : la section n'a pas lieu d'être */
+  if (!copro) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+
+  if (metaEl) {
+    var infos = [];
+    if (copro.nombre_lots) infos.push(copro.nombre_lots + ' lots');
+    if (copro.rnic) infos.push('Immatriculée ' + copro.rnic);
+    metaEl.textContent = infos.join(' · ') || 'Copropriété';
+  }
+
+  if (!travaux || !travaux.length) {
+    listEl.innerHTML = '<div style="text-align:center; padding:18px; color:var(--gray); font-size:0.8rem; line-height:1.5;">'
+      + 'Aucun travail de parties communes déclaré pour cet immeuble.<br>'
+      + '<span style="font-size:0.72rem;">Ravalement, toiture, ascenseur… ces travaux valorisent tous les lots.</span></div>';
+    return;
+  }
+
+  listEl.innerHTML = travaux.map(function(t) {
+    var isCert  = t.statut === 'certifie';
+    var dateStr = t.date_intervention
+      ? new Date(t.date_intervention + 'T00:00:00').toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' })
+      : '—';
+    var montant = t.montant_ttc
+      ? '<div style="font-size:0.72rem; color:var(--gray); margin-top:4px;">💶 ' + Number(t.montant_ttc).toLocaleString('fr-FR') + ' €</div>'
+      : '';
+    return '<div style="border-left:3px solid ' + (isCert ? 'var(--green-cert)' : 'var(--amber)') + '; background:white; border-radius:0 8px 8px 0; padding:13px 15px; margin-bottom:9px;">'
+      + '<div style="display:flex; align-items:center; gap:8px; margin-bottom:3px; flex-wrap:wrap;">'
+      +   '<span style="font-size:0.65rem; font-weight:700; color:var(--orange); text-transform:uppercase;">' + (t.type_travaux || 'Travaux') + '</span>'
+      +   '<span style="font-size:0.58rem; color:var(--navy); background:var(--blue-light); padding:1px 6px; border-radius:4px; font-weight:700;">🏢 Parties communes</span>'
+      + '</div>'
+      + '<div style="font-size:0.84rem; font-weight:700; color:var(--navy); margin-bottom:4px;">' + (t.description || '—') + '</div>'
+      + '<div style="font-size:0.7rem; color:var(--gray); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">'
+      +   '<span>👤 ' + (t.snapshot_artisan_raison_sociale || 'Professionnel') + '</span>'
+      +   '<span style="background:' + (isCert ? 'var(--green-bg)' : 'var(--amber-bg)') + '; color:' + (isCert ? 'var(--green-cert)' : 'var(--amber)') + '; font-size:0.6rem; font-weight:700; padding:2px 7px; border-radius:4px;">'
+      +   (isCert ? '✓ Certifié' : '⏳ En attente') + '</span>'
+      + '</div>'
+      + '<div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 ' + dateStr + '</div>'
+      + montant
+      + '</div>';
+  }).join('');
 }
 
 /* Afficher le score et les barres */
@@ -5810,10 +5913,31 @@ async function iztLoad() {
   iztAllBiens = biens;
   iztAllInterventions = toutesInterventions;
 
+  /* Travaux de parties communes de l'immeuble du bien actif.
+     Ils ne sont pas dupliqués sur chaque lot : on les lit via la copropriété. */
+  var travauxImmeuble = [], copro = null;
+  if (bienActif.copropriete_id) {
+   try {
+    var resCopro = await withTimeout(
+      sb.from('coproprietes').select('*').eq('id', bienActif.copropriete_id).maybeSingle(), 5000);
+    if (resCopro.data) copro = resCopro.data;
+    var resTravaux = await withTimeout(
+      sb.from('interventions').select('*')
+        .eq('copropriete_id', bienActif.copropriete_id)
+        .eq('portee', 'parties_communes')
+        .order('date_intervention', { ascending: false }), 5000);
+    if (resTravaux.data) travauxImmeuble = resTravaux.data;
+   } catch(e) { console.warn('[(re)tracé] Travaux immeuble non chargés:', e.message); }
+  }
+  iztCoproActive = copro;
+  iztTravauxImmeuble = travauxImmeuble;
+
   iztAfficherListeBiens(biens, bienActif, toutesInterventions);
 
-  var interventions = toutesInterventions.filter(function(i) { return i.bien_id === bienActif.id; });
-  iztAfficherFiche(bienActif, interventions);
+  var interventions = toutesInterventions.filter(function(i) {
+    return i.bien_id === bienActif.id && i.portee !== 'parties_communes';
+  });
+  iztAfficherFiche(bienActif, interventions, travauxImmeuble, copro);
  } catch(globalErr) {
    console.error('[(re)tracé] Erreur globale, fiche démo en secours:', globalErr.message);
    try { iztAfficherDemo(); } catch(e2) {}
@@ -5879,6 +6003,8 @@ function iztAfficherListeBiens(biens, bienActif, toutesInterventions) {
 
 var iztAllBiens = [];
 var iztAllInterventions = [];
+var iztCoproActive = null;
+var iztTravauxImmeuble = [];
 
 function iztSwitchDemo() {
   /* Basculer sur la fiche démo depuis la liste */
@@ -5895,9 +6021,10 @@ async function iztSwitchBien(bienId) {
   iztAfficherFiche(bien, interventions);
 }
 
-function iztAfficherFiche(bien, interventions) {
+function iztAfficherFiche(bien, interventions, travauxImmeuble, copro) {
   var el = function(id) { return document.getElementById(id); };
   interventions = interventions || [];
+  travauxImmeuble = travauxImmeuble || [];
 
   /* Adresse + meta (avec valeurs par défaut élégantes si champs vides) */
   if (el('izt-adresse')) el('izt-adresse').textContent = bien.adresse || 'Adresse non renseignée';
@@ -5919,7 +6046,8 @@ function iztAfficherFiche(bien, interventions) {
   if (el('izt-montant')) el('izt-montant').textContent = montantTotal.toLocaleString('fr-FR') + ' €';
 
   /* Chaque sous-fonction est protégée : si l'une échoue, les autres s'affichent quand même */
-  try { var score = iztCalculerScore(bien, interventions); setTimeout(function() { iztAfficherScore(score); }, 300); } catch(e) { console.warn('[(re)tracé] score:', e.message); }
+  try { var score = iztCalculerScore(bien, interventions, travauxImmeuble); setTimeout(function() { iztAfficherScore(score); }, 300); } catch(e) { console.warn('[(re)tracé] score:', e.message); }
+  try { iztAfficherTravauxImmeuble(travauxImmeuble, copro); } catch(e) { console.warn('[(re)tracé] immeuble:', e.message); }
   try { iztAfficherInterventions(interventions); } catch(e) { console.warn('[(re)tracé] interventions:', e.message); }
   try { iztFillIdentite(bien); } catch(e) { console.warn('[(re)tracé] identite:', e.message); }
   try { iztFillDO(bien); } catch(e) { console.warn('[(re)tracé] DO:', e.message); }
@@ -6298,7 +6426,7 @@ async function apiAdresseSearch(query) {
         var postcode = f.properties.postcode || '';
         var city = f.properties.city || '';
         var sub = [postcode, city].filter(Boolean).join(' ');
-        return '<div class="f-addr-item" onclick="apiAdresseSelect('' + encodeURIComponent(JSON.stringify(f)) + '')">' +
+        return '<div class="f-addr-item" onclick="apiAdresseSelect(\'' + encodeURIComponent(JSON.stringify(f)) + '\')">' +
           '<div style="font-size:0.82rem;font-weight:700;color:var(--navy);">' + label + '</div>' +
           (sub ? '<div style="font-size:0.68rem;color:var(--gray);margin-top:1px;">' + sub + '</div>' : '') +
           '</div>';
@@ -6306,7 +6434,8 @@ async function apiAdresseSearch(query) {
 
       /* Ajouter les biens Supabase correspondants si disponibles */
       var q = (query || '').toLowerCase();
-      var bienMatches =         return (b.adresse || '').toLowerCase().includes(q.slice(0, 10));
+      var bienMatches = (iztAllBiens || []).filter(function(b) {
+        return (b.adresse || '').toLowerCase().includes(q.slice(0, 10));
       });
       if (bienMatches.length > 0) {
         html += '<div style="height:1px;background:var(--blue-light);margin:4px 0;"></div>';
@@ -6314,7 +6443,7 @@ async function apiAdresseSearch(query) {
         html += bienMatches.map(function(b) {
           var data = encodeURIComponent(JSON.stringify(b));
           var meta = [b.type_bien, b.surface ? b.surface + ' m²' : null].filter(Boolean).join(' · ');
-          return '<div class="f-addr-item" onclick="fAdresseSelectEncoded('' + data + '')">' +
+          return '<div class="f-addr-item" onclick="fAdresseSelectEncoded(\'' + data + '\')">' +
             '<div style="font-size:0.82rem;font-weight:700;color:var(--navy);">' + b.adresse + '</div>' +
             (meta ? '<div style="font-size:0.68rem;color:var(--orange);margin-top:1px;">📋 ' + meta + ' — (re)tracé actif</div>' : '') +
             '</div>';
@@ -6492,4 +6621,24 @@ function apiSiretRender(r) {
   }
 }
 
-function
+/* Affiche un message d'erreur sous le champ SIRET.
+   Même présentation que la branche d'erreur de apiSiretRender :
+   croix rouge, bordure rouge, encart rouge pâle. */
+function apiSiretShowError(message) {
+  var iconEl   = document.getElementById('f-siret-icon');
+  var resultEl = document.getElementById('f-siret-result');
+  var input    = document.getElementById('f-siret');
+
+  if (iconEl) { iconEl.textContent = '❌'; }
+  if (input)  { input.style.borderColor = '#DC2626'; }
+  if (resultEl) {
+    resultEl.style.display    = 'block';
+    resultEl.style.background = '#FEE2E2';
+    resultEl.style.color      = '#DC2626';
+    resultEl.textContent      = message;
+  }
+}
+
+</script>
+</body>
+</html>
