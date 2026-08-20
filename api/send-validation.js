@@ -73,6 +73,16 @@ function buildEmail(iv, links) {
   ].join('');
 
   const adresse = iv.adresse_bien ? esc(iv.adresse_bien) : 'un bien';
+  const isCommun = iv.portee === 'parties_communes';
+
+  /* Textes adaptés selon la portée : privative ou parties communes */
+  const textIntroduction = isCommun
+    ? `Des travaux de parties communes ont été déclarés pour l'immeuble situé au <strong>${adresse}</strong>. Ils bénéficient à tous les lots et vous demandent de les confirmer.`
+    : `Une intervention a été déclarée pour le bien situé au <strong>${adresse}</strong> et réalisée par votre entreprise. Pouvez-vous la confirmer ?`;
+
+  const textVisibilite = isCommun
+    ? `Tant que vous n'avez pas répondu à ce message, votre entreprise n'est visible par personne : ni dans l'annuaire Fidero, ni dans l'historique de cet immeuble. C'est votre validation, et elle seule, qui vous rend visible.`
+    : `Tant que vous n'avez pas répondu à ce message, votre entreprise n'est visible par personne : ni dans l'annuaire Fidero, ni dans l'historique de ce bien. C'est votre validation, et elle seule, qui vous rend visible.`;
 
   return `<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8">
@@ -93,7 +103,7 @@ function buildEmail(iv, links) {
     <p style="margin:0 0 16px;font-size:15px;line-height:1.55;color:#1a1a1a;">Bonjour,</p>
 
     <p style="margin:0 0 20px;font-size:15px;line-height:1.55;color:#1a1a1a;">
-      Une intervention a été déclarée pour le bien situé au <strong>${adresse}</strong> et réalisée par votre entreprise. Pouvez-vous la confirmer ?
+      ${textIntroduction}
     </p>
 
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F5F3EF;border-left:3px solid ${ORANGE};margin:0 0 24px;">
@@ -106,7 +116,7 @@ function buildEmail(iv, links) {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${SKY};margin:0 0 26px;">
       <tr><td style="padding:16px 20px;font-size:14px;line-height:1.55;color:#1B2B4A;">
         <strong>Vous n'apparaissez nulle part pour l'instant.</strong><br>
-        Tant que vous n'avez pas répondu à ce message, votre entreprise n'est visible par personne : ni dans l'annuaire Fidero, ni dans l'historique de ce bien. C'est votre validation, et elle seule, qui vous rend visible.
+        ${textVisibilite}
       </td></tr>
     </table>
 
@@ -215,7 +225,7 @@ module.exports = async function handler(req, res) {
     // 1. Relire l'intervention : le contenu du mail vient de la base, pas du navigateur
     const { data: iv, error: ivErr } = await sb
       .from('interventions')
-      .select('id, adresse_bien, type_travaux, description, date_intervention, montant_ttc, artisan_id')
+      .select('id, adresse_bien, type_travaux, description, date_intervention, montant_ttc, artisan_id, portee')
       .eq('id', interventionId)
       .single();
     if (ivErr || !iv) return res.status(404).json({ error: 'Intervention introuvable' });
