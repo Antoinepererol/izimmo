@@ -4530,7 +4530,7 @@ function doRoute() {
     if (typeof saInit === 'function') saInit();
   } else if (route === 'retrace') {
     show('retrace-page');
-    /* Fiche statique — aucun chargement nécessaire */
+    iztLoad(); /* Charger les vrais biens depuis Supabase */
   } else if (annuaire) {
     show('annuaire-page');
     vzStartPlaceholder();
