@@ -299,10 +299,12 @@ module.exports = async function handler(req, res) {
       })
     });
 
+    const brevoBody = await brevoRes.json();
+    console.log('[send-validation] Brevo response:', brevoRes.status, JSON.stringify(brevoBody));
+    
     if (!brevoRes.ok) {
-      const detail = await brevoRes.text();
-      console.error('[send-validation] Brevo', brevoRes.status, detail);
-      return res.status(200).json({ success: true, emailSent: false, reason: 'brevo' });
+      console.error('[send-validation] Brevo error:', brevoRes.status, brevoBody);
+      return res.status(200).json({ success: true, emailSent: false, reason: 'brevo', detail: brevoBody });
     }
 
     return res.status(200).json({ success: true, emailSent: true });
