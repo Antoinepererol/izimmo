@@ -291,7 +291,7 @@ module.exports = async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: 'Fidero', email: 'contact@mail.fidero.fr' },
+        sender: { name: 'Fidero', email: 'contact@fidero.fr' },
         replyTo: { email: 'contact@fidero.fr' },
         to: [{ email: artisanEmail }],
         subject: 'Une intervention vous est attribuée — confirmation demandée',
