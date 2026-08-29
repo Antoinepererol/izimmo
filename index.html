@@ -3412,11 +3412,22 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ============================================================
-   SUPABASE — Configuration
+   SUPABASE — Configuration (Paris - eu-west-3)
    ============================================================ */
 const SUPABASE_URL = 'https://vuqyqpbzgtnmxcqzcylo.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1cXlxcGJ6Z3RubXhjcXpjeWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3OTAxNDcsImV4cCI6MjEwMzM2NjE0N30.APyhLfINCBVSwPVlU7M_h4XDJ_g_HNC4rZw4wb3_5D4';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// Attendre que Supabase soit chargé (gère le race condition)
+let sb;
+function initSupabase() {
+  if (typeof window.supabase === 'undefined') {
+    setTimeout(initSupabase, 50);
+    return;
+  }
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  console.log('[Fidero] Supabase initialized (Paris, France) ✓');
+}
+initSupabase();
 
 /* Données simulées de la facture demo */
 const DEMO_INTERVENTION = {
