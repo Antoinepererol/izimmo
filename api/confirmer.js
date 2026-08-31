@@ -1,21 +1,10 @@
-// api/confirmer.js
-// Quatre actions, toutes en clé service (bypasse le RLS) :
-//   info      → renvoie le contexte de validation (lecture seule)
-//   confirmer → certifie + fige l'instantané + active l'artisan
-//   refuser   → intervention 'refuse', l'artisan reste 'sollicite'
-//   opposer   → suppression du profil + email exclu + anonymisation des instantanés
 const { createClient } = require('@supabase/supabase-js');
 const { createHash } = require('crypto');
 
 function hashEmail(email) {
-  // RGPD : Salt aléatoire unique à Historim, rend force brute non viable
-  // Le sel DOIT être en env var sécurisée, jamais en code ni en base
   const salt = process.env.FIDERO_EMAIL_HASH_SALT;
-  if (!salt || salt.length < 16) {
-    throw new Error('FIDERO_EMAIL_HASH_SALT non configuré ou trop court (min 16 caractères)');
-  }
-  const emailNorm = String(email || '').trim().toLowerCase();
-  return createHash('sha256').update(emailNorm + salt).digest('hex');
+  if (!salt) throw new Error('FIDERO_EMAIL_HASH_SALT manquant');
+  return createHash('sha256').update(String(email).toLowerCase().trim() + salt).digest('hex');
 }
 
 module.exports = async function handler(req, res) {
@@ -23,103 +12,103 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
 
   const { token, action } = req.body || {};
-  if (!token) return res.status(400).json({ error: 'Token requis' });
-
-  const sb = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+  if (!token || !action) {
+    return res.status(400).json({ error: 'Missing token or action' });
+  }
 
   try {
-    const { data: intervention, error: fetchErr } = await sb
+    const sb = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+    
+    // Trouver l'intervention par token
+    const { data: iv, error: ivErr } = await sb
       .from('interventions')
-      .select('id, statut, token_expires_at, adresse_bien, type_travaux, description, date_intervention, montant_ttc, artisan_id')
+      .select('*')
       .eq('validation_token', token)
       .single();
-    if (fetchErr || !intervention) return res.status(404).json({ error: 'Lien invalide ou déjà utilisé.' });
+    
+    if (ivErr || !iv) return res.status(404).json({ error: 'Token not found or expired' });
 
-    // Identité de l'artisan sollicité (lecture service, RLS bypassé)
-    let art = { nom: '', entreprise: '', siret: '', email: '' };
-    if (intervention.artisan_id) {
-      const { data: a } = await sb.from('artisans')
-        .select('nom, entreprise, siret, email').eq('id', intervention.artisan_id).single();
-      if (a) art = { nom: a.nom || '', entreprise: a.entreprise || '', siret: a.siret || '', email: a.email || '' };
+    // Vérifier expiration
+    if (iv.token_expires_at && new Date(iv.token_expires_at) < new Date()) {
+      return res.status(400).json({ error: 'Token expired' });
     }
 
-    // ---- info : contexte sans modification ----
-    if (action === 'info') {
-      if (intervention.token_expires_at && new Date(intervention.token_expires_at) < new Date())
-        return res.status(410).json({ error: 'expired' });
-      if (intervention.statut === 'certifie')
-        return res.status(200).json({ success: true, already: true });
-      const date = intervention.date_intervention
-        ? new Date(intervention.date_intervention).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
-        : '—';
-      return res.status(200).json({
-        success: true,
-        intervention: {
-          adresse: intervention.adresse_bien, type: intervention.type_travaux,
-          description: intervention.description, date, montant: intervention.montant_ttc, statut: intervention.statut
-        },
-        artisan: { nom: art.nom, entreprise: art.entreprise }
-      });
-    }
-
-    // Actions modifiantes : vérifier expiration + statut
-    if (intervention.token_expires_at && new Date(intervention.token_expires_at) < new Date())
-      return res.status(410).json({ error: 'Ce lien a expiré (valable 7 jours).' });
-    if (intervention.statut === 'certifie')
-      return res.status(200).json({ success: true, already: true, message: 'Intervention déjà certifiée.' });
-
-    // ---- confirmer ----
-    if (action === 'confirmer' || !action) {
-      const { error: updErr } = await sb.from('interventions').update({
-        statut: 'certifie',
-        date_certification: new Date().toISOString(),
-        validation_token: null, token_expires_at: null,
-        snapshot_artisan_raison_sociale: art.entreprise || null,
-        snapshot_artisan_siret: art.siret || null
-      }).eq('id', intervention.id);
-      if (updErr) throw new Error(updErr.message);
-
-      if (intervention.artisan_id) {
-        // Action positive → l'artisan devient visible (n'écrase pas si déjà actif)
-        await sb.from('artisans')
-          .update({ statut: 'actif', activated_at: new Date().toISOString() })
-          .eq('id', intervention.artisan_id).eq('statut', 'sollicite');
+    // Selon l'action
+    if (action === 'confirm') {
+      // Certifier l'intervention
+      const { error: updErr } = await sb
+        .from('interventions')
+        .update({ statut: 'certifie', validation_token: null, token_expires_at: null })
+        .eq('id', iv.id);
+      
+      if (updErr) throw new Error('Cannot update intervention: ' + updErr.message);
+      
+      // Mettre l'artisan en statut certifie
+      if (iv.artisan_id) {
+        await sb
+          .from('artisans')
+          .update({ statut: 'certifie' })
+          .eq('id', iv.artisan_id);
       }
-      return res.status(200).json({ success: true, statut: 'certifie' });
-    }
 
-    // ---- refuser l'intervention (l'artisan reste sollicite) ----
-    if (action === 'refuser') {
-      const { error: updErr } = await sb.from('interventions')
-        .update({ statut: 'refuse', validation_token: null, token_expires_at: null })
-        .eq('id', intervention.id);
-      if (updErr) throw new Error(updErr.message);
-      return res.status(200).json({ success: true, statut: 'refuse' });
+      return res.status(200).json({ success: true, message: 'Intervention confirmée' });
     }
+    
+    else if (action === 'reject') {
+      // Rejeter l'intervention
+      const { error: updErr } = await sb
+        .from('interventions')
+        .update({ statut: 'rejetee', validation_token: null, token_expires_at: null })
+        .eq('id', iv.id);
+      
+      if (updErr) throw new Error('Cannot update intervention: ' + updErr.message);
 
-    // ---- s'opposer au traitement (effacement + exclusion) ----
-    if (action === 'opposer') {
-      if (art.email) {
-        await sb.from('artisans_opposition').upsert({ email_hash: hashEmail(art.email) }, { onConflict: 'email_hash' });
+      return res.status(200).json({ success: true, message: 'Intervention rejetée' });
+    }
+    
+    else if (action === 'oppose') {
+      // Artisan s'oppose définitivement
+      if (iv.artisan_id) {
+        // Récupérer l'email de l'artisan
+        const { data: art } = await sb
+          .from('artisans')
+          .select('email')
+          .eq('id', iv.artisan_id)
+          .single();
+        
+        if (art && art.email) {
+          const emailHash = hashEmail(art.email);
+          
+          // Ajouter à la liste d'opposition
+          await sb
+            .from('artisans_opposition')
+            .insert({ artisan_email_hash: emailHash })
+            .single();
+        }
+
+        // Supprimer l'artisan
+        await sb
+          .from('artisans')
+          .delete()
+          .eq('id', iv.artisan_id);
       }
-      if (intervention.artisan_id) {
-        // Droit à l'effacement : anonymiser les instantanés déjà figés
-        await sb.from('interventions')
-          .update({ snapshot_artisan_raison_sociale: null, snapshot_artisan_siret: null })
-          .eq('artisan_id', intervention.artisan_id).eq('statut', 'certifie');
-        // Supprimer le profil (les artisan_id repassent à null via ON DELETE SET NULL)
-        await sb.from('artisans').delete().eq('id', intervention.artisan_id);
-      }
-      await sb.from('interventions')
-        .update({ statut: 'refuse', validation_token: null, token_expires_at: null })
-        .eq('id', intervention.id);
-      return res.status(200).json({ success: true, statut: 'oppose' });
+
+      // Nettoyer l'intervention
+      const { error: updErr } = await sb
+        .from('interventions')
+        .update({ artisan_id: null, statut: 'en_attente', validation_token: null, token_expires_at: null })
+        .eq('id', iv.id);
+      
+      if (updErr) throw new Error('Cannot update intervention: ' + updErr.message);
+
+      return res.status(200).json({ success: true, message: 'Vous êtes retiré de Fidero' });
     }
 
-    return res.status(400).json({ error: 'Action inconnue.' });
+    return res.status(400).json({ error: 'Invalid action' });
+
   } catch (err) {
     console.error('[confirmer]', err.message);
     return res.status(500).json({ error: err.message });
