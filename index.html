@@ -4973,12 +4973,7 @@ async function saisieSubmit(e) {
       montant_ttc: montant, statut: "en_attente",
       portee: saisieEstCopro ? "parties_communes" : "privative",
       bien_id: saisieEstCopro ? null : (bienId || null),
-      copropriete_id: saisieEstCopro ? coproId : null,
-      declarant_id: null,
-      document_url: saisieDocUrl || null,
-      document_type: (saisieExtractMeta && saisieExtractMeta.document_type) || null,
-      histor_event_type: (saisieExtractMeta && saisieExtractMeta.histor_event_type) || null,
-      extraction_confidence: (saisieExtractMeta && saisieExtractMeta.extraction_confidence) || null
+      copropriete_id: saisieEstCopro ? coproId : null
     };
     var res = await window.sb.from("interventions").insert(payload).select().single();
     if (res.error) throw new Error(res.error.message);
