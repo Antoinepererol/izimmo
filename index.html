@@ -3418,15 +3418,15 @@ const SUPABASE_URL = 'https://vuqyqpbzgtnmxcqzcylo.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1cXlxcGJ6Z3RubXhjcXpjeWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3OTAxNDcsImV4cCI6MjEwMzM2NjE0N30.APyhLfINCBVSwPVlU7M_h4XDJ_g_HNC4rZw4wb3_5D4';
 
 // Attendre que Supabase soit chargé (gère le race condition)
-let sb;
-let sbReady = false;
+window.sb = undefined;
+window.sbReady = false;
 function initSupabase() {
   if (typeof window.supabase === 'undefined') {
     setTimeout(initSupabase, 50);
     return;
   }
-  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-  sbReady = true;
+  window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  window.sbReady = true;
   console.log('[Fidero] Supabase initialized (Paris, France) ✓');
   // Trigger init du reste du code
   window.dispatchEvent(new Event('supabaseReady'));
@@ -3436,11 +3436,11 @@ initSupabase();
 // Attendre que Supabase soit prêt avant d'utiliser
 function ensureSupabase() {
   return new Promise((resolve) => {
-    if (sbReady && sb) {
-      resolve(sb);
+    if (window.sbReady && window.sb) {
+      resolve(window.sb);
       return;
     }
-    window.addEventListener('supabaseReady', () => resolve(sb), { once: true });
+    window.addEventListener('supabaseReady', () => resolve(window.sb), { once: true });
   });
 }
 
@@ -3610,7 +3610,7 @@ function vzStartPlaceholder() {
 /* Chargement Supabase */
 async function vzLoadFromSupabase() {
   // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
-  if (!sbReady || typeof sb === 'undefined') {
+  if (!window.sbReady || typeof window.sb === 'undefined') {
     setTimeout(vzLoadFromSupabase, 100);
     return;
   }
@@ -4495,7 +4495,7 @@ function closeInnerMenu() {
 }
 function doRoute() {
   // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
-  if (!sbReady || typeof sb === 'undefined') {
+  if (!window.sbReady || typeof window.sb === 'undefined') {
     setTimeout(doRoute, 100);
     return;
   }
@@ -4905,7 +4905,7 @@ function fideroNormaliseAdresse(adresse) {
 
 async function saisieTrouverOuCreerCopro(adresse, nbLots, rnic) {
   // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
-  if (!sbReady || typeof sb === 'undefined') {
+  if (!window.sbReady || typeof window.sb === 'undefined') {
     return new Promise((resolve) => {
       setTimeout(() => saisieTrouverOuCreerCopro(adresse, nbLots, rnic).then(resolve), 100);
     });
@@ -4934,7 +4934,7 @@ async function saisieTrouverOuCreerCopro(adresse, nbLots, rnic) {
 
 async function saisieSubmit(e) {
   // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
-  if (!sbReady || typeof sb === 'undefined') {
+  if (!window.sbReady || typeof window.sb === 'undefined') {
     setTimeout(() => saisieSubmit(e), 100);
     return;
   }
@@ -5924,7 +5924,7 @@ function iztAfficherInterventions(interventions) {
 /* Chargement principal de la fiche */
 async function iztLoad() {
  // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
- if (!sbReady || typeof sb === 'undefined') {
+ if (!window.sbReady || typeof window.sb === 'undefined') {
    setTimeout(iztLoad, 100);
    return;
  }
