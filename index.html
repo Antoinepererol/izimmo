@@ -3409,25 +3409,14 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ============================================================
-   SUPABASE — Configuration (Paris - eu-west-3)
+   SUPABASE — Configuration
    ============================================================ */
-const SUPABASE_URL = 'https://vuqyqpbzgtnmxcqzcylo.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1cXlxcGJ6Z3RubXhjcXpjeWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3OTAxNDcsImV4cCI6MjEwMzM2NjE0N30.APyhLfINCBVSwPVlU7M_h4XDJ_g_HNC4rZw4wb3_5D4';
-
-// Attendre que Supabase soit chargé (gère le race condition)
-let sb;
-function initSupabase() {
-  if (typeof window.supabase === 'undefined') {
-    setTimeout(initSupabase, 50);
-    return;
-  }
-  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-  console.log('[Fidero] Supabase initialized (Paris, France) ✓');
-}
-initSupabase();
+const SUPABASE_URL = 'https://hqkaslzitdzlxjvjlqdp.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_2PjgB3tppkmPzsvm6Y-j_A_w4d1Nwtt';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
 /* Données simulées de la facture demo */
 const DEMO_INTERVENTION = {
@@ -5866,9 +5855,6 @@ function iztAfficherInterventions(interventions) {
             '<span>👤 ' + (r.snapshot_artisan_raison_sociale || 'Professionnel') + '</span>' +
             '<span style="background:' + (isCert ? 'var(--green-bg)' : 'var(--amber-bg)') + '; color:' + (isCert ? 'var(--green-cert)' : 'var(--amber)') + '; font-size:0.6rem; font-weight:700; padding:2px 7px; border-radius:4px;">' +
               (isCert ? '✓ Certifié' : '⏳ En attente') +
-            '</span>' +
-            '<span style="background:' + (r.portee === 'parties_communes' ? 'rgba(232,104,58,0.12)' : 'rgba(0,168,120,0.12)') + '; color:' + (r.portee === 'parties_communes' ? 'var(--orange)' : 'var(--green-cert)') + '; font-size:0.6rem; font-weight:700; padding:2px 7px; border-radius:4px;">' +
-              (r.portee === 'parties_communes' ? '🏢 Parties communes' : '🏠 Privative') +
             '</span>' +
           '</div>' +
           '<div style="font-size:0.65rem; color:var(--gray); margin-top:5px;">📅 ' + dateStr + '</div>' +
