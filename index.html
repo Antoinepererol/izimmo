@@ -3294,6 +3294,90 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
   </section>
 </div>
 
+<!-- ========== AUTH SCREENS ========== -->
+
+<!-- SCREEN 1: CHOIX (Avez-vous un compte ?) -->
+<div id="auth-choice-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif; padding:60px 20px; display:flex; align-items:center; justify-content:center;">
+  <div style="max-width:500px; width:100%; background:white; padding:40px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+    <h2 style="font-size:1.75rem; font-weight:800; color:var(--navy); margin-bottom:8px; text-align:center;">Déclarer une intervention</h2>
+    <p style="font-size:0.95rem; color:var(--gray); text-align:center; margin-bottom:32px;">Vous avez un compte Fidero ?</p>
+    
+    <button id="auth-yes-btn" onclick="showAuthLogin()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer; margin-bottom:12px;">
+      Oui, se connecter
+    </button>
+    
+    <button id="auth-no-btn" onclick="showAuthSignup()" style="width:100%; background:white; color:var(--navy); border:2px solid var(--navy); padding:14px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">
+      Non, créer un compte
+    </button>
+    
+    <p style="font-size:0.85rem; color:var(--slate); text-align:center; margin-top:24px;">La création d'un compte prend moins de 2 minutes.</p>
+  </div>
+</div>
+
+<!-- SCREEN 2: LOGIN -->
+<div id="auth-login-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif; padding:60px 20px; display:flex; align-items:center; justify-content:center;">
+  <div style="max-width:500px; width:100%; background:white; padding:40px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+    <button onclick="showAuthChoice()" style="background:none; border:none; color:var(--slate); cursor:pointer; font-size:0.95rem; font-weight:600; margin-bottom:20px;">← Retour</button>
+    
+    <h2 style="font-size:1.75rem; font-weight:800; color:var(--navy); margin-bottom:24px;">Se connecter</h2>
+    
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Email</label>
+      <input id="login-email" type="email" placeholder="vous@exemple.fr" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    </div>
+    
+    <div style="margin-bottom:24px;">
+      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Mot de passe</label>
+      <input id="login-password" type="password" placeholder="••••••••" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    </div>
+    
+    <button onclick="handleAuthLogin()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">
+      Se connecter
+    </button>
+    
+    <div id="login-error" style="display:none; margin-top:16px; padding:12px; background:#FEE2E2; color:#DC2626; border-radius:6px; font-size:0.9rem;"></div>
+  </div>
+</div>
+
+<!-- SCREEN 3: SIGNUP -->
+<div id="auth-signup-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif; padding:60px 20px; display:flex; align-items:center; justify-content:center;">
+  <div style="max-width:500px; width:100%; background:white; padding:40px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+    <button onclick="showAuthChoice()" style="background:none; border:none; color:var(--slate); cursor:pointer; font-size:0.95rem; font-weight:600; margin-bottom:20px;">← Retour</button>
+    
+    <h2 style="font-size:1.75rem; font-weight:800; color:var(--navy); margin-bottom:24px;">Créer un compte</h2>
+    
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Email</label>
+      <input id="signup-email" type="email" placeholder="vous@exemple.fr" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    </div>
+    
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Mot de passe</label>
+      <input id="signup-password" type="password" placeholder="••••••••" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    </div>
+    
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Nom / Entreprise</label>
+      <input id="signup-nom" type="text" placeholder="Votre nom" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    </div>
+    
+    <div style="margin-bottom:24px;">
+      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Vous êtes ?</label>
+      <select id="signup-role" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+        <option value="">-- Sélectionner --</option>
+        <option value="proprietaire">Propriétaire d'immobilier</option>
+        <option value="artisan">Artisan / Entreprise</option>
+      </select>
+    </div>
+    
+    <button onclick="handleAuthSignup()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">
+      Créer mon compte
+    </button>
+    
+    <div id="signup-error" style="display:none; margin-top:16px; padding:12px; background:#FEE2E2; color:#DC2626; border-radius:6px; font-size:0.9rem;"></div>
+  </div>
+</div>
+
 <div id="saisie-artisan-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif;">
   <nav class="inner-nav">
     <a href="#" onclick="navGo('')" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-fidero logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);"><em style="color:var(--orange);font-style:italic;font-weight:900;">Fide</em>ro</span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
@@ -3426,6 +3510,9 @@ setTimeout(() => {
       window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
       window.sbReady = true;
       console.log('✓ Supabase initialized');
+      
+      // Initialiser l'auth après Supabase
+      setTimeout(initAuth, 100);
     } catch (e) {
       console.error('Supabase init error:', e);
       setTimeout(arguments.callee, 100);
@@ -4558,6 +4645,10 @@ function doRoute() {
       vzLoadFromSupabase();
     }
   } else if (saisie) {
+    if (!window.currentUser) {
+      showAuthChoice();
+      return;
+    }
     show('saisie-page');
   } else if (atelier) {
     show('atelier-page');
@@ -4570,6 +4661,173 @@ function doRoute() {
 
 
 /* ============================================================
+   AUTH — Supabase Authentication
+   ============================================================ */
+
+// État global
+window.currentUser = null;
+window.currentUserProfile = null;
+
+// Au chargement : vérifier si user est déjà loggé
+async function initAuth() {
+  if (!window.sb || !window.sbReady) {
+    setTimeout(initAuth, 100);
+    return;
+  }
+  
+  try {
+    // Récupérer la session
+    const { data: { session } } = await window.sb.auth.getSession();
+    
+    if (session) {
+      // User loggé
+      window.currentUser = session.user;
+      console.log('✓ User loggé:', session.user.email);
+      
+      // Charger le profil
+      const { data: profile } = await window.sb
+        .from('user_profiles')
+        .select('*')
+        .eq('user_id', session.user.id)
+        .single();
+      
+      window.currentUserProfile = profile;
+      
+      // Rediriger vers saisie
+      navGo('saisie');
+    } else {
+      // Pas loggé : afficher choice screen
+      document.querySelectorAll('[id$="-page"]').forEach(el => el.style.display = 'none');
+      document.getElementById('auth-choice-page').style.display = 'flex';
+    }
+  } catch (err) {
+    console.error('[Auth]', err.message);
+  }
+}
+
+// Navigation auth screens
+function showAuthChoice() {
+  document.querySelectorAll('[id^="auth-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('auth-choice-page').style.display = 'flex';
+}
+
+function showAuthLogin() {
+  document.querySelectorAll('[id^="auth-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('auth-login-page').style.display = 'flex';
+  document.getElementById('login-email').focus();
+}
+
+function showAuthSignup() {
+  document.querySelectorAll('[id^="auth-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('auth-signup-page').style.display = 'flex';
+  document.getElementById('signup-email').focus();
+}
+
+// Fonction LOGIN
+async function handleAuthLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errorEl = document.getElementById('login-error');
+  
+  if (!email || !password) {
+    errorEl.textContent = 'Email et mot de passe requis';
+    errorEl.style.display = 'block';
+    return;
+  }
+  
+  try {
+    const { data, error } = await window.sb.auth.signInWithPassword({ email, password });
+    
+    if (error) {
+      errorEl.textContent = error.message;
+      errorEl.style.display = 'block';
+      return;
+    }
+    
+    window.currentUser = data.user;
+    console.log('✓ Loggé:', email);
+    
+    // Charger profil
+    const { data: profile } = await window.sb
+      .from('user_profiles')
+      .select('*')
+      .eq('user_id', data.user.id)
+      .single();
+    
+    window.currentUserProfile = profile;
+    
+    // Aller à saisie
+    navGo('saisie');
+  } catch (err) {
+    errorEl.textContent = err.message;
+    errorEl.style.display = 'block';
+  }
+}
+
+// Fonction SIGNUP
+async function handleAuthSignup() {
+  const email = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value;
+  const nom = document.getElementById('signup-nom').value.trim();
+  const role = document.getElementById('signup-role').value;
+  const errorEl = document.getElementById('signup-error');
+  
+  if (!email || !password || !nom || !role) {
+    errorEl.textContent = 'Tous les champs sont requis';
+    errorEl.style.display = 'block';
+    return;
+  }
+  
+  try {
+    // Créer user Supabase Auth
+    const { data: authData, error: authErr } = await window.sb.auth.signUp({ email, password });
+    
+    if (authErr) {
+      errorEl.textContent = authErr.message;
+      errorEl.style.display = 'block';
+      return;
+    }
+    
+    window.currentUser = authData.user;
+    
+    // Créer user_profile
+    const { data: profile, error: profileErr } = await window.sb
+      .from('user_profiles')
+      .insert({
+        user_id: authData.user.id,
+        role: role,
+        nom: nom
+      })
+      .select()
+      .single();
+    
+    if (profileErr) {
+      errorEl.textContent = 'Erreur profil: ' + profileErr.message;
+      errorEl.style.display = 'block';
+      return;
+    }
+    
+    window.currentUserProfile = profile;
+    console.log('✓ Compte créé:', email);
+    
+    // Aller à saisie
+    navGo('saisie');
+  } catch (err) {
+    errorEl.textContent = err.message;
+    errorEl.style.display = 'block';
+  }
+}
+
+// Logout
+async function handleLogout() {
+  await window.sb.auth.signOut();
+  window.currentUser = null;
+  window.currentUserProfile = null;
+  navGo('');
+  initAuth();
+}
+
+/* ============================================================
    NAV — Dropdown et routing forcé
    ============================================================ */
 function navGo(hash) {
@@ -4579,6 +4837,13 @@ function navGo(hash) {
   document.querySelectorAll('.nav-dropdown-wrap').forEach(function(el) {
     el.classList.remove('open');
   });
+  
+  /* Vérifier auth pour 'saisie' */
+  if (hash === 'saisie' && !window.currentUser) {
+    showAuthChoice();
+    return;
+  }
+  
   /* Forcer le routing même si le hash est identique */
   if (window.location.hash === '#' + hash) {
     /* Hash déjà identique → forcer doRoute directement */
