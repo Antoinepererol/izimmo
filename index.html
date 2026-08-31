@@ -3428,39 +3428,21 @@ function initSupabase() {
   sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
   sbReady = true;
   console.log('[Fidero] Supabase initialized (Paris, France) ✓');
+  // Trigger init du reste du code
+  window.dispatchEvent(new Event('supabaseReady'));
 }
 initSupabase();
 
 // Attendre que Supabase soit prêt avant d'utiliser
 function ensureSupabase() {
   return new Promise((resolve) => {
-    function checkReady() {
-      if (sbReady && sb && typeof sb.from === 'function') {
-        resolve(sb);
-      } else {
-        setTimeout(checkReady, 50);
-      }
+    if (sbReady && sb) {
+      resolve(sb);
+      return;
     }
-    checkReady();
+    window.addEventListener('supabaseReady', () => resolve(sb), { once: true });
   });
 }
-
-// Wrapper: intercepter tous les appels à sb et attendre qu'il soit prêt
-const sbProxy = new Proxy({}, {
-  get: (target, prop) => {
-    if (sbReady && sb && sb[prop]) {
-      return sb[prop];
-    }
-    // Retourner une function qui attend que sb soit prêt
-    return async (...args) => {
-      const client = await ensureSupabase();
-      return client[prop](...args);
-    };
-  }
-});
-
-// Remplacer sb par sbProxy GLOBALEMENT
-window.sb = sbProxy;
 
 /* Données simulées de la facture demo */
 const DEMO_INTERVENTION = {
@@ -4506,6 +4488,12 @@ function closeInnerMenu() {
   if (menu) menu.classList.remove('open');
 }
 function doRoute() {
+  // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
+  if (!sbReady || typeof sb === 'undefined') {
+    setTimeout(doRoute, 100);
+    return;
+  }
+
   var hash = window.location.hash.replace(/^#/, '');
   console.log('[Fidero] doRoute hash=', hash);
 
