@@ -3414,9 +3414,28 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
 /* ============================================================
    SUPABASE — Configuration
    ============================================================ */
-const SUPABASE_URL = 'https://hqkaslzitdzlxjvjlqdp.supabase.co';
-const SUPABASE_ANON = 'sb_publishable_2PjgB3tppkmPzsvm6Y-j_A_w4d1Nwtt';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+const SUPABASE_URL = 'https://vuqyqpbzgtnmxcqzcylo.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1cXlxcGJ6Z3RubXhjcXpjeWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3OTAxNDcsImV4cCI6MjEwMzM2NjE0N30.APyhLfINCBVSwPVlU7M_h4XDJ_g_HNC4rZw4wb3_5D4';
+// Initialiser Supabase de manière robuste
+window.sb = undefined;
+window.sbReady = false;
+
+setTimeout(() => {
+  if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+    try {
+      window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+      window.sbReady = true;
+      console.log('✓ Supabase initialized');
+    } catch (e) {
+      console.error('Supabase init error:', e);
+      setTimeout(arguments.callee, 100);
+    }
+  } else {
+    setTimeout(arguments.callee, 50);
+  }
+}, 0);
+
+const sb = window.sb;
 
 /* Données simulées de la facture demo */
 const DEMO_INTERVENTION = {
