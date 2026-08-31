@@ -19,12 +19,23 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
 
+  // DEBUG: Log les env var
+  console.log('[DEBUG] SUPABASE_URL:', process.env.SUPABASE_URL ? 'OK' : 'MISSING');
+  console.log('[DEBUG] SUPABASE_SERVICE_KEY:', process.env.SUPABASE_SERVICE_KEY ? 'OK (length: ' + process.env.SUPABASE_SERVICE_KEY.length + ')' : 'MISSING');
+  console.log('[DEBUG] FIDERO_EMAIL_HASH_SALT:', process.env.FIDERO_EMAIL_HASH_SALT ? 'OK' : 'MISSING');
+  console.log('[DEBUG] BREVO_API_KEY:', process.env.BREVO_API_KEY ? 'OK' : 'MISSING');
+  console.log('[DEBUG] SITE_URL:', process.env.SITE_URL ? 'OK' : 'MISSING');
+
   const { interventionId, artisanNom, artisanEmail } = req.body || {};
   if (!interventionId || !artisanEmail) {
     return res.status(400).json({ error: 'Missing interventionId or artisanEmail' });
   }
 
   try {
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_KEY) {
+      return res.status(500).json({ error: 'Missing Supabase env vars', url: !!process.env.SUPABASE_URL, key: !!process.env.SUPABASE_SERVICE_KEY });
+    }
+
     const sb = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
     
     // Récupérer l'intervention
