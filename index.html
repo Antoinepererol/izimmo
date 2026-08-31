@@ -1268,7 +1268,7 @@ let dbProData = [];
 
 async function dbProLoad() {
   try {
-    const res = await sb.from('artisans').select('*').order('score', { ascending: false });
+    const res = await window.sb.from('artisans').select('*').order('score', { ascending: false });
     if (res.error) throw new Error(res.error.message);
     dbProData = res.data || [];
     dbRenderProfiles();
@@ -3435,7 +3435,6 @@ setTimeout(() => {
   }
 }, 0);
 
-const sb = window.sb;
 
 /* Données simulées de la facture demo */
 const DEMO_INTERVENTION = {
@@ -3606,7 +3605,7 @@ async function vzLoadFromSupabase() {
   const count = document.getElementById('vz-count');
   if (count) count.innerHTML = '<span style="color:var(--gray)">Chargement…</span>';
   try {
-    const res = await sb.from('artisans').select('*').order('score', { ascending: false });
+    const res = await window.sb.from('artisans').select('*').order('score', { ascending: false });
     if (res.error) throw new Error(res.error.message || 'Supabase error');
     vzAllData = (res.data || []).map(a => ({...a}));
     vzSearch();
@@ -3900,7 +3899,7 @@ function pbInit(artisanId) {
     if (found) { pbRender(found); return; }
   }
   // 3. Charger depuis Supabase directement
-  sb.from('artisans').select('*').eq('id', artisanId).single()
+  window.sb.from('artisans').select('*').eq('id', artisanId).single()
     .then(({ data, error }) => {
       if (data) { pbRender(data); return; }
       // Fallback ultime
@@ -4086,7 +4085,7 @@ async function dbLoad() {
   document.getElementById('db-alerts').innerHTML = '';
 
   try {
-    const { data, error } = await sb.from('interventions')
+    const { data, error } = await window.sb.from('interventions')
       .select('*')
       .ilike('adresse_bien', `%${adresse.split(',')[0]}%`)
       .order('date_intervention', {ascending: false});
@@ -4351,7 +4350,7 @@ async function apInit(id) {
   if (!id) {
     await new Promise(r => setTimeout(r, 1000));
     try {
-      const { data } = await sb.from('interventions').select('*')
+      const { data } = await window.sb.from('interventions').select('*')
         .eq('statut','en_attente').order('created_at',{ascending:false}).limit(1).single();
       if (data) { apCurrentData = data; apPopulate(data); apShowState('main'); }
       else { apPopulateDemo(); apShowState('main'); }
@@ -4359,7 +4358,7 @@ async function apInit(id) {
     return;
   }
   try {
-    const { data, error } = await sb.from('interventions').select('*').eq('id', id).single();
+    const { data, error } = await window.sb.from('interventions').select('*').eq('id', id).single();
     if (error || !data) { apShowState('notfound'); return; }
     if (data.statut === 'certifie') { apShowSuccessAlready(); return; }
     if (data.statut === 'refuse')   { apShowState('refused'); return; }
@@ -4704,9 +4703,9 @@ function saisieFileToBase64(file) {
 async function saisieUploadDocument(file) {
   var ext = (file.name.split(".").pop() || "bin").toLowerCase();
   var path = "interventions/" + Date.now() + "-" + Math.random().toString(36).slice(2, 8) + "." + ext;
-  var up = await sb.storage.from("documents").upload(path, file, { upsert: false });
+  var up = await window.sb.storage.from("documents").upload(path, file, { upsert: false });
   if (up.error) throw new Error(up.error.message);
-  var pub = sb.storage.from("documents").getPublicUrl(path);
+  var pub = window.sb.storage.from("documents").getPublicUrl(path);
   return pub.data.publicUrl;
 }
 
@@ -4887,19 +4886,19 @@ function fideroNormaliseAdresse(adresse) {
 async function saisieTrouverOuCreerCopro(adresse, nbLots, rnic) {
   var norm = fideroNormaliseAdresse(adresse);
 
-  var existante = await sb.from('coproprietes')
+  var existante = await window.sb.from('coproprietes')
     .select('id, nombre_lots').eq('adresse_normalisee', norm).maybeSingle();
   if (existante.error) throw new Error(existante.error.message);
 
   if (existante.data) {
     /* Le nombre de lots peut avoir été laissé vide lors d'une saisie précédente */
     if (nbLots && !existante.data.nombre_lots) {
-      await sb.from('coproprietes').update({ nombre_lots: nbLots }).eq('id', existante.data.id);
+      await window.sb.from('coproprietes').update({ nombre_lots: nbLots }).eq('id', existante.data.id);
     }
     return { id: existante.data.id, creee: false };
   }
 
-  var creation = await sb.from('coproprietes')
+  var creation = await window.sb.from('coproprietes')
     .insert({ adresse: adresse, nombre_lots: nbLots || null, rnic: rnic || null })
     .select('id').single();
   if (creation.error) throw new Error(creation.error.message);
@@ -4956,11 +4955,11 @@ async function saisieSubmit(e) {
       coproId = copro.id;
     } else {
       try {
-        var resBien = await sb.from("biens").select("id").ilike("adresse", adresse.slice(0, 20) + "%").limit(1).single();
+        var resBien = await window.sb.from("biens").select("id").ilike("adresse", adresse.slice(0, 20) + "%").limit(1).single();
         if (resBien.data) {
           bienId = resBien.data.id;
         } else {
-          var resCree = await sb.from("biens").insert({ adresse: adresse }).select("id").single();
+          var resCree = await window.sb.from("biens").insert({ adresse: adresse }).select("id").single();
           if (resCree.data) bienId = resCree.data.id;
         }
       } catch(bienErr) { console.warn("[Saisie] Bien:", bienErr.message); }
@@ -4981,7 +4980,7 @@ async function saisieSubmit(e) {
       histor_event_type: (saisieExtractMeta && saisieExtractMeta.histor_event_type) || null,
       extraction_confidence: (saisieExtractMeta && saisieExtractMeta.extraction_confidence) || null
     };
-    var res = await sb.from("interventions").insert(payload).select().single();
+    var res = await window.sb.from("interventions").insert(payload).select().single();
     if (res.error) throw new Error(res.error.message);
     var interventionId = res.data && res.data.id;
 
@@ -5903,7 +5902,7 @@ async function iztLoad() {
   /* Charger tous les biens depuis Supabase (avec timeout 5s) */
   var biens = [];
   try {
-    var resBiens = await withTimeout(sb.from('biens').select('*').order('created_at', { ascending: false }), 5000);
+    var resBiens = await withTimeout(window.sb.from('biens').select('*').order('created_at', { ascending: false }), 5000);
     if (resBiens.data) biens = resBiens.data;
   } catch(e) {
     console.warn('[(re)tracé] Biens non chargés (' + e.message + ') → fiche démo');
@@ -5925,7 +5924,7 @@ async function iztLoad() {
   /* Charger les interventions (avec timeout) */
   var toutesInterventions = [];
   try {
-    var resInterv = await withTimeout(sb.from('interventions').select('*').order('date_intervention', { ascending: false }), 5000);
+    var resInterv = await withTimeout(window.sb.from('interventions').select('*').order('date_intervention', { ascending: false }), 5000);
     if (resInterv.data) toutesInterventions = resInterv.data;
   } catch(e) { console.warn('[(re)tracé] Interventions non chargées:', e.message); }
 
@@ -5938,10 +5937,10 @@ async function iztLoad() {
   if (bienActif.copropriete_id) {
    try {
     var resCopro = await withTimeout(
-      sb.from('coproprietes').select('*').eq('id', bienActif.copropriete_id).maybeSingle(), 5000);
+      window.sb.from('coproprietes').select('*').eq('id', bienActif.copropriete_id).maybeSingle(), 5000);
     if (resCopro.data) copro = resCopro.data;
     var resTravaux = await withTimeout(
-      sb.from('interventions').select('*')
+      window.sb.from('interventions').select('*')
         .eq('copropriete_id', bienActif.copropriete_id)
         .eq('portee', 'parties_communes')
         .order('date_intervention', { ascending: false }), 5000);
