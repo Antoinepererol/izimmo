@@ -70,19 +70,32 @@ module.exports = async function handler(req, res) {
     // Créer artisan si absent
     let artisanId = iv.artisan_id;
     if (!artisanId) {
-      const newArtisanId = randomUUID(); // Générer un UUID
-      const { data: art, error: artErr } = await sb
+      // D'abord vérifier si l'artisan existe déjà par email
+      const { data: existingArt } = await sb
         .from('artisans')
-        .insert({
-          id: newArtisanId,  // ← Ajouter l'ID généré
-          email: artisanEmail,
-          raison_sociale: artisanNom || 'Artisan',
-          statut: 'sollicite'
-        })
         .select('id')
-        .single();
-      if (artErr) throw new Error('Cannot create artisan: ' + artErr.message);
-      artisanId = art.id;
+        .eq('email', artisanEmail)
+        .maybeSingle();
+
+      if (existingArt) {
+        // Artisan existe déjà
+        artisanId = existingArt.id;
+      } else {
+        // Créer le nouvel artisan
+        const newArtisanId = randomUUID();
+        const { data: art, error: artErr } = await sb
+          .from('artisans')
+          .insert({
+            id: newArtisanId,
+            email: artisanEmail,
+            raison_sociale: artisanNom || 'Artisan',
+            statut: 'sollicite'
+          })
+          .select('id')
+          .single();
+        if (artErr) throw new Error('Cannot create artisan: ' + artErr.message);
+        artisanId = art.id;
+      }
     }
 
     // Créer token
