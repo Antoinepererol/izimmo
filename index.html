@@ -3419,12 +3419,14 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 
 // Attendre que Supabase soit chargé (gère le race condition)
 let sb;
+let sbReady = false;
 function initSupabase() {
   if (typeof window.supabase === 'undefined') {
     setTimeout(initSupabase, 50);
     return;
   }
   sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  sbReady = true;
   console.log('[Fidero] Supabase initialized (Paris, France) ✓');
 }
 initSupabase();
@@ -3433,7 +3435,7 @@ initSupabase();
 function ensureSupabase() {
   return new Promise((resolve) => {
     function checkReady() {
-      if (sb && typeof sb.from === 'function') {
+      if (sbReady && sb && typeof sb.from === 'function') {
         resolve(sb);
       } else {
         setTimeout(checkReady, 50);
@@ -3442,6 +3444,23 @@ function ensureSupabase() {
     checkReady();
   });
 }
+
+// Wrapper: intercepter tous les appels à sb et attendre qu'il soit prêt
+const sbProxy = new Proxy({}, {
+  get: (target, prop) => {
+    if (sbReady && sb && sb[prop]) {
+      return sb[prop];
+    }
+    // Retourner une function qui attend que sb soit prêt
+    return async (...args) => {
+      const client = await ensureSupabase();
+      return client[prop](...args);
+    };
+  }
+});
+
+// Remplacer sb par sbProxy GLOBALEMENT
+window.sb = sbProxy;
 
 /* Données simulées de la facture demo */
 const DEMO_INTERVENTION = {
