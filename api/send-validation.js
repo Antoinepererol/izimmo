@@ -70,9 +70,11 @@ module.exports = async function handler(req, res) {
     // Créer artisan si absent
     let artisanId = iv.artisan_id;
     if (!artisanId) {
+      const newArtisanId = randomUUID(); // Générer un UUID
       const { data: art, error: artErr } = await sb
         .from('artisans')
         .insert({
+          id: newArtisanId,  // ← Ajouter l'ID généré
           email: artisanEmail,
           raison_sociale: artisanNom || 'Artisan',
           statut: 'sollicite'
