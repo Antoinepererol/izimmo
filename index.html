@@ -3297,84 +3297,107 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
 <!-- ========== AUTH SCREENS ========== -->
 
 <!-- SCREEN 1: CHOIX (Avez-vous un compte ?) -->
-<div id="auth-choice-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif; padding:60px 20px; display:flex; align-items:center; justify-content:center;">
-  <div style="max-width:500px; width:100%; background:white; padding:40px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <h2 style="font-size:1.75rem; font-weight:800; color:var(--navy); margin-bottom:8px; text-align:center;">Déclarer une intervention</h2>
-    <p style="font-size:0.95rem; color:var(--gray); text-align:center; margin-bottom:32px;">Vous avez un compte Fidero ?</p>
+<div id="auth-choice-page" style="display:none; min-height:100vh; background:linear-gradient(135deg, var(--beige) 0%, #F0E8DC 100%); font-family:'Plus Jakarta Sans',sans-serif; padding:40px 20px; display:flex; align-items:center; justify-content:center;">
+  <div style="max-width:520px; width:100%; background:white; padding:60px 50px; border-radius:16px; box-shadow:0 10px 40px rgba(26,43,74,0.08);">
     
-    <button id="auth-yes-btn" onclick="showAuthLogin()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer; margin-bottom:12px;">
-      Oui, se connecter
-    </button>
+    <!-- HEADER -->
+    <div style="text-align:center; margin-bottom:48px;">
+      <div style="display:inline-block; margin-bottom:24px;">
+        <span style="font-size:2rem; font-weight:900; font-family:'Plus Jakarta Sans',sans-serif;"><span style="color:var(--orange); font-style:italic;">Fide</span><span style="color:var(--navy);">ro</span></span>
+      </div>
+      <h1 style="font-size:1.875rem; font-weight:800; color:var(--navy); margin:0 0 12px 0; letter-spacing:-0.5px;">Déclarer une intervention</h1>
+      <p style="font-size:1rem; color:#6B5E4E; margin:0; line-height:1.6;">Connectez-vous ou créez un compte pour enregistrer vos travaux en toute transparence.</p>
+    </div>
     
-    <button id="auth-no-btn" onclick="showAuthSignup()" style="width:100%; background:white; color:var(--navy); border:2px solid var(--navy); padding:14px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">
-      Non, créer un compte
-    </button>
+    <!-- BUTTONS -->
+    <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:32px;">
+      <button id="auth-yes-btn" onclick="showAuthLogin()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px 24px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif;" onmouseover="this.style.background='#D15A2B'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(232,104,58,0.3)';" onmouseout="this.style.background='var(--orange)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+        ✓ Oui, se connecter
+      </button>
+      
+      <button id="auth-no-btn" onclick="showAuthSignup()" style="width:100%; background:white; color:var(--orange); border:2px solid var(--orange); padding:14px 24px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif;" onmouseover="this.style.background='rgba(232,104,58,0.06)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='white'; this.style.transform='translateY(0)';">
+        + Créer un compte
+      </button>
+    </div>
     
-    <p style="font-size:0.85rem; color:var(--slate); text-align:center; margin-top:24px;">La création d'un compte prend moins de 2 minutes.</p>
+    <!-- HINT -->
+    <div style="background:#F5F3EF; border-left:3px solid var(--orange); padding:16px; border-radius:8px; text-align:center;">
+      <p style="font-size:0.9rem; color:#6B5E4E; margin:0; line-height:1.5;"><strong style="color:var(--navy);">Accès gratuit.</strong> Aucune carte bancaire requise.</p>
+    </div>
   </div>
 </div>
 
 <!-- SCREEN 2: LOGIN -->
-<div id="auth-login-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif; padding:60px 20px; display:flex; align-items:center; justify-content:center;">
-  <div style="max-width:500px; width:100%; background:white; padding:40px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <button onclick="showAuthChoice()" style="background:none; border:none; color:var(--slate); cursor:pointer; font-size:0.95rem; font-weight:600; margin-bottom:20px;">← Retour</button>
+<div id="auth-login-page" style="display:none; min-height:100vh; background:linear-gradient(135deg, var(--beige) 0%, #F0E8DC 100%); font-family:'Plus Jakarta Sans',sans-serif; padding:40px 20px; display:flex; align-items:center; justify-content:center;">
+  <div style="max-width:520px; width:100%; background:white; padding:60px 50px; border-radius:16px; box-shadow:0 10px 40px rgba(26,43,74,0.08);">
     
-    <h2 style="font-size:1.75rem; font-weight:800; color:var(--navy); margin-bottom:24px;">Se connecter</h2>
+    <!-- BACK BUTTON -->
+    <button onclick="showAuthChoice()" style="background:none; border:none; color:var(--orange); cursor:pointer; font-size:1rem; font-weight:600; margin-bottom:32px; padding:0; font-family:'Plus Jakarta Sans',sans-serif; transition:all 0.2s;" onmouseover="this.style.marginLeft='-4px';" onmouseout="this.style.marginLeft='0';">← Retour</button>
     
-    <div style="margin-bottom:16px;">
-      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Email</label>
-      <input id="login-email" type="email" placeholder="vous@exemple.fr" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    <!-- HEADER -->
+    <h2 style="font-size:1.875rem; font-weight:800; color:var(--navy); margin:0 0 8px 0; letter-spacing:-0.5px;">Bienvenue</h2>
+    <p style="font-size:1rem; color:#6B5E4E; margin:0 0 40px 0; line-height:1.6;">Connectez-vous à votre compte Fidero.</p>
+    
+    <!-- FORM -->
+    <div style="margin-bottom:20px;">
+      <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Email</label>
+      <input id="login-email" type="email" placeholder="vous@exemple.fr" style="width:100%; padding:14px 16px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box; transition:all 0.2s; background:white;" onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';" onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';">
     </div>
     
-    <div style="margin-bottom:24px;">
-      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Mot de passe</label>
-      <input id="login-password" type="password" placeholder="••••••••" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    <div style="margin-bottom:32px;">
+      <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Mot de passe</label>
+      <input id="login-password" type="password" placeholder="••••••••" style="width:100%; padding:14px 16px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box; transition:all 0.2s; background:white;" onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';" onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';">
     </div>
     
-    <button onclick="handleAuthLogin()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">
+    <button onclick="handleAuthLogin()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px 24px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:20px;" onmouseover="this.style.background='#D15A2B'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(232,104,58,0.3)';" onmouseout="this.style.background='var(--orange)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
       Se connecter
     </button>
     
-    <div id="login-error" style="display:none; margin-top:16px; padding:12px; background:#FEE2E2; color:#DC2626; border-radius:6px; font-size:0.9rem;"></div>
+    <div id="login-error" style="display:none; margin-top:16px; padding:14px 16px; background:#FEE2E2; color:#DC2626; border-radius:8px; font-size:0.9rem; border-left:3px solid #DC2626;"></div>
   </div>
 </div>
 
 <!-- SCREEN 3: SIGNUP -->
-<div id="auth-signup-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif; padding:60px 20px; display:flex; align-items:center; justify-content:center;">
-  <div style="max-width:500px; width:100%; background:white; padding:40px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <button onclick="showAuthChoice()" style="background:none; border:none; color:var(--slate); cursor:pointer; font-size:0.95rem; font-weight:600; margin-bottom:20px;">← Retour</button>
+<div id="auth-signup-page" style="display:none; min-height:100vh; background:linear-gradient(135deg, var(--beige) 0%, #F0E8DC 100%); font-family:'Plus Jakarta Sans',sans-serif; padding:40px 20px; display:flex; align-items:center; justify-content:center;">
+  <div style="max-width:520px; width:100%; background:white; padding:60px 50px; border-radius:16px; box-shadow:0 10px 40px rgba(26,43,74,0.08);">
     
-    <h2 style="font-size:1.75rem; font-weight:800; color:var(--navy); margin-bottom:24px;">Créer un compte</h2>
+    <!-- BACK BUTTON -->
+    <button onclick="showAuthChoice()" style="background:none; border:none; color:var(--orange); cursor:pointer; font-size:1rem; font-weight:600; margin-bottom:32px; padding:0; font-family:'Plus Jakarta Sans',sans-serif; transition:all 0.2s;" onmouseover="this.style.marginLeft='-4px';" onmouseout="this.style.marginLeft='0';">← Retour</button>
     
-    <div style="margin-bottom:16px;">
-      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Email</label>
-      <input id="signup-email" type="email" placeholder="vous@exemple.fr" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    <!-- HEADER -->
+    <h2 style="font-size:1.875rem; font-weight:800; color:var(--navy); margin:0 0 8px 0; letter-spacing:-0.5px;">Créer mon compte</h2>
+    <p style="font-size:1rem; color:#6B5E4E; margin:0 0 40px 0; line-height:1.6;">Rejoignez Fidero et commencez à certifier vos interventions.</p>
+    
+    <!-- FORM -->
+    <div style="margin-bottom:20px;">
+      <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Email</label>
+      <input id="signup-email" type="email" placeholder="vous@exemple.fr" style="width:100%; padding:14px 16px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box; transition:all 0.2s; background:white;" onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';" onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';">
     </div>
     
-    <div style="margin-bottom:16px;">
-      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Mot de passe</label>
-      <input id="signup-password" type="password" placeholder="••••••••" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    <div style="margin-bottom:20px;">
+      <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Mot de passe</label>
+      <input id="signup-password" type="password" placeholder="••••••••" style="width:100%; padding:14px 16px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box; transition:all 0.2s; background:white;" onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';" onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';">
     </div>
     
-    <div style="margin-bottom:16px;">
-      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Nom / Entreprise</label>
-      <input id="signup-nom" type="text" placeholder="Votre nom" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
+    <div style="margin-bottom:20px;">
+      <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Nom / Entreprise</label>
+      <input id="signup-nom" type="text" placeholder="Votre nom" style="width:100%; padding:14px 16px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box; transition:all 0.2s; background:white;" onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';" onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';">
     </div>
     
-    <div style="margin-bottom:24px;">
-      <label style="display:block; font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:6px;">Vous êtes ?</label>
-      <select id="signup-role" style="width:100%; padding:12px; border:1px solid #E0DDD8; border-radius:6px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;">
-        <option value="">-- Sélectionner --</option>
-        <option value="proprietaire">Propriétaire d'immobilier</option>
-        <option value="artisan">Artisan / Entreprise</option>
+    <div style="margin-bottom:32px;">
+      <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Vous êtes ?</label>
+      <select id="signup-role" style="width:100%; padding:14px 16px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box; transition:all 0.2s; background:white; color:var(--navy);" onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';" onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';">
+        <option value="" style="color:#999;">-- Sélectionner votre profil --</option>
+        <option value="proprietaire" style="color:var(--navy);">🏠 Propriétaire d'immobilier</option>
+        <option value="artisan" style="color:var(--navy);">🔨 Artisan / Entreprise</option>
       </select>
     </div>
     
-    <button onclick="handleAuthSignup()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">
+    <button onclick="handleAuthSignup()" style="width:100%; background:var(--orange); color:white; border:none; padding:16px 24px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:20px;" onmouseover="this.style.background='#D15A2B'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(232,104,58,0.3)';" onmouseout="this.style.background='var(--orange)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
       Créer mon compte
     </button>
     
-    <div id="signup-error" style="display:none; margin-top:16px; padding:12px; background:#FEE2E2; color:#DC2626; border-radius:6px; font-size:0.9rem;"></div>
+    <div id="signup-error" style="display:none; margin-top:16px; padding:14px 16px; background:#FEE2E2; color:#DC2626; border-radius:8px; font-size:0.9rem; border-left:3px solid #DC2626;"></div>
   </div>
 </div>
 
