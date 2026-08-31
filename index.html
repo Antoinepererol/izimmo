@@ -3609,6 +3609,12 @@ function vzStartPlaceholder() {
 
 /* Chargement Supabase */
 async function vzLoadFromSupabase() {
+  // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
+  if (!sbReady || typeof sb === 'undefined') {
+    setTimeout(vzLoadFromSupabase, 100);
+    return;
+  }
+
   if (!document.getElementById('vz-grid')) return;
   const count = document.getElementById('vz-count');
   if (count) count.innerHTML = '<span style="color:var(--gray)">Chargement…</span>';
@@ -4898,6 +4904,13 @@ function fideroNormaliseAdresse(adresse) {
 }
 
 async function saisieTrouverOuCreerCopro(adresse, nbLots, rnic) {
+  // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
+  if (!sbReady || typeof sb === 'undefined') {
+    return new Promise((resolve) => {
+      setTimeout(() => saisieTrouverOuCreerCopro(adresse, nbLots, rnic).then(resolve), 100);
+    });
+  }
+
   var norm = fideroNormaliseAdresse(adresse);
 
   var existante = await sb.from('coproprietes')
@@ -4920,6 +4933,12 @@ async function saisieTrouverOuCreerCopro(adresse, nbLots, rnic) {
 }
 
 async function saisieSubmit(e) {
+  // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
+  if (!sbReady || typeof sb === 'undefined') {
+    setTimeout(() => saisieSubmit(e), 100);
+    return;
+  }
+
   e.preventDefault();
   var btn     = document.getElementById("s-submit-btn");
   var iconEl  = document.getElementById("s-submit-icon");
@@ -5904,6 +5923,12 @@ function iztAfficherInterventions(interventions) {
 
 /* Chargement principal de la fiche */
 async function iztLoad() {
+ // ATTENDRE QUE SUPABASE SOIT INITIALISÉ
+ if (!sbReady || typeof sb === 'undefined') {
+   setTimeout(iztLoad, 100);
+   return;
+ }
+
  /* Helper : course entre la requête et un timeout */
  function withTimeout(promise, ms) {
    return Promise.race([
