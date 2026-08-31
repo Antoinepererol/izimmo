@@ -3409,7 +3409,7 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script>
 /* ============================================================
    SUPABASE — Configuration (Paris - eu-west-3)
@@ -3428,6 +3428,20 @@ function initSupabase() {
   console.log('[Fidero] Supabase initialized (Paris, France) ✓');
 }
 initSupabase();
+
+// Attendre que Supabase soit prêt avant d'utiliser
+function ensureSupabase() {
+  return new Promise((resolve) => {
+    function checkReady() {
+      if (sb && typeof sb.from === 'function') {
+        resolve(sb);
+      } else {
+        setTimeout(checkReady, 50);
+      }
+    }
+    checkReady();
+  });
+}
 
 /* Données simulées de la facture demo */
 const DEMO_INTERVENTION = {
