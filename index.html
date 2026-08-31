@@ -4794,13 +4794,22 @@ async function handleAuthSignup() {
       return;
     }
     
-    window.currentUser = authData.user;
+    // ⚠️ IMPORTANT: Après signUp, faire immédiatement un signIn pour activer la session
+    const { data: signinData, error: signinErr } = await window.sb.auth.signInWithPassword({ email, password });
     
-    // Créer user_profile
+    if (signinErr) {
+      errorEl.textContent = 'Erreur session: ' + signinErr.message;
+      errorEl.style.display = 'block';
+      return;
+    }
+    
+    window.currentUser = signinData.user;
+    
+    // Créer user_profile avec le user actif
     const { data: profile, error: profileErr } = await window.sb
       .from('user_profiles')
       .insert({
-        user_id: authData.user.id,
+        user_id: signinData.user.id,
         role: role,
         nom: nom
       })
