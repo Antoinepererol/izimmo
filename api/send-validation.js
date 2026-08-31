@@ -37,15 +37,23 @@ module.exports = async function handler(req, res) {
     }
 
     const sb = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+    console.log('[DEBUG] Supabase client created');
     
     // Récupérer l'intervention
+    console.log('[DEBUG] Fetching intervention:', interventionId);
     const { data: iv, error: ivErr } = await sb
       .from('interventions')
       .select('*')
       .eq('id', interventionId)
       .single();
     
-    if (ivErr || !iv) return res.status(404).json({ error: 'Intervention not found' });
+    console.log('[DEBUG] Supabase response:', { error: ivErr?.message, dataExists: !!iv });
+    
+    if (ivErr) {
+      console.error('[DEBUG] Supabase error details:', JSON.stringify(ivErr));
+      return res.status(400).json({ error: 'Supabase error', details: ivErr.message });
+    }
+    if (!iv) return res.status(404).json({ error: 'Intervention not found' });
 
     // Vérifier opposition
     const emailHash = hashEmail(artisanEmail);
