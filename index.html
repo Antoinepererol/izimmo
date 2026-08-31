@@ -4707,18 +4707,24 @@ async function initAuth() {
 
 // Navigation auth screens
 function showAuthChoice() {
-  document.querySelectorAll('[id^="auth-"]').forEach(el => el.style.display = 'none');
+  var mainEl = document.getElementById('site-main');
+  if (mainEl) mainEl.style.display = 'none';
+  document.querySelectorAll('[id$="-page"]').forEach(el => el.style.display = 'none');
   document.getElementById('auth-choice-page').style.display = 'flex';
 }
 
 function showAuthLogin() {
-  document.querySelectorAll('[id^="auth-"]').forEach(el => el.style.display = 'none');
+  var mainEl = document.getElementById('site-main');
+  if (mainEl) mainEl.style.display = 'none';
+  document.querySelectorAll('[id$="-page"]').forEach(el => el.style.display = 'none');
   document.getElementById('auth-login-page').style.display = 'flex';
   document.getElementById('login-email').focus();
 }
 
 function showAuthSignup() {
-  document.querySelectorAll('[id^="auth-"]').forEach(el => el.style.display = 'none');
+  var mainEl = document.getElementById('site-main');
+  if (mainEl) mainEl.style.display = 'none';
+  document.querySelectorAll('[id$="-page"]').forEach(el => el.style.display = 'none');
   document.getElementById('auth-signup-page').style.display = 'flex';
   document.getElementById('signup-email').focus();
 }
@@ -4837,12 +4843,6 @@ function navGo(hash) {
   document.querySelectorAll('.nav-dropdown-wrap').forEach(function(el) {
     el.classList.remove('open');
   });
-  
-  /* Vérifier auth pour 'saisie' */
-  if (hash === 'saisie' && !window.currentUser) {
-    showAuthChoice();
-    return;
-  }
   
   /* Forcer le routing même si le hash est identique */
   if (window.location.hash === '#' + hash) {
