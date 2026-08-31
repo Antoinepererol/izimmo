@@ -3415,7 +3415,7 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ============================================================
    SUPABASE — Configuration (Paris - eu-west-3)
@@ -3430,18 +3430,29 @@ window.SUPABASE_ANON = SUPABASE_ANON;
 // Attendre que Supabase soit chargé (gère le race condition)
 window.sb = undefined;
 window.sbReady = false;
+
 function initSupabase() {
-  if (typeof window.supabase === 'undefined') {
+  // Vérifier que window.supabase est bien disponible (la librairie)
+  if (typeof window.supabase === 'undefined' || !window.supabase.createClient) {
+    console.log('[Fidero] Supabase library not ready yet, retrying...');
     setTimeout(initSupabase, 50);
     return;
   }
-  window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-  window.sbReady = true;
-  console.log('[Fidero] Supabase initialized (Paris, France) ✓');
-  // Trigger init du reste du code
-  window.dispatchEvent(new Event('supabaseReady'));
+  
+  try {
+    window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    window.sbReady = true;
+    console.log('[Fidero] ✓ Supabase initialized (Paris, France)');
+    console.log('[Fidero] Client:', window.sb ? 'OK' : 'UNDEFINED');
+    window.dispatchEvent(new Event('supabaseReady'));
+  } catch(e) {
+    console.error('[Fidero] Supabase init error:', e.message);
+    setTimeout(initSupabase, 100);
+  }
 }
-initSupabase();
+
+// Initialiser dès que possible
+setTimeout(initSupabase, 0);
 
 // Attendre que Supabase soit prêt avant d'utiliser
 function ensureSupabase() {
