@@ -896,125 +896,177 @@ select.form-input { cursor: pointer; }
 
 /* Barre de recherche */
 .vz-search-bar {
-  display: flex; gap: 10px; align-items: stretch;
-  background: #FAF7F3; border-radius: 14px; padding: 10px;
-  box-shadow: 0 4px 24px rgba(26,43,74,0.1);
-  margin-bottom: 18px; flex-wrap: wrap;
+  display: flex; gap: 12px; align-items: stretch;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAFAF8 100%);
+  border: 1px solid rgba(26,43,74,0.08);
+  border-radius: 14px; padding: 14px;
+  box-shadow: 0 8px 32px rgba(26,43,74,0.08);
+  margin-bottom: 24px; flex-wrap: wrap;
+  transition: all 0.3s;
+}
+.vz-search-bar:focus-within {
+  box-shadow: 0 12px 48px rgba(26,43,74,0.12);
 }
 .vz-search-field {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--cream); border-radius: 9px;
-  padding: 10px 14px; flex: 1; min-width: 160px;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--beige); border-radius: 10px;
+  padding: 12px 16px; flex: 1; min-width: 160px;
+  border: 1px solid rgba(26,43,74,0.06);
+  transition: all 0.2s;
+}
+.vz-search-field:focus-within {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(232,104,58,0.1);
 }
 .vz-search-icon { font-size: 1rem; flex-shrink: 0; }
 .vz-select, .vz-input {
   border: none; background: transparent; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.82rem; color: var(--navy); outline: none; width: 100%;
-  font-weight: 600; cursor: pointer;
+  font-size: 0.9rem; color: var(--navy); outline: none; width: 100%;
+  font-weight: 500; cursor: pointer;
 }
 .vz-input { cursor: text; }
-.vz-input::placeholder { color: var(--gray); font-weight: 400; }
+.vz-input::placeholder { color: #9A8E82; font-weight: 400; }
 .vz-search-btn {
-  background: var(--orange); color: white; border: none;
-  padding: 12px 26px; border-radius: 9px; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.84rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
-  white-space: nowrap;
+  background: linear-gradient(135deg, var(--orange) 0%, #D15A2B 100%);
+  color: white; border: none;
+  padding: 12px 28px; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem; font-weight: 700; cursor: pointer; 
+  transition: all 0.2s; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(232,104,58,0.2);
 }
-.vz-search-btn:hover { background: var(--orange-light); }
+.vz-search-btn:hover { 
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,104,58,0.3);
+}
+.vz-search-btn:active { transform: translateY(0); }
 
 /* Filtres */
 .vz-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
 .vz-filter {
-  padding: 7px 16px; border-radius: 20px; border: 1.5px solid rgba(26,43,74,0.15);
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 600;
-  color: var(--gray); background: #FAF7F3; cursor: pointer; transition: all 0.2s;
+  padding: 8px 16px; border-radius: 22px; border: 1.5px solid rgba(26,43,74,0.12);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 600;
+  color: #6B5E4E; background: white; cursor: pointer; 
+  transition: all 0.2s;
 }
-.vz-filter:hover { border-color: var(--navy); color: var(--navy); }
-.vz-filter.active { background: var(--navy); color: white; border-color: var(--navy); }
+.vz-filter:hover { 
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(232,104,58,0.05);
+}
+.vz-filter.active { 
+  background: var(--orange); 
+  color: white; 
+  border-color: var(--orange);
+  box-shadow: 0 4px 12px rgba(232,104,58,0.2);
+}
 
 /* Header résultats */
-.vz-results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-.vz-results-count { font-size: 0.78rem; font-weight: 700; color: var(--gray); }
-.vz-results-count strong { color: var(--navy); }
-.vz-results-view { display: flex; gap: 4px; }
-.vz-view-btn { width: 32px; height: 32px; border-radius: 7px; border: 1.5px solid rgba(26,43,74,0.15); background: #FAF7F3; color: var(--gray); font-size: 1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-.vz-view-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+.vz-results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.vz-results-count { font-size: 0.85rem; font-weight: 600; color: #6B5E4E; }
+.vz-results-count strong { color: var(--navy); font-weight: 800; }
+.vz-results-view { display: flex; gap: 6px; }
+.vz-view-btn { 
+  width: 38px; height: 38px; border-radius: 9px; 
+  border: 1.5px solid rgba(26,43,74,0.1); 
+  background: white; color: #6B5E4E; font-size: 1.1rem; cursor: pointer; 
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center; 
+}
+.vz-view-btn:hover { border-color: var(--orange); }
+.vz-view-btn.active { 
+  background: var(--orange); 
+  color: white; 
+  border-color: var(--orange);
+  box-shadow: 0 4px 12px rgba(232,104,58,0.2);
+}
 
 /* Grille de cards */
-.vz-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.vz-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 .vz-grid.list-view { grid-template-columns: 1fr; }
 
 /* Card artisan */
 .vz-card {
-  background: #FAF7F3; border-radius: 16px; padding: 24px;
-  border: 1px solid rgba(26,43,74,0.07);
-  transition: all 0.25s; cursor: pointer; position: relative; overflow: hidden;
+  background: white; border-radius: 14px; padding: 24px;
+  border: 1px solid rgba(26,43,74,0.08);
+  transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+  box-shadow: 0 4px 16px rgba(26,43,74,0.06);
 }
 .vz-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: var(--orange); transform: scaleX(0); transition: transform 0.3s;
   transform-origin: left;
 }
-.vz-card:hover { box-shadow: 0 12px 40px rgba(26,43,74,0.12); transform: translateY(-3px); }
+.vz-card:hover { 
+  box-shadow: 0 16px 48px rgba(26,43,74,0.14);
+  transform: translateY(-4px);
+  border-color: rgba(232,104,58,0.2);
+}
 .vz-card:hover::before { transform: scaleX(1); }
 
 .vz-card-top { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
 .vz-avatar {
-  width: 52px; height: 52px; border-radius: 13px;
-  background: var(--navy); display: flex; align-items: center;
-  justify-content: center; font-size: 1.4rem; flex-shrink: 0;
+  width: 56px; height: 56px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--navy) 0%, #0F2340 100%);
+  display: flex; align-items: center;
+  justify-content: center; font-size: 1.6rem; flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(26,43,74,0.15);
 }
-.vz-card-name { font-size: 0.92rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
-.vz-card-ent { font-size: 0.72rem; color: var(--gray); margin-top: 3px; }
-.vz-card-zone { font-size: 0.68rem; color: var(--gray); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+.vz-card-name { font-size: 0.95rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
+.vz-card-ent { font-size: 0.75rem; color: #6B5E4E; margin-top: 3px; }
+.vz-card-zone { font-size: 0.7rem; color: #6B5E4E; margin-top: 2px; display: flex; align-items: center; gap: 4px; }
 
 /* Score badge sur la card */
 .vz-score-badge {
   margin-left: auto; flex-shrink: 0;
-  width: 46px; height: 46px; border-radius: 50%;
+  width: 52px; height: 52px; border-radius: 50%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-size: 0.95rem; font-weight: 800; line-height: 1;
+  font-size: 1.1rem; font-weight: 800; line-height: 1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-.vz-score-badge.score-high { background: #06D6A0; color: white; }
-.vz-score-badge.score-mid  { background: #C4860A; color: white; }
-.vz-score-badge.score-low  { background: var(--gray-light); color: var(--gray); }
-.vz-score-badge-lbl { font-size: 0.48rem; font-weight: 600; opacity: 0.7; margin-top: 1px; }
+.vz-score-badge.score-high { background: linear-gradient(135deg, #00A878 0%, #008060 100%); color: white; }
+.vz-score-badge.score-mid  { background: linear-gradient(135deg, #C4860A 0%, #A16E05 100%); color: white; }
+.vz-score-badge.score-low  { background: linear-gradient(135deg, #E0DDD8 0%, #D5D0CB 100%); color: #6B5E4E; }
+.vz-score-badge-lbl { font-size: 0.5rem; font-weight: 600; opacity: 0.8; margin-top: 2px; }
 
 /* Badges certifications */
-.vz-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
-.vz-badge { font-size: 0.6rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
-.vz-badge-cert  { background: var(--green-bg); color: var(--green-cert); }
-.vz-badge-rge   { background: #E0FAF4; color: #1a7a4a; }
-.vz-badge-qual  { background: var(--blue-light); color: var(--navy); }
-.vz-badge-dec   { background: var(--slate-bg); color: var(--slate); }
+.vz-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.vz-badge { font-size: 0.65rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+.vz-badge-cert  { background: rgba(0,168,120,0.12); color: #00A878; }
+.vz-badge-rge   { background: rgba(0,200,150,0.12); color: #00966A; }
+.vz-badge-qual  { background: rgba(100,150,255,0.12); color: #4169E0; }
+.vz-badge-dec   { background: rgba(150,150,150,0.12); color: #666; }
 
 /* KPIs */
-.vz-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
-.vz-kpi { background: var(--cream); border-radius: 8px; padding: 9px; text-align: center; }
-.vz-kpi-num { font-size: 1.1rem; font-weight: 800; color: var(--navy); line-height: 1; }
-.vz-kpi-lbl { font-size: 0.58rem; color: var(--gray); margin-top: 3px; line-height: 1.3; }
+.vz-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+.vz-kpi { background: linear-gradient(135deg, var(--beige) 0%, #EDE5D8 100%); border-radius: 10px; padding: 10px; text-align: center; border: 1px solid rgba(26,43,74,0.05); }
+.vz-kpi-num { font-size: 1.2rem; font-weight: 800; color: var(--navy); line-height: 1; }
+.vz-kpi-lbl { font-size: 0.6rem; color: #6B5E4E; margin-top: 4px; line-height: 1.3; }
 
 /* Refs récentes */
-.vz-refs { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
-.vz-ref { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; padding: 6px 10px; background: var(--gray-light); border-radius: 6px; }
-.vz-ref-addr { font-weight: 600; color: var(--navy); }
-.vz-ref-type { color: var(--gray); }
-.vz-ref-cert { background: var(--green-bg); color: var(--green-cert); font-size: 0.58rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+.vz-refs { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.vz-ref { display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; padding: 8px 12px; background: linear-gradient(135deg, var(--beige) 0%, #EDE5D8 100%); border-radius: 8px; border: 1px solid rgba(26,43,74,0.05); }
+.vz-ref-addr { font-weight: 700; color: var(--navy); }
+.vz-ref-type { color: #6B5E4E; }
+.vz-ref-cert { background: rgba(0,168,120,0.12); color: #00A878; font-size: 0.6rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
 
 .vz-card-action {
-  width: 100%; background: var(--navy); color: white;
-  padding: 10px; border-radius: 8px; border: none;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.76rem; font-weight: 700;
+  width: 100%; background: linear-gradient(135deg, var(--navy) 0%, #0F2340 100%); color: white;
+  padding: 12px; border-radius: 10px; border: none;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 700;
   cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(26,43,74,0.2);
 }
-.vz-card-action:hover { background: var(--orange); }
+.vz-card-action:hover { 
+  background: linear-gradient(135deg, var(--orange) 0%, #D15A2B 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(232,104,58,0.3);
+}
 
 /* Vue liste */
 .vz-grid.list-view .vz-card { display: grid; grid-template-columns: auto 1fr auto; gap: 0 20px; align-items: start; }
 .vz-grid.list-view .vz-card-top { margin-bottom: 0; flex-direction: column; }
 .vz-grid.list-view .vz-kpis { grid-template-columns: repeat(3,80px); }
 .vz-grid.list-view .vz-refs { display: none; }
-.vz-grid.list-view .vz-card-action { width: auto; padding: 9px 18px; }
+.vz-grid.list-view .vz-card-action { width: auto; padding: 10px 20px; }
 
 /* Spinner chargement */
 .vz-loading { text-align: center; padding: 48px; }
@@ -2025,28 +2077,348 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
 }
 
 
-/* ===== FICHE (RE)TRACÉ — effets hover ===== */
-.izt-bien-chip:hover { border-color: var(--orange) !important; box-shadow: 0 4px 16px rgba(232,104,58,0.12); transform: translateY(-1px); }
-.izt-interv-card { transition: all 0.18s ease; }
-.izt-interv-card:hover { box-shadow: 0 6px 24px rgba(15,28,50,0.1); transform: translateY(-2px); }
-.izt-kpi-card { transition: all 0.18s ease; }
-.izt-kpi-card:hover { box-shadow: 0 6px 20px rgba(15,28,50,0.08); transform: translateY(-2px); }
-.izt-panel-header { transition: background 0.15s ease; cursor: pointer; }
-.izt-panel-header:hover { background: var(--beige); }
+/* ===== FICHE (RE)TRACÉ — Premium Design ===== */
+.izt-bien-chip:hover { 
+  border-color: var(--orange) !important; 
+  box-shadow: 0 8px 24px rgba(232,104,58,0.16); 
+  transform: translateY(-2px);
+  background: rgba(232,104,58,0.04);
+}
 
+.izt-interv-card { 
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(26,43,74,0.08);
+  border-radius: 12px;
+  background: white;
+}
+.izt-interv-card:hover { 
+  box-shadow: 0 12px 40px rgba(26,43,74,0.12);
+  transform: translateY(-4px);
+  border-color: rgba(232,104,58,0.2);
+}
 
-/* ===== FICHE (RE)TRACÉ — hover refonte ===== */
-.izt-proof { transition: all 0.15s ease; }
-.izt-proof:hover { border-color: var(--orange) !important; background: var(--amber-bg) !important; color: var(--orange) !important; transform: translateY(-1px); }
-.izt-admin-card { transition: all 0.18s ease; }
-.izt-admin-card:hover { box-shadow: 0 12px 36px rgba(15,28,50,0.1) !important; transform: translateY(-2px); }
-.izt-score-line { transition: opacity 0.15s ease; }
-.izt-score-line:hover { opacity: 0.92; }
+.izt-kpi-card { 
+  transition: all 0.25s ease;
+  background: linear-gradient(135deg, var(--beige) 0%, #EDE5D8 100%);
+  border: 1px solid rgba(26,43,74,0.06);
+  border-radius: 12px;
+}
+.izt-kpi-card:hover { 
+  box-shadow: 0 8px 24px rgba(26,43,74,0.1);
+  transform: translateY(-3px);
+  border-color: rgba(232,104,58,0.15);
+}
+
+.izt-panel-header { 
+  transition: all 0.2s ease; 
+  cursor: pointer;
+  border-radius: 10px;
+}
+.izt-panel-header:hover { 
+  background: var(--beige);
+  border-color: rgba(232,104,58,0.2);
+}
+
+.izt-proof { 
+  transition: all 0.25s ease;
+  border: 1.5px solid rgba(26,43,74,0.1);
+  border-radius: 10px;
+  background: white;
+}
+.izt-proof:hover { 
+  border-color: var(--orange) !important; 
+  background: rgba(232,104,58,0.04) !important; 
+  color: var(--orange) !important; 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232,104,58,0.15);
+}
+
+.izt-admin-card { 
+  transition: all 0.25s ease;
+  border: 1px solid rgba(26,43,74,0.08);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(232,104,58,0.08) 0%, rgba(232,104,58,0.02) 100%);
+}
+.izt-admin-card:hover { 
+  box-shadow: 0 16px 48px rgba(26,43,74,0.15) !important; 
+  transform: translateY(-3px);
+  border-color: rgba(232,104,58,0.25) !important;
+  background: linear-gradient(135deg, rgba(232,104,58,0.12) 0%, rgba(232,104,58,0.05) 100%);
+}
+
+.izt-score-line { 
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+.izt-score-line:hover { 
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* Score box premium */
+#izt-score-box {
+  background: linear-gradient(135deg, var(--navy) 0%, #0F1F38 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(232,104,58,0.15);
+  box-shadow: 0 12px 40px rgba(26,43,74,0.15);
+}
+
+#izt-score-box:hover {
+  box-shadow: 0 16px 48px rgba(26,43,74,0.2);
+  border-color: rgba(232,104,58,0.25);
+}
 
 
 /* Bouton opposition RGPD (page confirmer) — discret, distinct du refus */
 .ap-btn-oppose { width:100%; background:transparent; border:none; color:var(--gray); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.72rem; font-weight:600; text-decoration:underline; cursor:pointer; margin-top:12px; padding:6px; line-height:1.4; }
 .ap-btn-oppose:hover { color:#C0392B; }
+
+/* ============================================================
+   MOBILE OPTIMISATIONS (< 768px)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  /* GÉNÉRAL */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* INPUTS & FORMS */
+  input, select, textarea, button {
+    font-size: 16px !important; /* Prévient auto-zoom iOS */
+    min-height: 44px; /* Hit area iOS minimum */
+    padding: 12px 14px !important;
+  }
+
+  /* AUTH SCREENS */
+  #auth-choice-page, #auth-login-page, #auth-signup-page {
+    padding: 20px 16px !important;
+  }
+
+  #auth-choice-page > div, #auth-login-page > div, #auth-signup-page > div {
+    padding: 40px 24px !important;
+    border-radius: 12px;
+    max-width: 100% !important;
+  }
+
+  #auth-choice-page h1, #auth-login-page h2, #auth-signup-page h2 {
+    font-size: 1.5rem !important;
+  }
+
+  #auth-choice-page p, #auth-login-page p, #auth-signup-page p {
+    font-size: 0.95rem !important;
+  }
+
+  /* BUTTONS */
+  button {
+    min-height: 48px !important;
+    font-size: 1rem !important;
+    padding: 14px 18px !important;
+  }
+
+  /* NAVBAR */
+  .inner-nav {
+    padding: 12px 16px !important;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .inner-nav-logo span {
+    font-size: 1rem !important;
+  }
+
+  .inner-nav-links {
+    display: none !important; /* Hidden, burger menu shows instead */
+  }
+
+  .inner-nav-burger {
+    display: flex !important;
+  }
+
+  /* CONTENEURS PRINCIPAUX */
+  div[style*="max-width:920px"] {
+    padding: 24px 16px 60px !important;
+  }
+
+  div[style*="max-width:500px"], div[style*="max-width:520px"] {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 24px 16px !important;
+  }
+
+  /* HEADINGS */
+  h1 {
+    font-size: 1.5rem !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  h2 {
+    font-size: 1.35rem !important;
+  }
+
+  h3 {
+    font-size: 1.1rem !important;
+  }
+
+  /* TEXTE */
+  p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* SPACING */
+  section {
+    padding: 32px 16px !important;
+  }
+
+  /* FORMULAIRES */
+  form div[style*="margin-bottom"] {
+    margin-bottom: 16px !important;
+  }
+
+  label {
+    font-size: 0.9rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* GRILLES */
+  div[style*="display:grid"], div[style*="display: grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* FLEXBOX */
+  div[style*="display:flex"], div[style*="display: flex"] {
+    flex-direction: column !important;
+  }
+
+  /* MODALES / OVERLAYS */
+  div[style*="position:fixed"], div[style*="position: fixed"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 12px 12px 0 0 !important;
+    bottom: 0 !important;
+  }
+
+  /* IMAGES */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* TABLES */
+  table {
+    font-size: 0.85rem !important;
+  }
+
+  th, td {
+    padding: 8px !important;
+  }
+
+  /* SELECT */
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+    padding-right: 36px !important;
+  }
+
+  /* DROPDOWNS */
+  .inner-nav-dropdown {
+    position: fixed !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 12px 12px 0 0 !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    z-index: 999 !important;
+  }
+
+  /* TEXTE LONG */
+  div[style*="word-wrap"], div[style*="word-break"] {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* TOUCH FEEDBACK */
+  button:active, a:active {
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 480px) {
+  /* TRÈS PETIT ÉCRAN */
+  
+  /* AUTH SCREENS */
+  #auth-choice-page > div, #auth-login-page > div, #auth-signup-page > div {
+    padding: 32px 18px !important;
+  }
+
+  #auth-choice-page h1, #auth-login-page h2, #auth-signup-page h2 {
+    font-size: 1.35rem !important;
+  }
+
+  /* HEADINGS */
+  h1 {
+    font-size: 1.35rem !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  /* SPACING */
+  section {
+    padding: 24px 12px !important;
+  }
+
+  div[style*="max-width:920px"] {
+    padding: 18px 12px 50px !important;
+  }
+
+  /* BOUTONS */
+  button {
+    min-height: 52px !important;
+    padding: 14px 16px !important;
+  }
+
+  /* FORMULAIRES */
+  form div[style*="margin-bottom"] {
+    margin-bottom: 14px !important;
+  }
+
+  /* LOGO */
+  .logo-fidero {
+    font-size: 1rem !important;
+  }
+
+  .logo-baseline {
+    font-size: 0.65rem !important;
+  }
+
+  /* TEXTE PETIT */
+  .text-small {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* ORIENTATION LANDSCAPE */
+@media (max-width: 768px) and (orientation: landscape) {
+  section {
+    padding: 16px !important;
+  }
+
+  h1 {
+    font-size: 1.3rem !important;
+  }
+}
 
 </style>
 </head>
@@ -2819,12 +3191,12 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
 </div>
 
 
-<div id="dashboard-page" style="display:none; min-height:100vh; background:var(--navy-deep); font-family:'Plus Jakarta Sans',sans-serif;">
+<div id="dashboard-page" style="display:none; min-height:100vh; background:linear-gradient(135deg, var(--navy) 0%, #0F1F38 100%); font-family:'Plus Jakarta Sans',sans-serif;">
   <nav class="inner-nav">
-    <a href="/" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-fidero logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);"><em style="color:var(--orange);font-style:italic;font-weight:900;">Fide</em>ro</span><span class="logo-baseline">Traçabilité certifiée</span></span></a>
+    <a href="/" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-fidero logo-light" style="font-size:1.25rem;font-weight:900;color:white;"><em style="color:var(--orange);font-style:italic;font-weight:900;">Fide</em>ro</span><span class="logo-baseline" style="color:rgba(255,255,255,0.5);">Traçabilité certifiée</span></span></a>
     <div class="inner-nav-links">
       <span class="inner-nav-dropdown-wrap">
-        <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;">Fonctionnalités ▾</a>
+        <a href="#" class="inner-nav-link inner-nav-dropdown-trigger" onclick="return false;" style="color:white;">Fonctionnalités ▾</a>
         <div class="inner-nav-dropdown">
           <a onclick="navGo('annuaire')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">🔍</span><div><strong>L'Annuaire</strong><span>Artisans certifiés</span></div></a>
           <a onclick="navGo('retrace')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📋</span><div><strong>(re)tracé</strong><span>Fiche du logement</span></div></a>
@@ -2832,44 +3204,97 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
           <a onclick="navGo('saisie-artisan')" class="nav-dd-item" style="cursor:pointer;"><span class="nav-dd-icon">📱</span><div><strong>App artisan</strong><span>Certification mobile</span></div></a>
         </div>
       </span>
-      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer;">Engagements</a>
-      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer;">🏠 Mon tableau de bord</a>
+      <a onclick="navGo('confiance')" class="inner-nav-link" style="cursor:pointer; color:rgba(255,255,255,0.7);">Engagements</a>
+      <a onclick="navGo('dashboard')" class="inner-nav-link" style="cursor:pointer; color:rgba(255,255,255,0.7);">🏠 Mon tableau de bord</a>
+      <button onclick="handleLogout()" style="background:none; border:none; color:var(--orange); cursor:pointer; font-size:0.95rem; font-weight:600; padding:0; font-family:'Plus Jakarta Sans',sans-serif;">🚪 Déconnexion</button>
     </div>
     <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
-  
 
-  <div style="max-width:1100px; margin:0 auto; padding:48px 40px 80px;">
+  <div style="max-width:1200px; margin:0 auto; padding:48px 40px 80px;">
 
-    <!-- En-tête -->
+    <!-- HEADER -->
+    <div style="margin-bottom:48px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Tableau de bord</div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:32px;">
+        <div>
+          <h1 style="font-size:2.2rem; font-weight:900; color:white; letter-spacing:-1px; margin:0 0 8px 0;">Bienvenue</h1>
+          <p style="font-size:0.95rem; color:rgba(255,255,255,0.6); margin:0; line-height:1.6;">Consultez vos statistiques et découvrez les artisans certifiés Fidero.</p>
+        </div>
+        <!-- Profil rapide -->
+        <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:24px; text-align:center; min-width:200px;">
+          <div style="width:64px; height:64px; background:var(--orange); border-radius:12px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:900;">👤</div>
+          <div style="font-size:0.9rem; color:rgba(255,255,255,0.8); margin-bottom:4px;" id="dashboard-user-name">Chargement…</div>
+          <div style="font-size:0.75rem; color:rgba(255,255,255,0.5);" id="dashboard-user-role">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin-bottom:48px;">
+      
+      <!-- Card 1: Interventions -->
+      <div style="background:linear-gradient(135deg, rgba(232,104,58,0.15) 0%, rgba(232,104,58,0.05) 100%); border:1px solid rgba(232,104,58,0.2); border-radius:14px; padding:28px; transition:all 0.3s;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+          <div>
+            <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Interventions</div>
+            <div style="font-size:2.4rem; font-weight:900; color:var(--orange);" id="dashboard-count-interventions">0</div>
+          </div>
+          <div style="font-size:2rem;">📋</div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Travaux enregistrés</div>
+      </div>
+
+      <!-- Card 2: Score moyen -->
+      <div style="background:linear-gradient(135deg, rgba(0,168,120,0.15) 0%, rgba(0,168,120,0.05) 100%); border:1px solid rgba(0,168,120,0.2); border-radius:14px; padding:28px; transition:all 0.3s;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+          <div>
+            <div style="font-size:0.72rem; font-weight:700; color:#00A878; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Score moyen</div>
+            <div style="font-size:2.4rem; font-weight:900; color:#00A878;" id="dashboard-avg-score">—</div>
+          </div>
+          <div style="font-size:2rem;">⭐</div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Transparence certifiée</div>
+      </div>
+
+      <!-- Card 3: Artisans certifiés -->
+      <div style="background:linear-gradient(135deg, rgba(100,200,255,0.15) 0%, rgba(100,200,255,0.05) 100%); border:1px solid rgba(100,200,255,0.2); border-radius:14px; padding:28px; transition:all 0.3s;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+          <div>
+            <div style="font-size:0.72rem; font-weight:700; color:#64C8FF; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Artisans</div>
+            <div style="font-size:2.4rem; font-weight:900; color:#64C8FF;" id="dashboard-count-artisans">0</div>
+          </div>
+          <div style="font-size:2rem;">🔧</div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Professionnels vérifiés</div>
+      </div>
+    </div>
+
+    <!-- TABS & CONTENT -->
     <div style="margin-bottom:32px;">
-      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Tableau de bord</div>
-      <h1 style="font-size:1.9rem; font-weight:900; color:white; letter-spacing:-0.8px;">Espace professionnel</h1>
-      <p style="font-size:0.88rem; color:rgba(255,255,255,0.5); margin-top:6px;">Consultez les profils certifiés Fidero et leurs statistiques.</p>
+      <div style="display:flex; gap:8px; margin-bottom:24px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
+        <button id="db-tab-artisan" onclick="dbSwitchTab('artisan')"
+          style="background:none; border:none; color:white; border-bottom:2px solid var(--orange); padding:12px 16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer;">
+          🔧 Artisans
+        </button>
+        <button id="db-tab-agent" onclick="dbSwitchTab('agent')"
+          style="background:none; border:none; color:rgba(255,255,255,0.5); border-bottom:2px solid transparent; padding:12px 16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.95rem; font-weight:600; cursor:pointer; transition:all 0.2s;">
+          🏢 Agents
+        </button>
+      </div>
+
+      <!-- Grille de profils (cards premium) -->
+      <div id="db-profiles-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px;">
+        <div style="color:rgba(255,255,255,0.3);font-size:0.82rem;padding:20px;">Chargement…</div>
+      </div>
     </div>
 
-    <!-- Onglets artisan / agent -->
-    <div style="display:flex; gap:8px; margin-bottom:24px;">
-      <button id="db-tab-artisan" onclick="dbSwitchTab('artisan')"
-        style="background:var(--orange); color:white; border:none; border-radius:8px; padding:10px 20px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.82rem; font-weight:700; cursor:pointer;">
-        🔧 Artisans
-      </button>
-      <button id="db-tab-agent" onclick="dbSwitchTab('agent')"
-        style="background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.6); border:1.5px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px 20px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.82rem; font-weight:600; cursor:pointer;">
-        🏢 Agents immobiliers
-      </button>
-    </div>
-
-    <!-- Grille de profils -->
-    <div id="db-profiles-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:14px;">
-      <div style="color:rgba(255,255,255,0.3);font-size:0.82rem;padding:20px;">Chargement…</div>
-    </div>
-
-    <!-- CTA bas -->
-    <div style="margin-top:40px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px; text-align:center;">
-      <h3 style="font-size:1.05rem; font-weight:800; color:white; margin-bottom:8px;">Vous êtes artisan ou agent ?</h3>
-      <p style="font-size:0.82rem; color:rgba(255,255,255,0.5); margin-bottom:18px; line-height:1.6;">Rejoignez l'Annuaire et construisez votre réputation certifiée.</p>
-      <button onclick="navGo('saisie-artisan')" style="background:var(--orange); color:white; border:none; border-radius:8px; padding:12px 26px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.85rem; font-weight:700; cursor:pointer;">Certifier une intervention →</button>
+    <!-- CTA BAS -->
+    <div style="background:linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:40px; text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:12px;">🚀</div>
+      <h3 style="font-size:1.2rem; font-weight:800; color:white; margin:0 0 8px 0;">Partagez votre expertise</h3>
+      <p style="font-size:0.9rem; color:rgba(255,255,255,0.6); margin:0 0 20px 0; line-height:1.6; max-width:500px; margin-left:auto; margin-right:auto;">Rejoignez l'Annuaire Fidero et construisez votre réputation grâce à la certification de vos interventions.</p>
+      <button onclick="navGo('saisie-artisan')" style="background:var(--orange); color:white; border:none; border-radius:10px; padding:14px 28px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='#D15A2B'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='var(--orange)'; this.style.transform='translateY(0)';">Certifier une intervention →</button>
     </div>
 
   </div>
@@ -3390,6 +3815,7 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
         <option value="" style="color:#999;">-- Sélectionner votre profil --</option>
         <option value="proprietaire" style="color:var(--navy);">🏠 Propriétaire d'immobilier</option>
         <option value="artisan" style="color:var(--navy);">🔨 Artisan / Entreprise</option>
+        <option value="syndic" style="color:var(--navy);">🏢 Syndic de copropriété</option>
       </select>
     </div>
     
@@ -4656,6 +5082,19 @@ function doRoute() {
   } else if (route === 'saisie-artisan') {
     show('saisie-artisan-page');
     if (typeof saInit === 'function') saInit();
+  } else if (route === 'syndic-copros') {
+    if (!window.currentUser) {
+      showAuthChoice();
+      return;
+    }
+    show('syndic-copros-page');
+  } else if (route === 'syndic-dashboard') {
+    if (!window.currentUser) {
+      showAuthChoice();
+      return;
+    }
+    show('syndic-dashboard-page');
+    if (typeof syndicLoadDashboard === 'function') syndicLoadDashboard();
   } else if (route === 'retrace') {
     show('retrace-page');
     iztLoad(); /* Charger les vrais biens depuis Supabase */
@@ -4863,6 +5302,171 @@ async function handleLogout() {
   window.currentUserProfile = null;
   navGo('');
   initAuth();
+}
+
+/* ============================================================
+   SYNDIC — Gestion copropriétés
+   ============================================================ */
+
+// Créer une copropriété
+async function handleSyndicCreateCopro(event) {
+  event.preventDefault();
+  
+  const adresse = document.getElementById('syndic-copro-adresse').value.trim();
+  const codePostal = document.getElementById('syndic-copro-codepostal').value.trim();
+  const ville = document.getElementById('syndic-copro-ville').value.trim();
+  const nbLots = parseInt(document.getElementById('syndic-copro-nblots').value);
+  const rnic = document.getElementById('syndic-copro-rnic').value.trim();
+  const errorEl = document.getElementById('syndic-copro-error');
+  
+  if (!adresse || !codePostal || !ville || !nbLots) {
+    errorEl.textContent = 'Tous les champs obligatoires sont requis';
+    errorEl.style.display = 'block';
+    return false;
+  }
+  
+  try {
+    // Créer la copropriété
+    const { data: copro, error: coproErr } = await window.sb
+      .from('coproprietes')
+      .insert({
+        adresse: adresse,
+        adresse_normalisee: adresse.toLowerCase().trim(),
+        code_postal: codePostal,
+        ville: ville,
+        nombre_lots: nbLots,
+        rnic: rnic || null
+      })
+      .select()
+      .single();
+    
+    if (coproErr) {
+      errorEl.textContent = 'Erreur: ' + coproErr.message;
+      errorEl.style.display = 'block';
+      return false;
+    }
+    
+    // Auto-créer les biens (apparts) pour chaque lot
+    const bienPromises = [];
+    for (let i = 1; i <= nbLots; i++) {
+      bienPromises.push(
+        window.sb
+          .from('biens')
+          .insert({
+            adresse: adresse,
+            type_bien: 'appartement',
+            copropriete_id: copro.id,
+            numero_lot: String(i)
+          })
+      );
+    }
+    
+    await Promise.all(bienPromises);
+    
+    console.log('✓ Copropriété créée avec', nbLots, 'lots');
+    
+    // Rediriger au dashboard
+    navGo('syndic-dashboard');
+  } catch (err) {
+    errorEl.textContent = err.message;
+    errorEl.style.display = 'block';
+  }
+  
+  return false;
+}
+
+// Charger le dashboard syndic
+async function syndicLoadDashboard() {
+  if (!window.currentUser) return;
+  
+  try {
+    // Charger les copropriétés du syndic
+    const { data: copros, error: coproErr } = await window.sb
+      .from('coproprietes')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (coproErr) throw coproErr;
+    
+    // Compter les interventions "parties communes"
+    const { data: interventions, error: intervErr } = await window.sb
+      .from('interventions')
+      .select('*')
+      .eq('portee', 'parties_communes');
+    
+    if (intervErr) throw intervErr;
+    
+    // Remplir les stats
+    document.getElementById('syndic-count-copros').textContent = copros.length;
+    document.getElementById('syndic-count-interventions').textContent = interventions.length;
+    
+    // Artisans certifiés (unique)
+    const { data: artisans, error: artErr } = await window.sb
+      .from('artisans')
+      .select('*')
+      .eq('statut', 'certifie');
+    
+    if (!artErr) {
+      document.getElementById('syndic-count-artisans').textContent = artisans.length;
+    }
+    
+    // Afficher liste copropriétés
+    const coprosaList = document.getElementById('syndic-copros-list');
+    if (copros.length === 0) {
+      coprosaList.innerHTML = '<div style="color:rgba(255,255,255,0.4); text-align:center; padding:32px; font-size:0.95rem;">Aucune copropriété enregistrée</div>';
+      return;
+    }
+    
+    coprosaList.innerHTML = copros.map(copro => `
+      <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:20px; transition:all 0.2s;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <h3 style="font-size:1.05rem; font-weight:800; color:white; margin:0 0 8px 0;">📍 ${copro.adresse}</h3>
+            <div style="font-size:0.9rem; color:rgba(255,255,255,0.6);">
+              ${copro.code_postal} ${copro.ville} • ${copro.nombre_lots} lots
+            </div>
+          </div>
+          <button onclick="syndicShowCopro('${copro.id}')" style="background:var(--orange); color:white; border:none; padding:10px 20px; border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer; white-space:nowrap;">
+            Voir détails →
+          </button>
+        </div>
+      </div>
+    `).join('');
+    
+  } catch (err) {
+    console.error('Erreur dashboard syndic:', err);
+  }
+}
+
+// Voir détails d'une copro (optionnel pour plus tard)
+function syndicShowCopro(coproId) {
+  console.log('Voir copro:', coproId);
+  // Placeholder pour future feature
+}
+
+/* ============================================================
+   AUTO-LINK INTERVENTIONS (parties communes)
+   ============================================================ */
+
+// Déterminer si une adresse correspond à une copro existante
+async function tryAutoLinkCopro(adresse) {
+  if (!adresse) return null;
+  
+  try {
+    const normalized = adresse.toLowerCase().trim();
+    
+    const { data: copro, error } = await window.sb
+      .from('coproprietes')
+      .select('id')
+      .eq('adresse_normalisee', normalized)
+      .single();
+    
+    if (error || !copro) return null;
+    
+    return copro.id;
+  } catch (err) {
+    return null;
+  }
 }
 
 /* ============================================================
@@ -5755,6 +6359,182 @@ function saisieReset() {
   </div>
 </div>
 
+<!-- ========== ÉCRANS SYNDIC ========== -->
+
+<!-- SYNDIC: Enregistrer une copropriété -->
+<div id="syndic-copros-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif;">
+  <nav class="inner-nav">
+    <a href="#" onclick="navGo('')" class="inner-nav-logo">
+      <span class="logo-with-baseline">
+        <span class="logo-fidero logo-light" style="font-size:1.25rem;font-weight:900;color:var(--navy);"><em style="color:var(--orange);font-style:italic;font-weight:900;">Fide</em>ro</span>
+        <span class="logo-baseline">Traçabilité certifiée</span>
+      </span>
+    </a>
+    <div class="inner-nav-links">
+      <a onclick="navGo('syndic-dashboard')" class="inner-nav-link" style="cursor:pointer;">📊 Mon tableau de bord</a>
+      <button onclick="handleLogout()" style="background:none; border:none; color:var(--orange); cursor:pointer; font-size:0.95rem; font-weight:600; padding:0; font-family:'Plus Jakarta Sans',sans-serif;">🚪 Déconnexion</button>
+    </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div style="max-width:680px; margin:0 auto; padding:48px 24px 80px;">
+    <!-- En-tête -->
+    <div style="margin-bottom:40px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px;">Gestion Syndic</div>
+      <h1 style="font-size:1.9rem; font-weight:900; color:var(--navy); letter-spacing:-0.8px; margin-bottom:8px;">Enregistrer une copropriété</h1>
+      <p style="font-size:0.9rem; color:#6B5E4E; line-height:1.6;">Déclarez vos copropriétés pour suivre les interventions en parties communes.</p>
+    </div>
+
+    <!-- FORMULAIRE -->
+    <form onsubmit="return handleSyndicCreateCopro(event)" style="background:white; border-radius:14px; padding:32px; box-shadow:0 4px 16px rgba(26,43,74,0.08);">
+      
+      <!-- Adresse -->
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Adresse de la copropriété *</label>
+        <input type="text" id="syndic-copro-adresse" placeholder="123 Rue de la Paix, Paris" 
+          style="width:100%; padding:12px 14px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;"
+          onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';"
+          onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';" required>
+      </div>
+
+      <!-- Code postal -->
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Code postal *</label>
+        <input type="text" id="syndic-copro-codepostal" placeholder="75001" 
+          style="width:100%; padding:12px 14px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;"
+          onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';"
+          onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';" required>
+      </div>
+
+      <!-- Ville -->
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Ville *</label>
+        <input type="text" id="syndic-copro-ville" placeholder="Paris" 
+          style="width:100%; padding:12px 14px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;"
+          onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';"
+          onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';" required>
+      </div>
+
+      <!-- Nombre de lots -->
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">Nombre de lots / appartements *</label>
+        <input type="number" id="syndic-copro-nblots" placeholder="24" min="1"
+          style="width:100%; padding:12px 14px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;"
+          onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';"
+          onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';" required>
+      </div>
+
+      <!-- RNIC (optionnel) -->
+      <div style="margin-bottom:28px;">
+        <label style="display:block; font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:8px;">RNIC (Registre National Immobilier)</label>
+        <input type="text" id="syndic-copro-rnic" placeholder="Optionnel" 
+          style="width:100%; padding:12px 14px; border:1.5px solid #E0DDD8; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; box-sizing:border-box;"
+          onfocus="this.style.borderColor='var(--orange)'; this.style.boxShadow='0 0 0 3px rgba(232,104,58,0.1)';"
+          onblur="this.style.borderColor='#E0DDD8'; this.style.boxShadow='none';">
+      </div>
+
+      <!-- ERREUR -->
+      <div id="syndic-copro-error" style="display:none; margin-bottom:20px; padding:14px 16px; background:#FEE2E2; color:#DC2626; border-radius:8px; font-size:0.9rem; border-left:3px solid #DC2626;"></div>
+
+      <!-- BOUTON SUBMIT -->
+      <button type="submit" style="width:100%; background:var(--orange); color:white; border:none; padding:16px 24px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif;"
+        onmouseover="this.style.background='#D15A2B'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(232,104,58,0.3)';"
+        onmouseout="this.style.background='var(--orange)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+        ✓ Enregistrer la copropriété
+      </button>
+    </form>
+
+    <!-- CTA: Voir dashboard -->
+    <div style="margin-top:32px; text-align:center;">
+      <p style="font-size:0.9rem; color:#6B5E4E; margin-bottom:16px;">Déjà enregistré ?</p>
+      <button onclick="navGo('syndic-dashboard')" style="background:white; color:var(--orange); border:2px solid var(--orange); padding:12px 24px; border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; transition:all 0.2s;"
+        onmouseover="this.style.background='rgba(232,104,58,0.06)';"
+        onmouseout="this.style.background='white';">
+        Voir mon tableau de bord →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SYNDIC: Dashboard -->
+<div id="syndic-dashboard-page" style="display:none; min-height:100vh; background:linear-gradient(135deg, var(--navy) 0%, #0F1F38 100%); font-family:'Plus Jakarta Sans',sans-serif;">
+  <nav class="inner-nav">
+    <a href="/" class="inner-nav-logo"><span class="logo-with-baseline"><span class="logo-fidero logo-light" style="font-size:1.25rem;font-weight:900;color:white;"><em style="color:var(--orange);font-style:italic;font-weight:900;">Fide</em>ro</span><span class="logo-baseline" style="color:rgba(255,255,255,0.5);">Traçabilité certifiée</span></span></a>
+    <div class="inner-nav-links">
+      <a onclick="navGo('syndic-copros')" class="inner-nav-link" style="cursor:pointer; color:rgba(255,255,255,0.7);">➕ Nouvelle copropriété</a>
+      <button onclick="handleLogout()" style="background:none; border:none; color:var(--orange); cursor:pointer; font-size:0.95rem; font-weight:600; padding:0; font-family:'Plus Jakarta Sans',sans-serif;">🚪 Déconnexion</button>
+    </div>
+    <button class="inner-nav-burger" onclick="toggleInnerMenu(this)" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div style="max-width:1200px; margin:0 auto; padding:48px 40px 80px;">
+    <!-- HEADER -->
+    <div style="margin-bottom:48px;">
+      <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Tableau de bord syndic</div>
+      <h1 style="font-size:2.2rem; font-weight:900; color:white; letter-spacing:-1px; margin:0 0 8px 0;">Gérez vos copropriétés</h1>
+      <p style="font-size:0.95rem; color:rgba(255,255,255,0.6); margin:0; line-height:1.6;">Suivez les interventions en parties communes et certifiez les artisans.</p>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin-bottom:48px;">
+      <div style="background:linear-gradient(135deg, rgba(232,104,58,0.15) 0%, rgba(232,104,58,0.05) 100%); border:1px solid rgba(232,104,58,0.2); border-radius:14px; padding:28px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+          <div>
+            <div style="font-size:0.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Copropriétés</div>
+            <div style="font-size:2.4rem; font-weight:900; color:var(--orange);" id="syndic-count-copros">0</div>
+          </div>
+          <div style="font-size:2rem;">🏢</div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Enregistrées</div>
+      </div>
+
+      <div style="background:linear-gradient(135deg, rgba(0,168,120,0.15) 0%, rgba(0,168,120,0.05) 100%); border:1px solid rgba(0,168,120,0.2); border-radius:14px; padding:28px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+          <div>
+            <div style="font-size:0.72rem; font-weight:700; color:#00A878; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Interventions</div>
+            <div style="font-size:2.4rem; font-weight:900; color:#00A878;" id="syndic-count-interventions">0</div>
+          </div>
+          <div style="font-size:2rem;">📋</div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Parties communes</div>
+      </div>
+
+      <div style="background:linear-gradient(135deg, rgba(100,200,255,0.15) 0%, rgba(100,200,255,0.05) 100%); border:1px solid rgba(100,200,255,0.2); border-radius:14px; padding:28px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+          <div>
+            <div style="font-size:0.72rem; font-weight:700; color:#64C8FF; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Artisans</div>
+            <div style="font-size:2.4rem; font-weight:900; color:#64C8FF;" id="syndic-count-artisans">0</div>
+          </div>
+          <div style="font-size:2rem;">🔧</div>
+        </div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Certifiés</div>
+      </div>
+    </div>
+
+    <!-- LISTE COPROPRIÉTÉS -->
+    <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:32px;">
+      <h2 style="font-size:1.3rem; font-weight:800; color:white; margin:0 0 24px 0;">Vos copropriétés</h2>
+      
+      <div id="syndic-copros-list" style="display:grid; gap:14px;">
+        <div style="color:rgba(255,255,255,0.4); text-align:center; padding:32px; font-size:0.95rem;">
+          Chargement…
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="margin-top:40px; background:linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:40px; text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:12px;">➕</div>
+      <h3 style="font-size:1.2rem; font-weight:800; color:white; margin:0 0 8px 0;">Ajouter une copropriété</h3>
+      <p style="font-size:0.9rem; color:rgba(255,255,255,0.6); margin:0 0 20px 0; line-height:1.6; max-width:500px; margin-left:auto; margin-right:auto;">Enregistrez vos copropriétés pour commencer à suivre les interventions en parties communes.</p>
+      <button onclick="navGo('syndic-copros')" style="background:var(--orange); color:white; border:none; border-radius:10px; padding:14px 28px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.2s;"
+        onmouseover="this.style.background='#D15A2B'; this.style.transform='translateY(-2px)';"
+        onmouseout="this.style.background='var(--orange)'; this.style.transform='translateY(0)';">
+        Créer une copropriété →
+      </button>
+    </div>
+  </div>
+</div>
 
 <div id="confirmer-page" style="display:none; min-height:100vh; background:var(--beige); font-family:'Plus Jakarta Sans',sans-serif;">
   <div style="max-width:480px; margin:0 auto; padding:60px 24px;">
