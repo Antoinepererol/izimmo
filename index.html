@@ -3782,7 +3782,43 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
   </div>
 </div>
 
-<!-- SCREEN 3: SIGNUP -->
+<!-- SCREEN: Confirm Email (après signup) -->
+<div id="auth-confirm-email-page" style="display:none; min-height:100vh; background:linear-gradient(135deg, var(--beige) 0%, #F0E8DC 100%); font-family:'Plus Jakarta Sans',sans-serif; padding:40px 20px; display:flex; align-items:center; justify-content:center;">
+  <div style="max-width:520px; width:100%; background:white; padding:60px 50px; border-radius:16px; box-shadow:0 10px 40px rgba(26,43,74,0.08);">
+    
+    <!-- HEADER -->
+    <div style="text-align:center; margin-bottom:40px;">
+      <div style="font-size:3rem; margin-bottom:24px;">✉️</div>
+      <h1 style="font-size:1.875rem; font-weight:800; color:var(--navy); margin:0 0 12px 0; letter-spacing:-0.5px;">Vérifiez votre email</h1>
+      <p style="font-size:1rem; color:#6B5E4E; margin:0; line-height:1.6;">Un lien de confirmation a été envoyé à :</p>
+      <p style="font-size:1rem; font-weight:700; color:var(--navy); margin:12px 0 0 0;" id="confirm-email-address">—</p>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div style="background:linear-gradient(135deg, rgba(0,168,120,0.1) 0%, rgba(0,168,120,0.05) 100%); border:1px solid rgba(0,168,120,0.2); border-radius:12px; padding:20px; margin-bottom:32px;">
+      <p style="font-size:0.95rem; color:var(--navy); margin:0; line-height:1.6;">
+        <strong>1.</strong> Ouvrez votre boîte email<br>
+        <strong>2.</strong> Cherchez l'email de Fidero<br>
+        <strong>3.</strong> Cliquez le lien de confirmation<br>
+        <strong>4.</strong> Vous serez automatiquement connecté
+      </p>
+    </div>
+
+    <!-- SPAM WARNING -->
+    <div style="background:#FDEEE7; border-left:3px solid var(--orange); padding:16px; border-radius:8px; text-align:center; margin-bottom:32px;">
+      <p style="font-size:0.9rem; color:#6B5E4E; margin:0;"><strong>Pas d'email reçu ?</strong> Vérifiez vos spams ou votre dossier de promotions.</p>
+    </div>
+
+    <!-- BUTTON: Retour -->
+    <button onclick="showAuthChoice()" style="width:100%; background:white; color:var(--orange); border:2px solid var(--orange); padding:14px 24px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif;"
+      onmouseover="this.style.background='rgba(232,104,58,0.06)';"
+      onmouseout="this.style.background='white';">
+      ← Retour au choix
+    </button>
+  </div>
+</div>
+
+<!-- SCREEN SIGNUP (après l'écran de confirmation) -->
 <div id="auth-signup-page" style="display:none; min-height:100vh; background:linear-gradient(135deg, var(--beige) 0%, #F0E8DC 100%); font-family:'Plus Jakarta Sans',sans-serif; padding:40px 20px; display:flex; align-items:center; justify-content:center;">
   <div style="max-width:520px; width:100%; background:white; padding:60px 50px; border-radius:16px; box-shadow:0 10px 40px rgba(26,43,74,0.08);">
     
@@ -5147,11 +5183,41 @@ async function initAuth() {
       console.log('✓ User loggé:', session.user.email);
       
       // Charger le profil
-      const { data: profile } = await window.sb
+      let profile = await window.sb
         .from('user_profiles')
         .select('*')
         .eq('user_id', session.user.id)
-        .single();
+        .single()
+        .then(res => res.data);
+      
+      // Si le profil n'existe pas (premier login après confirmation email)
+      // → le créer avec les infos stockées
+      if (!profile && window.signupPendingUserId) {
+        console.log('Création du profil après confirmation email...');
+        
+        const { data: newProfile, error: profileErr } = await window.sb
+          .from('user_profiles')
+          .insert({
+            user_id: session.user.id,
+            role: window.signupPendingRole || 'proprietaire',
+            nom: window.signupPendingNom || ''
+          })
+          .select()
+          .single();
+        
+        if (profileErr) {
+          console.error('Erreur création profil:', profileErr.message);
+        } else {
+          profile = newProfile;
+          console.log('✓ Profil créé après confirmation');
+        }
+        
+        // Nettoyer les variables temporaires
+        window.signupPendingEmail = null;
+        window.signupPendingNom = null;
+        window.signupPendingRole = null;
+        window.signupPendingUserId = null;
+      }
       
       window.currentUserProfile = profile;
       
@@ -5232,7 +5298,7 @@ async function handleAuthLogin() {
   }
 }
 
-// Fonction SIGNUP
+// Fonction SIGNUP - Flow avec confirmation email
 async function handleAuthSignup() {
   const email = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
@@ -5248,7 +5314,13 @@ async function handleAuthSignup() {
   
   try {
     // Créer user Supabase Auth
-    const { data: authData, error: authErr } = await window.sb.auth.signUp({ email, password });
+    const { data: authData, error: authErr } = await window.sb.auth.signUp({ 
+      email, 
+      password,
+      options: {
+        data: { nom, role } // Stocker nom + role en metadata
+      }
+    });
     
     if (authErr) {
       errorEl.textContent = authErr.message;
@@ -5256,43 +5328,29 @@ async function handleAuthSignup() {
       return;
     }
     
-    // ⚠️ IMPORTANT: Après signUp, faire immédiatement un signIn pour activer la session
-    const { data: signinData, error: signinErr } = await window.sb.auth.signInWithPassword({ email, password });
+    // ✅ SUCCÈS : Email de confirmation envoyé
+    // Stocker email temporaire pour après confirmation
+    window.signupPendingEmail = email;
+    window.signupPendingNom = nom;
+    window.signupPendingRole = role;
+    window.signupPendingUserId = authData.user.id;
     
-    if (signinErr) {
-      errorEl.textContent = 'Erreur session: ' + signinErr.message;
-      errorEl.style.display = 'block';
-      return;
-    }
+    console.log('✓ Compte créé. Email de confirmation envoyé à:', email);
     
-    window.currentUser = signinData.user;
+    // Rediriger vers écran de confirmation
+    showAuthConfirmEmail(email);
     
-    // Créer user_profile avec le user actif
-    const { data: profile, error: profileErr } = await window.sb
-      .from('user_profiles')
-      .insert({
-        user_id: signinData.user.id,
-        role: role,
-        nom: nom
-      })
-      .select()
-      .single();
-    
-    if (profileErr) {
-      errorEl.textContent = 'Erreur profil: ' + profileErr.message;
-      errorEl.style.display = 'block';
-      return;
-    }
-    
-    window.currentUserProfile = profile;
-    console.log('✓ Compte créé:', email);
-    
-    // Aller à saisie
-    navGo('saisie');
   } catch (err) {
     errorEl.textContent = err.message;
     errorEl.style.display = 'block';
   }
+}
+
+// Afficher écran "Confirmez votre email"
+function showAuthConfirmEmail(email) {
+  document.getElementById('auth-signup-page').style.display = 'none';
+  document.getElementById('auth-confirm-email-page').style.display = 'block';
+  document.getElementById('confirm-email-address').textContent = email;
 }
 
 // Logout
