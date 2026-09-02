@@ -2445,7 +2445,16 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
     <li><a onclick="navGo('dashboard')" style="cursor:pointer;">🏠 Mon tableau de bord</a></li>
     <li><a href="#contact" class="btn-nav">Nous contacter</a></li>
   </ul>
-  <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+
+  <!-- AUTH BUTTONS (right side of navbar) -->
+  <div id="navbar-auth-btns" style="display:flex; gap:12px; align-items:center;">
+    <button onclick="showAuthLogin()" style="background:none; border:none; color:var(--navy); cursor:pointer; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; padding:8px 14px; border-radius:8px; transition:all 0.2s; font-size:0.9rem;" onmouseover="this.style.background='#F5F0E8';" onmouseout="this.style.background='none';">
+      Se connecter
+    </button>
+    <button onclick="showAuthSignup()" style="background:var(--orange); color:white; border:none; cursor:pointer; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; padding:10px 18px; border-radius:8px; transition:all 0.2s; font-size:0.9rem;" onmouseover="this.style.background='#D15A2B'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='var(--orange)'; this.style.transform='translateY(0)';">
+      Créer un compte
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -3783,7 +3792,7 @@ nav .logo-fidero, .inner-nav .logo-fidero { font-size: 1.35rem; }
 </div>
 
 <!-- SCREEN: Confirm Email (après signup) -->
-<div id="auth-confirm-email-page" style="display:none; position:fixed; top:0; left:0; width:100%; height:100vh; background:linear-gradient(135deg, var(--beige) 0%, #F0E8DC 100%); font-family:'Plus Jakarta Sans',sans-serif; z-index:9999; display:flex; align-items:center; justify-content:center;">
+<div id="auth-confirm-email-page" style="display:none; position:fixed; top:0; left:0; width:100%; height:100vh; background:linear-gradient(135deg, var(--beige) 0%, #F0E8DC 100%); font-family:'Plus Jakarta Sans',sans-serif; z-index:9999; align-items:center; justify-content:center; flex-direction:column;">
   <div style="max-width:520px; width:100%; background:white; padding:60px 50px; border-radius:16px; box-shadow:0 10px 40px rgba(26,43,74,0.08);">
     
     <!-- HEADER -->
@@ -5062,6 +5071,16 @@ function doRoute() {
     if (vzModal) vzModal.classList.remove('open');
     document.body.style.overflow = '';
   } catch(e) {}
+
+  // Masquer/afficher boutons auth navbar selon l'état
+  var navbarAuthBtns = document.getElementById('navbar-auth-btns');
+  if (navbarAuthBtns) {
+    if (window.currentUser) {
+      navbarAuthBtns.style.display = 'none'; // Loggé
+    } else {
+      navbarAuthBtns.style.display = 'flex'; // Pas loggé
+    }
+  }
 
   /* Parser le hash : séparer route et paramètres (ex: confirmer?token=XXX) */
   var hashParts = hash.split('?');
