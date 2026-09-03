@@ -5938,7 +5938,10 @@ async function saisieSubmit(e) {
         if (resBien.data) {
           bienId = resBien.data.id;
         } else {
-          var resCree = await window.sb.from("biens").insert({ adresse: adresse }).select("id").single();
+          var resCree = await window.sb.from("biens").insert({ 
+            adresse: adresse,
+            proprietaire_id: window.currentUser.id // ✨ Ajouter le propriétaire
+          }).select("id").single();
           if (resCree.data) bienId = resCree.data.id;
         }
       } catch(bienErr) { console.warn("[Saisie] Bien:", bienErr.message); }
@@ -5948,11 +5951,15 @@ async function saisieSubmit(e) {
     /* L'identité de l'artisan n'est PLUS écrite sur l'intervention.
        Elle est créée côté serveur (statut sollicite) via /api/send-validation. */
     var payload = {
-      adresse_bien: adresse, type_travaux: type, date_intervention: date,
-      montant_ttc: montant, statut: "en_attente",
+      adresse_bien: adresse, 
+      type_travaux: type, 
+      date_intervention: date,
+      montant_ttc: montant, 
+      statut: "en_attente",
       portee: saisieEstCopro ? "parties_communes" : "privative",
       bien_id: saisieEstCopro ? null : (bienId || null),
-      copropriete_id: saisieEstCopro ? coproId : null
+      copropriete_id: saisieEstCopro ? coproId : null,
+      proprietaire_id: window.currentUser.id // ✨ Ajouter le propriétaire
     };
     var res = await window.sb.from("interventions").insert(payload).select().single();
     if (res.error) throw new Error(res.error.message);
