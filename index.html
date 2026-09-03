@@ -1319,6 +1319,24 @@ let dbProTab = 'artisan';
 let dbProData = [];
 
 async function dbProLoad() {
+  // ✨ Afficher le nom + rôle de l'utilisateur connecté
+  if (window.currentUserProfile) {
+    const nomEl = document.getElementById('dashboard-user-name');
+    const roleEl = document.getElementById('dashboard-user-role');
+    
+    if (nomEl) nomEl.textContent = window.currentUserProfile.nom || 'Utilisateur';
+    
+    // Mapper le rôle à un label lisible
+    const roleLabels = {
+      'proprietaire': '🏠 Propriétaire',
+      'artisan': '🔨 Artisan',
+      'syndic': '🏢 Syndic',
+      'agent': '🏘️ Agent immobilier'
+    };
+    
+    if (roleEl) roleEl.textContent = roleLabels[window.currentUserProfile.role] || window.currentUserProfile.role;
+  }
+  
   try {
     const res = await window.sb.from('artisans').select('*').order('score', { ascending: false });
     if (res.error) throw new Error(res.error.message);
@@ -5202,43 +5220,18 @@ async function initAuth() {
       console.log('✓ User loggé:', session.user.email);
       
       // Charger le profil
-      let profile = await window.sb
+      const { data: profile } = await window.sb
         .from('user_profiles')
         .select('*')
         .eq('user_id', session.user.id)
-        .single()
-        .then(res => res.data);
+        .single();
       
-      // Si le profil n'existe pas (premier login après confirmation email)
-      // → le créer avec les infos stockées
-      if (!profile && window.signupPendingUserId) {
-        console.log('Création du profil après confirmation email...');
-        
-        const { data: newProfile, error: profileErr } = await window.sb
-          .from('user_profiles')
-          .insert({
-            user_id: session.user.id,
-            role: window.signupPendingRole || 'proprietaire',
-            nom: window.signupPendingNom || ''
-          })
-          .select()
-          .single();
-        
-        if (profileErr) {
-          console.error('Erreur création profil:', profileErr.message);
-        } else {
-          profile = newProfile;
-          console.log('✓ Profil créé après confirmation');
-        }
-        
-        // Nettoyer les variables temporaires
-        window.signupPendingEmail = null;
-        window.signupPendingNom = null;
-        window.signupPendingRole = null;
-        window.signupPendingUserId = null;
+      if (profile) {
+        window.currentUserProfile = profile;
+        console.log('✓ Profil chargé:', profile.nom, profile.role);
+      } else {
+        console.warn('⚠️ Pas de profil trouvé pour cet user');
       }
-      
-      window.currentUserProfile = profile;
       
       // Rediriger vers saisie
       navGo('saisie');
@@ -5335,10 +5328,7 @@ async function handleAuthSignup() {
     // Créer user Supabase Auth
     const { data: authData, error: authErr } = await window.sb.auth.signUp({ 
       email, 
-      password,
-      options: {
-        data: { nom, role } // Stocker nom + role en metadata
-      }
+      password
     });
     
     if (authErr) {
@@ -5347,14 +5337,25 @@ async function handleAuthSignup() {
       return;
     }
     
-    // ✅ SUCCÈS : Email de confirmation envoyé
-    // Stocker email temporaire pour après confirmation
-    window.signupPendingEmail = email;
-    window.signupPendingNom = nom;
-    window.signupPendingRole = role;
-    window.signupPendingUserId = authData.user.id;
+    // ✅ CRÉER LE USER_PROFILE IMMÉDIATEMENT
+    console.log('Création du user_profile pour:', authData.user.id);
     
-    console.log('✓ Compte créé. Email de confirmation envoyé à:', email);
+    const { data: profile, error: profileErr } = await window.sb
+      .from('user_profiles')
+      .insert({
+        user_id: authData.user.id,
+        role: role,
+        nom: nom
+      })
+      .select()
+      .single();
+    
+    if (profileErr) {
+      console.error('⚠️ Erreur création profil:', profileErr.message);
+      // Ne pas bloquer le flow pour autant - le profil peut être créé plus tard
+    } else {
+      console.log('✓ User_profile créé:', profile);
+    }
     
     // Rediriger vers écran de confirmation
     showAuthConfirmEmail(email);
